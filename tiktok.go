@@ -34,12 +34,19 @@ type TikTok struct {
 	debugHandler func(...interface{})
 	errHandler   func(...interface{})
 
-	proxy *neturl.URL
+	proxy      *neturl.URL
+	apiKey     string
+	clientName string
 }
 
 // NewTikTok creates a tiktok instance that allows you to track live streams and
-//  discover current livestreams.
+//
+//	discover current livestreams.
 func NewTikTok() *TikTok {
+	return NewTikTokWithApikey(clientNameDefault, apiKeyDefault)
+}
+
+func NewTikTokWithApikey(clientName, apiKey string) *TikTok {
 	jar, _ := cookiejar.New(nil)
 	wg := sync.WaitGroup{}
 	ctx, cancel := context.WithCancel(context.Background())
@@ -53,6 +60,8 @@ func NewTikTok() *TikTok {
 		warnHandler:  defaultLogHandler,
 		debugHandler: defaultLogHandler,
 		errHandler:   routineErrHandler,
+		clientName:   clientNameDefault,
+		apiKey:       apiKeyDefault,
 	}
 
 	envs := []string{"HTTP_PROXY", "HTTPS_PROXY"}
@@ -80,10 +89,12 @@ func NewTikTok() *TikTok {
 }
 
 // GetUserInfo will fetch information about the user, such as follwers stats,
-//  their user ID, as well as the RoomID, with which you can tell if they are live.
-func (t *TikTok) GetUserInfo(user string) (*UserInfo, error) {
+//
+//	their user ID, as well as the RoomID, with which you can tell if they are live.
+func (t *TikTok) GetUserInfo(user string) (*LiveRoomUser, error) {
 	body, err := t.sendRequest(&reqOptions{
-		Endpoint: fmt.Sprintf(urlUser, user),
+		Endpoint: fmt.Sprintf(urlUser+urlLive, user),
+		Query:    defaultRequestHeeaders,
 		OmitAPI:  true,
 	})
 	if err != nil {
@@ -108,42 +119,28 @@ func (t *TikTok) GetUserInfo(user string) (*UserInfo, error) {
 
 	// Parse json data
 	var res struct {
-		UserModule struct {
-			Users map[string]*UserInfo `json:"users"`
-			Stats map[string]UserStats `json:"stats"`
-		} `json:"UserModule"`
+		LiveRoom *struct {
+			user LiveRoomUser
+		} `json:"liveRoom,omitempty"`
 	}
 	if err := json.Unmarshal(matches[1], &res); err != nil {
 		return nil, err
 	}
 
-	if len(res.UserModule.Users) == 0 {
+	if res.LiveRoom == nil {
 		return nil, ErrUserNotFound
 	}
 
-	if res.UserModule.Users == nil {
-		return nil, ErrUserInfoNotFound
-	}
-
-	userInfo, ok := res.UserModule.Users[user]
-	if !ok {
-		return nil, ErrUserInfoNotFound
-	}
-
-	if res.UserModule.Stats == nil {
-		stats, ok := res.UserModule.Stats[user]
-		if ok {
-			userInfo.Stats = stats
-		}
-	}
-
-	return userInfo, nil
+	return &res.LiveRoom.user, nil
 }
 
 // GetPriceList fetches the price list of tiktok coins. Prices will be given in
-//  USD cents and the cents equivalent of the local currency of the IP location.
+//
+//	USD cents and the cents equivalent of the local currency of the IP location.
+//
 // To fetch a different currency, use a VPN or proxy to change your IP to a
-//  different country.
+//
+//	different country.
 func (t *TikTok) GetPriceList() (*PriceList, error) {
 	body, err := t.sendRequest(&reqOptions{
 		Endpoint: urlPriceList,
@@ -179,7 +176,9 @@ func (t *TikTok) SetErrorHandler(f func(...interface{})) {
 
 // SetProxy will set a proxy for both the http client as well as the websocket.
 // You can manually set a proxy with this method, or by using the HTTPS_PROXY
-//  environment variable.
+//
+//	environment variable.
+//
 // ALL_PROXY can be used to set a proxy only for the websocket.
 func (t *TikTok) SetProxy(url string, insecure bool) error {
 	uri, err := neturl.Parse(url)

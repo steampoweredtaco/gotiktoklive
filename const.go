@@ -9,7 +9,7 @@ const (
 	// Base URL
 	tiktokBaseUrl = "https://www.tiktok.com/"
 	tiktokAPIUrl  = "https://webcast.tiktok.com/webcast/"
-	tiktokSigner  = "https://tiktok.isaackogan.com/"
+	tiktokSigner  = "https://tiktok.eulerstream.com"
 
 	// Endpoints
 	urlLive      = "live/"
@@ -18,16 +18,15 @@ const (
 	urlPriceList = "diamond/"
 	urlUser      = "@%s/"
 	// Think this changed to room/enter/
-	urlRoomInfo = "room/info/"
-	urlRoomData = "im/fetch/"
-	urlGiftInfo = "gift/list/"
-	urlSignReq  = "webcast/sign_url/"
-
-	// Default Request Headers
-	userAgent = "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
-	referer   = "https://www.tiktok.com/"
-	origin    = "https://www.tiktok.com"
-	clientId  = "ttlive-golang"
+	urlRoomInfo       = "room/info/"
+	urlRoomData       = "im/fetch/"
+	urlGiftInfo       = "gift/list/"
+	urlSignReq        = "webcast/fetch/"
+	clientNameDefault = "gotiktok_live"
+	apiKeyDefault     = ""
+	userAgent         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
+	referer           = "https://www.tiktok.com/"
+	origin
 )
 
 var (
@@ -40,7 +39,7 @@ var (
 		"browser_name":        "Mozilla",
 		"browser_online":      "true",
 		"browser_platform":    "Win32",
-		"browser_version":     "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36",
+		"browser_version":     userAgent,
 		"cookie_enabled":      "true",
 		"cursor":              "",
 		"internal_ext":        "",
@@ -52,18 +51,29 @@ var (
 		"is_page_visible":     "true",
 		"did_rule":            "3",
 		"fetch_rule":          "1",
-		"identity":            "audience",
 		"last_rtt":            "0",
 		"live_id":             "12",
 		"resp_content_type":   "protobuf",
 		"screen_height":       "1152",
 		"screen_width":        "2048",
 		"tz_name":             "Europe/Berlin",
-		"referer":             "https://www.tiktok.com/",
-		"root_referer":        "https://www.tiktok.com/",
+		"referer":             referer,
+		"root_referer":        origin,
+		"msToken":             "",
 		"version_code":        "180800",
 		"webcast_sdk_version": "1.3.0",
 		"update_version_code": "1.3.0",
+	}
+	defaultRequestHeeaders = map[string]string{
+		"Connection":    "keep-alive",
+		"Cache-control": "max-age=0",
+		"User-Agent":    userAgent,
+		"Accept":        "text/html,application/json,application/protobuf",
+		"Referer":       referer,
+		"Origin":        origin,
+		//clientId:  = "ttlive-golang"
+		"Accept-Language": "en-US,en;q=0.9",
+		"Accept-Encoding": "gzip, deflate",
 	}
 	reJsonData = []*regexp.Regexp{
 		regexp.MustCompile(`<script id="SIGI_STATE"[^>]+>(.*?)</script>`),

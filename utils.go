@@ -10,9 +10,9 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{}, err error) {
+func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{})) (out interface{}, err error) {
 	var pt proto.Message
-	switch msg.Type {
+	switch msg.Method {
 	case "WebcastChatMessage":
 		pt = &pb.WebcastChatMessage{}
 		defer func() {
@@ -22,9 +22,9 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastChatMessage)
 			out = ChatEvent{
-				Comment:   pt.Comment,
+				Comment:   pt.Content,
 				User:      toUser(pt.User),
-				Timestamp: int64(pt.Type.Timestamp),
+				Timestamp: int64(pt.Common.CreateTime),
 			}
 		}()
 	case "WebcastMemberMessage":
@@ -36,9 +36,9 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 			}
 
 			pt := pt.(*pb.WebcastMemberMessage)
-			if pt.Event != nil && pt.Event.EventDetails != nil {
+			if pt.Common != nil {
 				out = UserEvent{
-					Event: toUserType(pt.Event.EventDetails.DisplayType),
+					Event: toUserType(pt.Common.Method),
 					User:  toUser(pt.User),
 				}
 			}
@@ -52,7 +52,7 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastRoomUserSeqMessage)
 			out = ViewersEvent{
-				Viewers: int(pt.ViewerCount),
+				Viewers: int(pt.Total),
 			}
 		}()
 	case "WebcastSocialMessage":
@@ -64,7 +64,7 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastSocialMessage)
 			out = UserEvent{
-				Event: toUserType(pt.Event.EventDetails.DisplayType),
+				Event: toUserType(pt.Common.Method),
 				User:  toUser(pt.User),
 			}
 		}()
@@ -83,14 +83,14 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			out = GiftEvent{
 				ID:          int64(pt.GiftId),
-				Name:        pt.GiftDetails.GiftName,
-				Describe:    pt.GiftDetails.Describe,
-				Cost:        int(pt.GiftDetails.DiamondCount),
+				Name:        pt.Gift.Name,
+				Describe:    pt.Gift.Describe,
+				Cost:        int(pt.Gift.DiamondCount),
 				RepeatCount: int(pt.RepeatCount),
 				RepeatEnd:   pt.RepeatEnd == 1,
-				Type:        int(pt.GiftDetails.GiftType),
-				ToUserID:    int64(pt.GiftExtra.ToUserId),
-				Timestamp:   int64(pt.GiftExtra.Timestamp),
+				Type:        int(pt.Gift.Type),
+				ToUserID:    int64(pt.UserGiftReciever.UserId),
+				Timestamp:   int64(pt.Common.CreateTime),
 				User:        toUser(pt.User),
 			}
 		}()
@@ -103,11 +103,11 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastLikeMessage)
 			out = LikeEvent{
-				Likes:       int(pt.LikeCount),
-				TotalLikes:  int(pt.TotalLikeCount),
+				Likes:       int(pt.Count),
+				TotalLikes:  int(pt.Total),
 				User:        toUser(pt.User),
-				DisplayType: pt.Event.EventDetails.DisplayType,
-				Label:       pt.Event.EventDetails.Label,
+				DisplayType: pt.Common.Method,
+				Label:       pt.Common.DisplayText.String(),
 			}
 		}()
 	case "WebcastQuestionNewMessage":
@@ -119,14 +119,10 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastQuestionNewMessage)
 			out = QuestionEvent{
-				Quesion:   pt.QuestionDetails.QuestionText,
-				User:      toUser(pt.QuestionDetails.User),
-				Timestamp: int64(pt.Type.Timestamp),
+				Quesion: pt.Details.Text,
+				User:    toUser(pt.Details.User),
 			}
 		}()
-	case "WebcastWebsocketMessage":
-		pt = &pb.WebcastWebsocketMessage{}
-		// TODO: implement
 	case "WebcastControlMessage":
 		pt = &pb.WebcastControlMessage{}
 		defer func() {
@@ -148,17 +144,26 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastLinkMicBattle)
 			users := []*User{}
-			for _, u := range pt.BattleUsers {
-				user := u.BattleGroup.User
+			for _, u := range pt.HostTeam {
+				groups := u.HostGroup
+				for _, group := range groups {
+					for _, user := range group.Host {
+						urls := make([]string, 5)
+						for _, img := range user.Images {
+							urls = append(urls, img.UrlList...)
+						}
+						users = append(users, &User{
+							ID:       int64(user.Id),
+							Username: user.ProfileId,
+							Nickname: user.Name,
+							ProfilePicture: &ProfilePicture{
+								Urls: urls,
+							},
+						})
 
-				users = append(users, &User{
-					ID:       int64(user.UserId),
-					Username: user.UniqueId,
-					Nickname: user.Nickname,
-					ProfilePicture: &ProfilePicture{
-						Urls: user.ProfilePicture.Urls,
-					},
-				})
+					}
+
+				}
 			}
 			out = MicBattleEvent{
 				Users: users,
@@ -204,9 +209,9 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.WebcastLiveIntroMessage)
 			out = IntroEvent{
-				ID:    int(pt.Id),
-				Title: pt.Description,
-				User:  toUser(pt.User),
+				ID:    int(pt.RoomId),
+				Title: pt.Content,
+				User:  toUser(pt.Host),
 			}
 		}()
 	case "WebcastInRoomBannerMessage":
@@ -219,9 +224,9 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 			pt := pt.(*pb.WebcastInRoomBannerMessage)
 
 			var data interface{}
-			err = json.Unmarshal([]byte(pt.Json), &data)
+			err = json.Unmarshal([]byte(pt.GetJson()), &data)
 			if err != nil {
-				err = fmt.Errorf("WebcastInRoomBannerMessage: %w\n%s", err, pt.Json)
+				err = fmt.Errorf("WebcastInRoomBannerMessage: %w\n%s", err, data)
 			}
 
 			out = RoomBannerEvent{
@@ -237,35 +242,35 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 
 			pt := pt.(*pb.RoomMessage)
 			out = RoomEvent{
-				Type:    pt.Type.Type,
-				Message: pt.Text,
+				Type:    pt.Common.Method,
+				Message: pt.Content,
 			}
 		}()
-	case "WebcastBottomMessage":
-		pt = &pb.WebcastBottomMessage{}
-		defer func() {
-			if err != nil {
-				return
-			}
+	//case "WebcastBottomMessage":
+	//	pt = &pb.WebcastBottomMessage{}
+	//	defer func() {
+	//		if err != nil {
+	//			return
+	//		}
+	//
+	//		pt := pt.(*pb.WebcastBottomMessage)
+	//		out = RoomEvent{
+	//			Type:    pt.Type.Type,
+	//			Message: pt.Text,
+	//		}
+	//	}()
+	//case "WebcastWishlistUpdateMessage":
+	//	pt = &pb.WebcastWishlistUpdateMessage{}
+	//	defer func() {
+	//		if err != nil {
+	//			return
+	//		}
+	//
+	//		pt := pt.(*pb.WebcastWishlistUpdateMessage)
+	//		out = pt
+	//	}()
 
-			pt := pt.(*pb.WebcastBottomMessage)
-			out = RoomEvent{
-				Type:    pt.Type.Type,
-				Message: pt.Text,
-			}
-		}()
-	case "WebcastWishlistUpdateMessage":
-		pt = &pb.WebcastWishlistUpdateMessage{}
-		defer func() {
-			if err != nil {
-				return
-			}
-
-			pt := pt.(*pb.WebcastWishlistUpdateMessage)
-			out = pt
-		}()
-
-		// Unimplemented Events. Examples can be decoded at : https://protobuf-decoder.netlify.app/
+	// Unimplemented Events. Examples can be decoded at : https://protobuf-decoder.netlify.app/
 	case "WebcastEnvelopeMessage":
 		// Example: Ci4KFldlYmNhc3RFbnZlbG9wZU1lc3NhZ2UQhZab7qCftKViGIGWgM7G8KylYjABEjIKEzcwODI2ODgxODIxMzU1ODk2MzgaBm1hbGl2YVoTNzA4MjY3MDc0NTI4NDc3NDY1NxgC
 		return nil, nil
@@ -314,13 +319,14 @@ func parseMsg(msg *pb.Message, warnHandler func(...interface{})) (out interface{
 		// Example: CjQKF1dlYmNhc3RMaW5rTGF5ZXJNZXNzYWdlEIWWr7zk67H7YhiGlu2k0NOn+2Ig9ebsn6kwEAsYhpaAg8fTp/tiIASyBokBEoYBEkMKFAiGlu2k0NOn+2IQgYiouLPLpOtfEic3MTMxMDYxNDU0NzI1MTg4MzU4XzcxMzEwNjE0NTQ3MjUyMDQ3NDIaAhIAGj8KFAiGlu2k0NOn+2IQhojB2JvOvIViEic3MTMxMDYxNDU0NzI1MTg4MzU4XzcxMzEwOTIyODU0ODg3Nzc5ODk=
 		return nil, nil
 	default:
-		data := base64.StdEncoding.EncodeToString(msg.Binary)
-		warnHandler(fmt.Errorf("%w: %s,\n%s", ErrMsgNotImplemented, msg.Type, data))
+		data := base64.StdEncoding.EncodeToString(msg.Payload)
+		warnHandler(fmt.Errorf("%w: %s,\n%s", ErrMsgNotImplemented, msg.Method, data))
 		return nil, nil
 	}
-	if err = proto.Unmarshal(msg.Binary, pt); err != nil {
-		base := base64.RawStdEncoding.EncodeToString(msg.Binary)
+	if err = proto.Unmarshal(msg.Payload, pt); err != nil {
+		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
 		err = fmt.Errorf("Failed to unmarshal proto %T: %w\n%s", pt, err, base)
+		warnHandler(err)
 	}
 	return
 }
@@ -339,29 +345,27 @@ func toUser(u *pb.User) *User {
 	}
 
 	user := User{
-		ID:       int64(u.UserId),
-		Username: u.UniqueId,
+		ID:       int64(u.Id),
+		Username: u.IdStr,
 		Nickname: u.Nickname,
 	}
 
-	if u.ProfilePicture != nil && u.ProfilePicture.Urls != nil {
+	if u.AvatarLarge != nil && u.AvatarJpg.UrlList != nil {
 		user.ProfilePicture = &ProfilePicture{
-			Urls: u.ProfilePicture.Urls,
+			Urls: u.AvatarJpg.UrlList,
 		}
 	}
 
-	if u.ExtraAttributes != nil {
-		user.ExtraAttributes = &ExtraAttributes{
-			FollowRole: int(u.ExtraAttributes.FollowRole),
-		}
+	user.ExtraAttributes = &ExtraAttributes{
+		FollowRole: int(u.UserRole),
 	}
 
-	if u.Badge != nil && u.Badge.Badges != nil {
+	if u.BadgeList != nil && u.BadgeList != nil {
 		var badges []*UserBadge
-		for _, badge := range u.Badge.Badges {
+		for _, badge := range u.BadgeList {
 			badges = append(badges, &UserBadge{
-				Type: badge.Type,
-				Name: badge.Name,
+				Type: badge.DisplayType.String(),
+				Name: badge.String(),
 			})
 		}
 		user.Badge = &BadgeAttributes{

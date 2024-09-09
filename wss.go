@@ -187,18 +187,18 @@ func (l *Live) reconnectWebsocket() bool {
 }
 
 func (l *Live) parseWssMsg(wssMsg []byte) error {
-	var rsp pb.WebcastWebsocketMessage
+	var rsp pb.WebcastPushFrame
 	if err := proto.Unmarshal(wssMsg, &rsp); err != nil {
 		return fmt.Errorf("Failed to unmarshal proto WebcastWebsocketMessage: %w", err)
 	}
 
-	if rsp.Type == "msg" {
+	if rsp.PayloadType == "msg" {
 		var response pb.WebcastResponse
-		if err := proto.Unmarshal(rsp.Binary, &response); err != nil {
+		if err := proto.Unmarshal(rsp.Payload, &response); err != nil {
 			return fmt.Errorf("Failed to unmarshal proto WebcastResponse: %w", err)
 		}
 
-		if err := l.sendAck(rsp.Id); err != nil {
+		if err := l.sendAck(rsp.LogId); err != nil {
 			return fmt.Errorf("Failed to send websocket ack msg: %w", err)
 		}
 		l.cursor = response.Cursor
@@ -233,7 +233,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		return nil
 	}
 	if l.t.Debug {
-		l.t.debugHandler(fmt.Sprintf("Message type unknown, %s : '%s'", rsp.Type, string(rsp.Binary)))
+		l.t.debugHandler(fmt.Sprintf("Message type unknown, %s : '%s'", rsp.PayloadType, string(rsp.Payload)))
 	}
 	return nil
 }
@@ -264,9 +264,10 @@ func (l *Live) sendPing() {
 }
 
 func (l *Live) sendAck(id uint64) error {
-	msg := pb.WebcastWebsocketAck{
-		Id:   id,
-		Type: "ack",
+	msg := pb.WebcastPushFrame{
+		LogId:       id,
+		PayloadType: "ack",
+		//TODO: does this need a payload?
 	}
 
 	b, err := proto.Marshal(&msg)

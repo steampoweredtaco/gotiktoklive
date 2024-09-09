@@ -52,9 +52,8 @@ type LikeEvent struct {
 }
 
 type QuestionEvent struct {
-	Quesion   string
-	User      *User
-	Timestamp int64
+	Quesion string
+	User    *User
 }
 
 type ControlEvent struct {
@@ -922,4 +921,36 @@ type SignedURL struct {
 	BrowserVersion string `json:"browserVersion"`
 	BrowserName    string `json:"browserName"`
 	Error          string `json:"error"`
+}
+
+type LiveRoom struct {
+	LoadingState struct {
+		GetRecommendLive int `json:"getRecommendLive"`
+		GetUserInfo      int `json:"getUserInfo"`
+		GetUserStat      int `json:"getUserStat"`
+	} `json:"loadingState"`
+	NeedLogin          bool     `json:"needLogin"`
+	ShowLiveGate       bool     `json:"showLiveGate"`
+	IsAgeGateRoom      bool     `json:"isAgeGateRoom"`
+	RecommendLiveRooms []string `json:"recommendLiveRooms"`
+	LiveRoomStatus     int      `json:"liveRoomStatus"`
+	LiveRoomUserInfo   *struct {
+		User LiveRoomUser `json:"user"`
+	} `json:"liveRoomUserInfo,omitempty"`
+}
+
+type LiveRoomUser struct {
+	AvatarLarger string `json:"avatarLarger"`
+	AvatarMedium string `json:"avatarMedium"`
+	AvatarThumb  string `json:"avatarThumb"`
+	ID           string `json:"id"`
+	Nickname     string `json:"nickname"`
+	SecUid       string `json:"secUid"`
+	Secret       bool   `json:"secret"`
+	UniqueId     string `json:"uniqueId"`
+	Verified     bool   `json:"verified"`
+	RoomId       string `json:"roomId"`
+	Signature    string `json:"signature"`
+	Status       int    `json:"status"`
+	FollowStatus int    `json:"followStatus"`
 }
