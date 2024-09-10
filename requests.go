@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 )
@@ -37,10 +38,13 @@ type reqOptions struct {
 	OmitAPI bool
 
 	// Specifiy base URI
-	URI string
+	URI                string
+	ExtraTikTokCookies string
 }
 
-func (t *TikTok) sendRequest(o *reqOptions) (body []byte, err error) {
+func (t *TikTok) sendRequest(o *reqOptions) ([]byte, http.Header, error) {
+	var err error
+
 	defer func() {
 		if err != nil {
 			err = fmt.Errorf("Failed to send request to %s: %w", o.Endpoint, err)
@@ -62,7 +66,7 @@ func (t *TikTok) sendRequest(o *reqOptions) (body []byte, err error) {
 
 	u, err := url.Parse(uri)
 	if err != nil {
-		return
+		return nil, nil, err
 	}
 
 	vs := url.Values{}
@@ -82,18 +86,14 @@ func (t *TikTok) sendRequest(o *reqOptions) (body []byte, err error) {
 	ua := userAgent
 	fullUrl := u.String()
 	if !o.OmitAPI && o.URI == "" && o.Endpoint == urlRoomData {
-		signed, err := t.signURL(fullUrl)
-		if err != nil {
-			return nil, err
-		}
-		ua = signed.UserAgent
-		fullUrl = signed.SignedURL
+		log.Print("signing for url ", fullUrl)
+		return t.signURL(fullUrl, o)
 	}
 
 	var req *http.Request
 	req, err = http.NewRequest(method, fullUrl, reqData)
 	if err != nil {
-		return
+		return nil, nil, err
 	}
 
 	ignoreHeader := func(h string) bool {
@@ -130,23 +130,23 @@ func (t *TikTok) sendRequest(o *reqOptions) (body []byte, err error) {
 
 	resp, err := t.c.Do(req)
 	if err != nil {
-		return
+		return nil, nil, err
 	}
 	defer resp.Body.Close()
 
 	var bb bytes.Buffer
 	_, err = io.Copy(&bb, resp.Body)
 	if err != nil {
-		return
+		return nil, nil, err
 	}
-	body = bb.Bytes()
+	body := bb.Bytes()
 
 	if resp.StatusCode == 429 {
 		err = ErrRateLimitExceeded
-		return
+		return body, nil, err
 	} else if resp.StatusCode >= 400 {
 		err = fmt.Errorf("received status code %d", resp.StatusCode)
-		return
+		return body, nil, err
 	}
 
 	// Decode gzip encoded responses
@@ -155,32 +155,34 @@ func (t *TikTok) sendRequest(o *reqOptions) (body []byte, err error) {
 		buf := bytes.NewBuffer(body)
 		zr, err := gzip.NewReader(buf)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		var bb bytes.Buffer
 		_, err = io.Copy(&bb, zr)
 		body = bb.Bytes()
 		if err != nil {
-			return body, err
+			return body, nil, err
 		}
 		if err := zr.Close(); err != nil {
-			return body, err
+			return body, nil, err
 		}
 	}
+	ttCookie := resp.Header.Get("X-Set-TT-Cookie")
 
 	// Log complete response body
 	if t.LogRequests {
 		r := map[string]interface{}{
-			"status":   resp.StatusCode,
-			"endpoint": o.Endpoint,
-			"body":     string(body),
+			"status":     resp.StatusCode,
+			"endpoint":   o.Endpoint,
+			"body":       string(body),
+			"tts cookie": ttCookie,
 		}
 
 		b, err := json.MarshalIndent(r, "", "  ")
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		t.debugHandler(string(b))
 	}
-	return
+	return body, resp.Header, nil
 }

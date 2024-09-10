@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"strconv"
@@ -80,19 +82,20 @@ func (l *Live) Close() {
 }
 
 func (l *Live) fetchRoom() error {
-	roomInfo, err := l.getRoomInfo()
-	if err != nil {
-		return err
-	}
-	l.Info = roomInfo
+	//TODO: make these optional and fix the out dated process.
+	//roomInfo, err := l.getRoomInfo()
+	//if err != nil {
+	//	return err
+	//}
+	//l.Info = roomInfo
+	//
+	//giftInfo, err := l.getGiftInfo()
+	//if err != nil {
+	//	return err
+	//}
+	//l.GiftInfo = giftInfo
 
-	giftInfo, err := l.getGiftInfo()
-	if err != nil {
-		return err
-	}
-	l.GiftInfo = giftInfo
-
-	err = l.getRoomData()
+	err := l.getRoomData()
 	if err != nil {
 		return err
 	}
@@ -132,10 +135,10 @@ func (t *TikTok) TrackUser(username string) (*Live, error) {
 		return nil, err
 	}
 
-	t.sendRequest(&reqOptions{
-		Endpoint: fmt.Sprintf(urlUser, username) + "live",
-		OmitAPI:  true,
-	})
+	//t.sendRequest(&reqOptions{
+	//	Endpoint: fmt.Sprintf(urlUser, username) + "live",
+	//	OmitAPI:  true,
+	//})
 
 	return t.TrackRoom(id)
 }
@@ -187,7 +190,7 @@ func (l *Live) getRoomInfo() (*RoomInfo, error) {
 	params := copyMap(defaultGETParams)
 	params["room_id"] = l.ID
 
-	body, err := t.sendRequest(&reqOptions{
+	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: urlRoomInfo,
 		Query:    params,
 	})
@@ -212,7 +215,7 @@ func (l *Live) getGiftInfo() (*GiftInfo, error) {
 	params := copyMap(defaultGETParams)
 	params["room_id"] = l.ID
 
-	body, err := t.sendRequest(&reqOptions{
+	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: urlGiftInfo,
 		Query:    params,
 	})
@@ -232,18 +235,33 @@ func (l *Live) getRoomData() error {
 
 	params := copyMap(defaultGETParams)
 	params["room_id"] = l.ID
-
+	params["device_id"] = getRandomDeviceID()
 	if l.cursor != "" {
 		params["cursor"] = l.cursor
 	}
 
-	body, err := t.sendRequest(&reqOptions{
+	body, headers, err := t.sendRequest(&reqOptions{
 		Endpoint: urlRoomData,
 		Query:    params,
 	})
 	if err != nil {
 		return err
 	}
+	ttsCookie := headers.Get("X-Set-TT-Cookie")
+	cookies, err := http.ParseCookie(ttsCookie)
+	if err != nil {
+		return fmt.Errorf("X-SetTT-Cookie not parsable: %w", err)
+	}
+
+	for i, _ := range cookies {
+		cookies[i].Domain = ".tiktok.com"
+	}
+	u, err := url.Parse("https://tiktok.com")
+	if err != nil {
+		return fmt.Errorf("semantica error couldnot parse secure cookie endpoint, please report: %w", err)
+	}
+	t.c.Jar.SetCookies(u, cookies)
+
 	var rsp pb.WebcastResponse
 	if err := proto.Unmarshal(body, &rsp); err != nil {
 		return err
@@ -406,30 +424,27 @@ func (l *Live) DownloadStream(file ...string) error {
 	return nil
 }
 
-func (t *TikTok) signURL(reqUrl string) (*SignedURL, error) {
+func (t *TikTok) signURL(reqUrl string, options *reqOptions) ([]byte, http.Header, error) {
 	query := map[string]string{
-		"client": t.clientName,
-		"uuc":    strconv.Itoa(t.streams),
-		"url":    reqUrl,
+		"client":  t.clientName,
+		"uuc":     strconv.Itoa(t.streams),
+		"url":     reqUrl,
+		"room_id": options.Query["room_id"],
 	}
 	if t.apiKey != "" {
 		query["apiKey"] = t.apiKey
 	}
 
-	body, err := t.sendRequest(&reqOptions{
+	body, header, err := t.sendRequest(&reqOptions{
 		URI:      tiktokSigner,
 		Endpoint: urlSignReq,
 		Query:    query,
 	})
 	if err != nil {
-		return nil, errors.Wrap(err, "Failed to sign request")
+		return nil, nil, errors.Wrap(err, fmt.Sprintf("Failed to sign request: %s", body))
 	}
 
-	var data SignedURL
-	if err := json.Unmarshal(body, &data); err != nil {
-		return nil, errors.Wrap(err, "Failed to unmarshal signer server json response")
-	}
-	return &data, nil
+	return body, header, nil
 }
 
 // Only able to get this while logged in

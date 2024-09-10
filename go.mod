@@ -1,8 +1,11 @@
 module github.com/steampoweredtaco/gotiktoklive
 
-go 1.17
+go 1.18
 
-require github.com/gobwas/ws v1.1.0
+require (
+	github.com/Davincible/gotiktoklive v0.0.0-00010101000000-000000000000
+	github.com/gobwas/ws v1.1.0
+)
 
 require (
 	github.com/gobwas/httphead v0.1.0 // indirect
@@ -12,3 +15,5 @@ require (
 	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab // indirect
 	google.golang.org/protobuf v1.28.1
 )
+
+replace github.com/Davincible/gotiktoklive => ./

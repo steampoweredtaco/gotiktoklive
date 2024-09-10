@@ -9,7 +9,7 @@ const (
 	// Base URL
 	tiktokBaseUrl = "https://www.tiktok.com/"
 	tiktokAPIUrl  = "https://webcast.tiktok.com/webcast/"
-	tiktokSigner  = "https://tiktok.eulerstream.com"
+	tiktokSigner  = "https://tiktok.eulerstream.com/"
 
 	// Endpoints
 	urlLive      = "live/"
@@ -19,7 +19,7 @@ const (
 	urlUser      = "@%s/"
 	// Think this changed to room/enter/
 	urlRoomInfo       = "room/info/"
-	urlRoomData       = "im/fetch/"
+	urlRoomData       = "webcast/fetch/"
 	urlGiftInfo       = "gift/list/"
 	urlSignReq        = "webcast/fetch/"
 	clientNameDefault = "gotiktok_live"

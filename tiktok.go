@@ -92,7 +92,7 @@ func NewTikTokWithApikey(clientName, apiKey string) *TikTok {
 //
 //	their user ID, as well as the RoomID, with which you can tell if they are live.
 func (t *TikTok) GetUserInfo(user string) (*LiveRoomUser, error) {
-	body, err := t.sendRequest(&reqOptions{
+	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: fmt.Sprintf(urlUser+urlLive, user),
 		Query:    defaultRequestHeeaders,
 		OmitAPI:  true,
@@ -119,19 +119,17 @@ func (t *TikTok) GetUserInfo(user string) (*LiveRoomUser, error) {
 
 	// Parse json data
 	var res struct {
-		LiveRoom *struct {
-			user LiveRoomUser
-		} `json:"liveRoom,omitempty"`
+		LiveRoom *LiveRoom `json:"liveRoom,omitempty"`
 	}
 	if err := json.Unmarshal(matches[1], &res); err != nil {
 		return nil, err
 	}
 
-	if res.LiveRoom == nil {
+	if res.LiveRoom == nil || res.LiveRoom.LiveRoomUserInfo == nil {
 		return nil, ErrUserNotFound
 	}
 
-	return &res.LiveRoom.user, nil
+	return &res.LiveRoom.LiveRoomUserInfo.User, nil
 }
 
 // GetPriceList fetches the price list of tiktok coins. Prices will be given in
@@ -142,7 +140,7 @@ func (t *TikTok) GetUserInfo(user string) (*LiveRoomUser, error) {
 //
 //	different country.
 func (t *TikTok) GetPriceList() (*PriceList, error) {
-	body, err := t.sendRequest(&reqOptions{
+	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: urlPriceList,
 		Query:    defaultGETParams,
 	})

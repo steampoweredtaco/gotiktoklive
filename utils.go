@@ -4,11 +4,20 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-
 	pb "github.com/Davincible/gotiktoklive/proto"
+	"math/rand"
 
 	"google.golang.org/protobuf/proto"
 )
+
+func getRandomDeviceID() string {
+	const chars = "0123456789"
+	b := make([]byte, 20)
+	for i := range b {
+		b[i] = chars[rand.Intn(len(chars))]
+	}
+	return string(b)
+}
 
 func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{})) (out interface{}, err error) {
 	var pt proto.Message
