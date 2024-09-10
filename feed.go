@@ -16,9 +16,8 @@ type Feed struct {
 	maxTime int64
 }
 
-// NewFeed creates a new Feed instance. Start fetching reccomended livestreams
-//
-//	with Feed.Next().
+// NewFeed creates a new Feed instance. Start fetching recommended livestreams
+// with Feed.Next().
 func (t *TikTok) NewFeed() *Feed {
 	return &Feed{
 		t:           t,
@@ -66,9 +65,8 @@ func (f *Feed) Next() (*FeedItem, error) {
 }
 
 // Track stars tracking the livestream obtained from the Feed, and returns
-//
-//	a Live instance, just as if you would start tracking the user with
-//	tiktok.TrackUser(<user>).
+// a Live instance, just as if you would start tracking the user with
+// tiktok.TrackUser(<user>).
 func (s *LiveStream) Track() (*Live, error) {
 	return s.t.TrackRoom(s.Rid)
 }

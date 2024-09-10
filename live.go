@@ -135,11 +135,6 @@ func (t *TikTok) TrackUser(username string) (*Live, error) {
 		return nil, err
 	}
 
-	//t.sendRequest(&reqOptions{
-	//	Endpoint: fmt.Sprintf(urlUser, username) + "live",
-	//	OmitAPI:  true,
-	//})
-
 	return t.TrackRoom(id)
 }
 
