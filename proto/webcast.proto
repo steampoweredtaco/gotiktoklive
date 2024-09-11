@@ -769,6 +769,13 @@ message WebcastRoomPinMessage {
   uint64 timestamp = 31;
 }
 
+//@WebcastLiveGameIntroMessage
+//Game intro showing live selected game metadata
+message WebcastLiveGameIntroMessage {
+  Common common = 1;
+  Text gameText = 2;
+}
+
 //@SystemMessage
 message WebcastSystemMessage {
   Common common = 1;

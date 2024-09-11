@@ -3653,6 +3653,63 @@ func (x *WebcastRoomPinMessage) GetTimestamp() uint64 {
 	return 0
 }
 
+// @WebcastLiveGameIntroMessage
+// Game intro showing live selected game metadata
+type WebcastLiveGameIntroMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Common   *Common `protobuf:"bytes,1,opt,name=common,proto3" json:"common,omitempty"`
+	GameText *Text   `protobuf:"bytes,2,opt,name=gameText,proto3" json:"gameText,omitempty"`
+}
+
+func (x *WebcastLiveGameIntroMessage) Reset() {
+	*x = WebcastLiveGameIntroMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_webcast_proto_msgTypes[35]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WebcastLiveGameIntroMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WebcastLiveGameIntroMessage) ProtoMessage() {}
+
+func (x *WebcastLiveGameIntroMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_webcast_proto_msgTypes[35]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WebcastLiveGameIntroMessage.ProtoReflect.Descriptor instead.
+func (*WebcastLiveGameIntroMessage) Descriptor() ([]byte, []int) {
+	return file_webcast_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *WebcastLiveGameIntroMessage) GetCommon() *Common {
+	if x != nil {
+		return x.Common
+	}
+	return nil
+}
+
+func (x *WebcastLiveGameIntroMessage) GetGameText() *Text {
+	if x != nil {
+		return x.GameText
+	}
+	return nil
+}
+
 // @SystemMessage
 type WebcastSystemMessage struct {
 	state         protoimpl.MessageState
@@ -3666,7 +3723,7 @@ type WebcastSystemMessage struct {
 func (x *WebcastSystemMessage) Reset() {
 	*x = WebcastSystemMessage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[35]
+		mi := &file_webcast_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3679,7 +3736,7 @@ func (x *WebcastSystemMessage) String() string {
 func (*WebcastSystemMessage) ProtoMessage() {}
 
 func (x *WebcastSystemMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[35]
+	mi := &file_webcast_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3692,7 +3749,7 @@ func (x *WebcastSystemMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WebcastSystemMessage.ProtoReflect.Descriptor instead.
 func (*WebcastSystemMessage) Descriptor() ([]byte, []int) {
-	return file_webcast_proto_rawDescGZIP(), []int{35}
+	return file_webcast_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *WebcastSystemMessage) GetCommon() *Common {
@@ -3748,7 +3805,7 @@ type WebcastLinkMessage struct {
 func (x *WebcastLinkMessage) Reset() {
 	*x = WebcastLinkMessage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[36]
+		mi := &file_webcast_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3761,7 +3818,7 @@ func (x *WebcastLinkMessage) String() string {
 func (*WebcastLinkMessage) ProtoMessage() {}
 
 func (x *WebcastLinkMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[36]
+	mi := &file_webcast_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3774,7 +3831,7 @@ func (x *WebcastLinkMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WebcastLinkMessage.ProtoReflect.Descriptor instead.
 func (*WebcastLinkMessage) Descriptor() ([]byte, []int) {
-	return file_webcast_proto_rawDescGZIP(), []int{36}
+	return file_webcast_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *WebcastLinkMessage) GetCommon() *Common {
@@ -4006,7 +4063,7 @@ type WebcastLinkLayerMessage struct {
 func (x *WebcastLinkLayerMessage) Reset() {
 	*x = WebcastLinkLayerMessage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[37]
+		mi := &file_webcast_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4019,7 +4076,7 @@ func (x *WebcastLinkLayerMessage) String() string {
 func (*WebcastLinkLayerMessage) ProtoMessage() {}
 
 func (x *WebcastLinkLayerMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[37]
+	mi := &file_webcast_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4032,7 +4089,7 @@ func (x *WebcastLinkLayerMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WebcastLinkLayerMessage.ProtoReflect.Descriptor instead.
 func (*WebcastLinkLayerMessage) Descriptor() ([]byte, []int) {
-	return file_webcast_proto_rawDescGZIP(), []int{37}
+	return file_webcast_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *WebcastLinkLayerMessage) GetCommon() *Common {
@@ -4205,7 +4262,7 @@ type RoomVerifyMessage struct {
 func (x *RoomVerifyMessage) Reset() {
 	*x = RoomVerifyMessage{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[38]
+		mi := &file_webcast_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4218,7 +4275,7 @@ func (x *RoomVerifyMessage) String() string {
 func (*RoomVerifyMessage) ProtoMessage() {}
 
 func (x *RoomVerifyMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[38]
+	mi := &file_webcast_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4231,7 +4288,7 @@ func (x *RoomVerifyMessage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RoomVerifyMessage.ProtoReflect.Descriptor instead.
 func (*RoomVerifyMessage) Descriptor() ([]byte, []int) {
-	return file_webcast_proto_rawDescGZIP(), []int{38}
+	return file_webcast_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *RoomVerifyMessage) GetCommon() *Common {
@@ -4286,7 +4343,7 @@ type WebcastResponse_Message struct {
 func (x *WebcastResponse_Message) Reset() {
 	*x = WebcastResponse_Message{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[41]
+		mi := &file_webcast_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4299,7 +4356,7 @@ func (x *WebcastResponse_Message) String() string {
 func (*WebcastResponse_Message) ProtoMessage() {}
 
 func (x *WebcastResponse_Message) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[41]
+	mi := &file_webcast_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4369,7 +4426,7 @@ type WebcastGiftMessage_UserGiftReciever struct {
 func (x *WebcastGiftMessage_UserGiftReciever) Reset() {
 	*x = WebcastGiftMessage_UserGiftReciever{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[42]
+		mi := &file_webcast_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4382,7 +4439,7 @@ func (x *WebcastGiftMessage_UserGiftReciever) String() string {
 func (*WebcastGiftMessage_UserGiftReciever) ProtoMessage() {}
 
 func (x *WebcastGiftMessage_UserGiftReciever) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[42]
+	mi := &file_webcast_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4425,7 +4482,7 @@ type WebcastGiftMessage_GiftIMPriority struct {
 func (x *WebcastGiftMessage_GiftIMPriority) Reset() {
 	*x = WebcastGiftMessage_GiftIMPriority{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[43]
+		mi := &file_webcast_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4438,7 +4495,7 @@ func (x *WebcastGiftMessage_GiftIMPriority) String() string {
 func (*WebcastGiftMessage_GiftIMPriority) ProtoMessage() {}
 
 func (x *WebcastGiftMessage_GiftIMPriority) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[43]
+	mi := &file_webcast_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4487,7 +4544,7 @@ type WebcastGiftMessage_PublicAreaCommon struct {
 func (x *WebcastGiftMessage_PublicAreaCommon) Reset() {
 	*x = WebcastGiftMessage_PublicAreaCommon{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[44]
+		mi := &file_webcast_proto_msgTypes[45]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4500,7 +4557,7 @@ func (x *WebcastGiftMessage_PublicAreaCommon) String() string {
 func (*WebcastGiftMessage_PublicAreaCommon) ProtoMessage() {}
 
 func (x *WebcastGiftMessage_PublicAreaCommon) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[44]
+	mi := &file_webcast_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4544,7 +4601,7 @@ type WebcastBarrageMessage_BarrageTypeUserGradeParam struct {
 func (x *WebcastBarrageMessage_BarrageTypeUserGradeParam) Reset() {
 	*x = WebcastBarrageMessage_BarrageTypeUserGradeParam{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[45]
+		mi := &file_webcast_proto_msgTypes[46]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4557,7 +4614,7 @@ func (x *WebcastBarrageMessage_BarrageTypeUserGradeParam) String() string {
 func (*WebcastBarrageMessage_BarrageTypeUserGradeParam) ProtoMessage() {}
 
 func (x *WebcastBarrageMessage_BarrageTypeUserGradeParam) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[45]
+	mi := &file_webcast_proto_msgTypes[46]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4614,7 +4671,7 @@ type WebcastBarrageMessage_BarrageTypeFansLevelParam struct {
 func (x *WebcastBarrageMessage_BarrageTypeFansLevelParam) Reset() {
 	*x = WebcastBarrageMessage_BarrageTypeFansLevelParam{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[46]
+		mi := &file_webcast_proto_msgTypes[47]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4627,7 +4684,7 @@ func (x *WebcastBarrageMessage_BarrageTypeFansLevelParam) String() string {
 func (*WebcastBarrageMessage_BarrageTypeFansLevelParam) ProtoMessage() {}
 
 func (x *WebcastBarrageMessage_BarrageTypeFansLevelParam) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[46]
+	mi := &file_webcast_proto_msgTypes[47]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4676,7 +4733,7 @@ type WebcastBarrageMessage_BarrageTypeSubscribeGiftParam struct {
 func (x *WebcastBarrageMessage_BarrageTypeSubscribeGiftParam) Reset() {
 	*x = WebcastBarrageMessage_BarrageTypeSubscribeGiftParam{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[47]
+		mi := &file_webcast_proto_msgTypes[48]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4689,7 +4746,7 @@ func (x *WebcastBarrageMessage_BarrageTypeSubscribeGiftParam) String() string {
 func (*WebcastBarrageMessage_BarrageTypeSubscribeGiftParam) ProtoMessage() {}
 
 func (x *WebcastBarrageMessage_BarrageTypeSubscribeGiftParam) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[47]
+	mi := &file_webcast_proto_msgTypes[48]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4730,7 +4787,7 @@ type WebcastBarrageMessage_BarrageEvent struct {
 func (x *WebcastBarrageMessage_BarrageEvent) Reset() {
 	*x = WebcastBarrageMessage_BarrageEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[48]
+		mi := &file_webcast_proto_msgTypes[49]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4743,7 +4800,7 @@ func (x *WebcastBarrageMessage_BarrageEvent) String() string {
 func (*WebcastBarrageMessage_BarrageEvent) ProtoMessage() {}
 
 func (x *WebcastBarrageMessage_BarrageEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[48]
+	mi := &file_webcast_proto_msgTypes[49]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4778,7 +4835,7 @@ type WebcastCaptionMessage_CaptionData struct {
 func (x *WebcastCaptionMessage_CaptionData) Reset() {
 	*x = WebcastCaptionMessage_CaptionData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[49]
+		mi := &file_webcast_proto_msgTypes[50]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4791,7 +4848,7 @@ func (x *WebcastCaptionMessage_CaptionData) String() string {
 func (*WebcastCaptionMessage_CaptionData) ProtoMessage() {}
 
 func (x *WebcastCaptionMessage_CaptionData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[49]
+	mi := &file_webcast_proto_msgTypes[50]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4835,7 +4892,7 @@ type WebcastChatMessage_EmoteWithIndex struct {
 func (x *WebcastChatMessage_EmoteWithIndex) Reset() {
 	*x = WebcastChatMessage_EmoteWithIndex{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[51]
+		mi := &file_webcast_proto_msgTypes[52]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4848,7 +4905,7 @@ func (x *WebcastChatMessage_EmoteWithIndex) String() string {
 func (*WebcastChatMessage_EmoteWithIndex) ProtoMessage() {}
 
 func (x *WebcastChatMessage_EmoteWithIndex) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[51]
+	mi := &file_webcast_proto_msgTypes[52]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4898,7 +4955,7 @@ type WebcastControlMessage_Extra struct {
 func (x *WebcastControlMessage_Extra) Reset() {
 	*x = WebcastControlMessage_Extra{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[52]
+		mi := &file_webcast_proto_msgTypes[53]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -4911,7 +4968,7 @@ func (x *WebcastControlMessage_Extra) String() string {
 func (*WebcastControlMessage_Extra) ProtoMessage() {}
 
 func (x *WebcastControlMessage_Extra) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[52]
+	mi := &file_webcast_proto_msgTypes[53]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5008,7 +5065,7 @@ type WebcastEnvelopeMessage_EnvelopeInfo struct {
 func (x *WebcastEnvelopeMessage_EnvelopeInfo) Reset() {
 	*x = WebcastEnvelopeMessage_EnvelopeInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[53]
+		mi := &file_webcast_proto_msgTypes[54]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5021,7 +5078,7 @@ func (x *WebcastEnvelopeMessage_EnvelopeInfo) String() string {
 func (*WebcastEnvelopeMessage_EnvelopeInfo) ProtoMessage() {}
 
 func (x *WebcastEnvelopeMessage_EnvelopeInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[53]
+	mi := &file_webcast_proto_msgTypes[54]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5143,7 +5200,7 @@ type WebcastRoomUserSeqMessage_Contributor struct {
 func (x *WebcastRoomUserSeqMessage_Contributor) Reset() {
 	*x = WebcastRoomUserSeqMessage_Contributor{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[54]
+		mi := &file_webcast_proto_msgTypes[55]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5156,7 +5213,7 @@ func (x *WebcastRoomUserSeqMessage_Contributor) String() string {
 func (*WebcastRoomUserSeqMessage_Contributor) ProtoMessage() {}
 
 func (x *WebcastRoomUserSeqMessage_Contributor) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[54]
+	mi := &file_webcast_proto_msgTypes[55]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5214,7 +5271,7 @@ type WebcastRankUpdateMessage_RankTabInfo struct {
 func (x *WebcastRankUpdateMessage_RankTabInfo) Reset() {
 	*x = WebcastRankUpdateMessage_RankTabInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[55]
+		mi := &file_webcast_proto_msgTypes[56]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5227,7 +5284,7 @@ func (x *WebcastRankUpdateMessage_RankTabInfo) String() string {
 func (*WebcastRankUpdateMessage_RankTabInfo) ProtoMessage() {}
 
 func (x *WebcastRankUpdateMessage_RankTabInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[55]
+	mi := &file_webcast_proto_msgTypes[56]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5292,7 +5349,7 @@ type WebcastRankUpdateMessage_RankUpdate struct {
 func (x *WebcastRankUpdateMessage_RankUpdate) Reset() {
 	*x = WebcastRankUpdateMessage_RankUpdate{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[56]
+		mi := &file_webcast_proto_msgTypes[57]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5305,7 +5362,7 @@ func (x *WebcastRankUpdateMessage_RankUpdate) String() string {
 func (*WebcastRankUpdateMessage_RankUpdate) ProtoMessage() {}
 
 func (x *WebcastRankUpdateMessage_RankUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[56]
+	mi := &file_webcast_proto_msgTypes[57]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5406,7 +5463,7 @@ type WebcastMemberMessage_EffectConfig struct {
 func (x *WebcastMemberMessage_EffectConfig) Reset() {
 	*x = WebcastMemberMessage_EffectConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[57]
+		mi := &file_webcast_proto_msgTypes[58]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5419,7 +5476,7 @@ func (x *WebcastMemberMessage_EffectConfig) String() string {
 func (*WebcastMemberMessage_EffectConfig) ProtoMessage() {}
 
 func (x *WebcastMemberMessage_EffectConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[57]
+	mi := &file_webcast_proto_msgTypes[58]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5513,7 +5570,7 @@ type WebcastQuestionNewMessage_QuestionDetails struct {
 func (x *WebcastQuestionNewMessage_QuestionDetails) Reset() {
 	*x = WebcastQuestionNewMessage_QuestionDetails{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[58]
+		mi := &file_webcast_proto_msgTypes[59]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5526,7 +5583,7 @@ func (x *WebcastQuestionNewMessage_QuestionDetails) String() string {
 func (*WebcastQuestionNewMessage_QuestionDetails) ProtoMessage() {}
 
 func (x *WebcastQuestionNewMessage_QuestionDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[58]
+	mi := &file_webcast_proto_msgTypes[59]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5594,7 +5651,7 @@ type WebcastHourlyRankMessage_RankContainer struct {
 func (x *WebcastHourlyRankMessage_RankContainer) Reset() {
 	*x = WebcastHourlyRankMessage_RankContainer{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[59]
+		mi := &file_webcast_proto_msgTypes[60]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5607,7 +5664,7 @@ func (x *WebcastHourlyRankMessage_RankContainer) String() string {
 func (*WebcastHourlyRankMessage_RankContainer) ProtoMessage() {}
 
 func (x *WebcastHourlyRankMessage_RankContainer) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[59]
+	mi := &file_webcast_proto_msgTypes[60]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5685,7 +5742,7 @@ type WebcastHourlyRankMessage_RankContainer_RankingData struct {
 func (x *WebcastHourlyRankMessage_RankContainer_RankingData) Reset() {
 	*x = WebcastHourlyRankMessage_RankContainer_RankingData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[60]
+		mi := &file_webcast_proto_msgTypes[61]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5698,7 +5755,7 @@ func (x *WebcastHourlyRankMessage_RankContainer_RankingData) String() string {
 func (*WebcastHourlyRankMessage_RankContainer_RankingData) ProtoMessage() {}
 
 func (x *WebcastHourlyRankMessage_RankContainer_RankingData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[60]
+	mi := &file_webcast_proto_msgTypes[61]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5751,7 +5808,7 @@ type WebcastHourlyRankMessage_RankContainer_RankingData2 struct {
 func (x *WebcastHourlyRankMessage_RankContainer_RankingData2) Reset() {
 	*x = WebcastHourlyRankMessage_RankContainer_RankingData2{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[61]
+		mi := &file_webcast_proto_msgTypes[62]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5764,7 +5821,7 @@ func (x *WebcastHourlyRankMessage_RankContainer_RankingData2) String() string {
 func (*WebcastHourlyRankMessage_RankContainer_RankingData2) ProtoMessage() {}
 
 func (x *WebcastHourlyRankMessage_RankContainer_RankingData2) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[61]
+	mi := &file_webcast_proto_msgTypes[62]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5839,7 +5896,7 @@ type WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData struct {
 func (x *WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData) Reset() {
 	*x = WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[62]
+		mi := &file_webcast_proto_msgTypes[63]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5852,7 +5909,7 @@ func (x *WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData) String(
 func (*WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[62]
+	mi := &file_webcast_proto_msgTypes[63]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5928,7 +5985,7 @@ type WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData struct {
 func (x *WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData) Reset() {
 	*x = WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[63]
+		mi := &file_webcast_proto_msgTypes[64]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5941,7 +5998,7 @@ func (x *WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData) String() string 
 func (*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData) ProtoMessage() {}
 
 func (x *WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[63]
+	mi := &file_webcast_proto_msgTypes[64]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5975,7 +6032,7 @@ type WebcastLinkmicBattleTaskMessage_BattleTaskData struct {
 func (x *WebcastLinkmicBattleTaskMessage_BattleTaskData) Reset() {
 	*x = WebcastLinkmicBattleTaskMessage_BattleTaskData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[64]
+		mi := &file_webcast_proto_msgTypes[65]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -5988,7 +6045,7 @@ func (x *WebcastLinkmicBattleTaskMessage_BattleTaskData) String() string {
 func (*WebcastLinkmicBattleTaskMessage_BattleTaskData) ProtoMessage() {}
 
 func (x *WebcastLinkmicBattleTaskMessage_BattleTaskData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[64]
+	mi := &file_webcast_proto_msgTypes[65]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6023,7 +6080,7 @@ type WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2 struct {
 func (x *WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2) Reset() {
 	*x = WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[65]
+		mi := &file_webcast_proto_msgTypes[66]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6036,7 +6093,7 @@ func (x *WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2) String() string
 func (*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2) ProtoMessage() {}
 
 func (x *WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[65]
+	mi := &file_webcast_proto_msgTypes[66]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6080,7 +6137,7 @@ type WebcastLinkMicBattle_Host2V2Data struct {
 func (x *WebcastLinkMicBattle_Host2V2Data) Reset() {
 	*x = WebcastLinkMicBattle_Host2V2Data{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[66]
+		mi := &file_webcast_proto_msgTypes[67]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6093,7 +6150,7 @@ func (x *WebcastLinkMicBattle_Host2V2Data) String() string {
 func (*WebcastLinkMicBattle_Host2V2Data) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_Host2V2Data) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[66]
+	mi := &file_webcast_proto_msgTypes[67]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6154,7 +6211,7 @@ type WebcastLinkMicBattle_LinkMicBattleConfig struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleConfig) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[67]
+		mi := &file_webcast_proto_msgTypes[68]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6167,7 +6224,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleConfig) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleConfig) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[67]
+	mi := &file_webcast_proto_msgTypes[68]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6244,7 +6301,7 @@ type WebcastLinkMicBattle_LinkMicBattleTeamData struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleTeamData) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleTeamData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[68]
+		mi := &file_webcast_proto_msgTypes[69]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6257,7 +6314,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleTeamData) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleTeamData) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleTeamData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[68]
+	mi := &file_webcast_proto_msgTypes[69]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6302,7 +6359,7 @@ type WebcastLinkMicBattle_LinkMicBattleData struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleData) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[69]
+		mi := &file_webcast_proto_msgTypes[70]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6315,7 +6372,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleData) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleData) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[69]
+	mi := &file_webcast_proto_msgTypes[70]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6378,7 +6435,7 @@ type WebcastLinkMicBattle_LinkMicBattleDetails struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleDetails) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleDetails{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[70]
+		mi := &file_webcast_proto_msgTypes[71]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6391,7 +6448,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleDetails) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleDetails) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[70]
+	mi := &file_webcast_proto_msgTypes[71]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6433,7 +6490,7 @@ type WebcastLinkMicBattle_LinkMicBattleTopViewers struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleTopViewers{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[71]
+		mi := &file_webcast_proto_msgTypes[72]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6446,7 +6503,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleTopViewers) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[71]
+	mi := &file_webcast_proto_msgTypes[72]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6488,7 +6545,7 @@ type WebcastLinkMicBattle_LinkMicBattleHost struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleHost) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleHost{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[72]
+		mi := &file_webcast_proto_msgTypes[73]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6501,7 +6558,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleHost) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleHost) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleHost) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[72]
+	mi := &file_webcast_proto_msgTypes[73]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6544,7 +6601,7 @@ type WebcastLinkMicBattle_Host2V2Data_HostData struct {
 func (x *WebcastLinkMicBattle_Host2V2Data_HostData) Reset() {
 	*x = WebcastLinkMicBattle_Host2V2Data_HostData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[73]
+		mi := &file_webcast_proto_msgTypes[74]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6557,7 +6614,7 @@ func (x *WebcastLinkMicBattle_Host2V2Data_HostData) String() string {
 func (*WebcastLinkMicBattle_Host2V2Data_HostData) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_Host2V2Data_HostData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[73]
+	mi := &file_webcast_proto_msgTypes[74]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6607,7 +6664,7 @@ type WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary struc
 func (x *WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[74]
+		mi := &file_webcast_proto_msgTypes[75]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6620,7 +6677,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary) 
 func (*WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[74]
+	mi := &file_webcast_proto_msgTypes[75]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6670,7 +6727,7 @@ type WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[75]
+		mi := &file_webcast_proto_msgTypes[76]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6683,7 +6740,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup) String() s
 func (*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[75]
+	mi := &file_webcast_proto_msgTypes[76]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6735,7 +6792,7 @@ type WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer struc
 func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[76]
+		mi := &file_webcast_proto_msgTypes[77]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6748,7 +6805,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer) 
 func (*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[76]
+	mi := &file_webcast_proto_msgTypes[77]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6812,7 +6869,7 @@ type WebcastLinkMicBattle_LinkMicBattleHost_HostGroup struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleHost_HostGroup) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleHost_HostGroup{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[77]
+		mi := &file_webcast_proto_msgTypes[78]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6825,7 +6882,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleHost_HostGroup) String() string {
 func (*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleHost_HostGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[77]
+	mi := &file_webcast_proto_msgTypes[78]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6876,7 +6933,7 @@ type WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host struct {
 func (x *WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host) Reset() {
 	*x = WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[78]
+		mi := &file_webcast_proto_msgTypes[79]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6889,7 +6946,7 @@ func (x *WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host) String() string 
 func (*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host) ProtoMessage() {}
 
 func (x *WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[78]
+	mi := &file_webcast_proto_msgTypes[79]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6946,7 +7003,7 @@ type WebcastMsgDetectMessage_TimeInfo struct {
 func (x *WebcastMsgDetectMessage_TimeInfo) Reset() {
 	*x = WebcastMsgDetectMessage_TimeInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[79]
+		mi := &file_webcast_proto_msgTypes[80]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6959,7 +7016,7 @@ func (x *WebcastMsgDetectMessage_TimeInfo) String() string {
 func (*WebcastMsgDetectMessage_TimeInfo) ProtoMessage() {}
 
 func (x *WebcastMsgDetectMessage_TimeInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[79]
+	mi := &file_webcast_proto_msgTypes[80]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7011,7 +7068,7 @@ type WebcastMsgDetectMessage_TriggerCondition struct {
 func (x *WebcastMsgDetectMessage_TriggerCondition) Reset() {
 	*x = WebcastMsgDetectMessage_TriggerCondition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[80]
+		mi := &file_webcast_proto_msgTypes[81]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7024,7 +7081,7 @@ func (x *WebcastMsgDetectMessage_TriggerCondition) String() string {
 func (*WebcastMsgDetectMessage_TriggerCondition) ProtoMessage() {}
 
 func (x *WebcastMsgDetectMessage_TriggerCondition) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[80]
+	mi := &file_webcast_proto_msgTypes[81]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7095,7 +7152,7 @@ type WebcastOecLiveShoppingMessage_LiveShoppingData struct {
 func (x *WebcastOecLiveShoppingMessage_LiveShoppingData) Reset() {
 	*x = WebcastOecLiveShoppingMessage_LiveShoppingData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[81]
+		mi := &file_webcast_proto_msgTypes[82]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7108,7 +7165,7 @@ func (x *WebcastOecLiveShoppingMessage_LiveShoppingData) String() string {
 func (*WebcastOecLiveShoppingMessage_LiveShoppingData) ProtoMessage() {}
 
 func (x *WebcastOecLiveShoppingMessage_LiveShoppingData) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[81]
+	mi := &file_webcast_proto_msgTypes[82]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7209,7 +7266,7 @@ type WebcastOecLiveShoppingMessage_LiveShoppingDetails struct {
 func (x *WebcastOecLiveShoppingMessage_LiveShoppingDetails) Reset() {
 	*x = WebcastOecLiveShoppingMessage_LiveShoppingDetails{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_webcast_proto_msgTypes[82]
+		mi := &file_webcast_proto_msgTypes[83]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7222,7 +7279,7 @@ func (x *WebcastOecLiveShoppingMessage_LiveShoppingDetails) String() string {
 func (*WebcastOecLiveShoppingMessage_LiveShoppingDetails) ProtoMessage() {}
 
 func (x *WebcastOecLiveShoppingMessage_LiveShoppingDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_webcast_proto_msgTypes[82]
+	mi := &file_webcast_proto_msgTypes[83]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8435,217 +8492,224 @@ var file_webcast_proto_rawDesc = []byte{
 	0x52, 0x0f, 0x6f, 0x72, 0x69, 0x67, 0x69, 0x6e, 0x61, 0x6c, 0x4d, 0x73, 0x67, 0x54, 0x79, 0x70,
 	0x65, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x1f,
 	0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x22,
-	0x51, 0x0a, 0x14, 0x57, 0x65, 0x62, 0x63, 0x61, 0x73, 0x74, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d,
-	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
-	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
-	0x52, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73,
-	0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x22, 0xd1, 0x0d, 0x0a, 0x12, 0x57, 0x65, 0x62, 0x63, 0x61, 0x73, 0x74, 0x4c, 0x69,
-	0x6e, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x06, 0x63, 0x6f, 0x6d,
-	0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x43, 0x6f, 0x6d, 0x6d,
-	0x6f, 0x6e, 0x52, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x12, 0x32, 0x0a, 0x0b, 0x4d, 0x65,
-	0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32,
-	0x10, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70,
-	0x65, 0x52, 0x0b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1a,
-	0x0a, 0x08, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x49, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x08, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1c, 0x0a, 0x05, 0x53, 0x63,
-	0x65, 0x6e, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x06, 0x2e, 0x53, 0x63, 0x65, 0x6e,
-	0x65, 0x52, 0x05, 0x53, 0x63, 0x65, 0x6e, 0x65, 0x12, 0x3a, 0x0a, 0x0d, 0x49, 0x6e, 0x76, 0x69,
-	0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x14, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x4c, 0x69, 0x6e,
-	0x6b, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52,
-	0x0c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3a, 0x0a,
-	0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x07,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c, 0x43, 0x6c, 0x6f,
-	0x73, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x08, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x13, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65,
-	0x72, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x45,
-	0x6e, 0x74, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c, 0x4c,
-	0x65, 0x61, 0x76, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0a, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x13, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x43,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x12, 0x3a, 0x0a, 0x0d, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x4c, 0x69,
-	0x6e, 0x6b, 0x65, 0x72, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x52, 0x0d, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
-	0x12, 0x3d, 0x0a, 0x0e, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65,
-	0x72, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52,
-	0x0e, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
-	0x58, 0x0a, 0x17, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61,
-	0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x1e, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x4c,
-	0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
-	0x52, 0x17, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e,
-	0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x46, 0x0a, 0x11, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0e,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11,
+	0x61, 0x0a, 0x1b, 0x57, 0x65, 0x62, 0x63, 0x61, 0x73, 0x74, 0x4c, 0x69, 0x76, 0x65, 0x47, 0x61,
+	0x6d, 0x65, 0x49, 0x6e, 0x74, 0x72, 0x6f, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1f,
+	0x0a, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07,
+	0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x52, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x12,
+	0x21, 0x0a, 0x08, 0x67, 0x61, 0x6d, 0x65, 0x54, 0x65, 0x78, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x05, 0x2e, 0x54, 0x65, 0x78, 0x74, 0x52, 0x08, 0x67, 0x61, 0x6d, 0x65, 0x54, 0x65,
+	0x78, 0x74, 0x22, 0x51, 0x0a, 0x14, 0x57, 0x65, 0x62, 0x63, 0x61, 0x73, 0x74, 0x53, 0x79, 0x73,
+	0x74, 0x65, 0x6d, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x06, 0x63, 0x6f,
+	0x6d, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x43, 0x6f, 0x6d,
+	0x6d, 0x6f, 0x6e, 0x52, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0xd1, 0x0d, 0x0a, 0x12, 0x57, 0x65, 0x62, 0x63, 0x61, 0x73,
+	0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x06,
+	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x43,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x52, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x12, 0x32, 0x0a,
+	0x0b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x10, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
+	0x54, 0x79, 0x70, 0x65, 0x52, 0x0b, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70,
+	0x65, 0x12, 0x1a, 0x0a, 0x08, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x49, 0x64, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x08, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1c, 0x0a,
+	0x05, 0x53, 0x63, 0x65, 0x6e, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x06, 0x2e, 0x53,
+	0x63, 0x65, 0x6e, 0x65, 0x52, 0x05, 0x53, 0x63, 0x65, 0x6e, 0x65, 0x12, 0x3a, 0x0a, 0x0d, 0x49,
+	0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x14, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x49, 0x6e, 0x76, 0x69, 0x74,
+	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e,
+	0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x52, 0x0c, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x12, 0x3a, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72,
+	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c,
+	0x43, 0x6c, 0x6f, 0x73, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x08, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x13, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x43, 0x6c, 0x6f, 0x73, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0c, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x4c, 0x69,
+	0x6e, 0x6b, 0x65, 0x72, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x52, 0x0c, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x37,
+	0x0a, 0x0c, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0a,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4c, 0x65, 0x61,
+	0x76, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x4c, 0x65, 0x61, 0x76, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3a, 0x0a, 0x0d, 0x43, 0x61, 0x6e, 0x63, 0x65,
+	0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14,
+	0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x43, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x12, 0x3d, 0x0a, 0x0e, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x4c, 0x69,
+	0x6e, 0x6b, 0x65, 0x72, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x52, 0x0e, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x12, 0x58, 0x0a, 0x17, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x4c, 0x69, 0x73, 0x74,
+	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0d, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4c, 0x69, 0x6e, 0x6b,
+	0x65, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x52, 0x17, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x4c, 0x69, 0x73, 0x74, 0x43,
+	0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x46, 0x0a, 0x11,
 	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x12, 0x5b, 0x0a, 0x18, 0x57, 0x61, 0x69, 0x74, 0x69, 0x6e, 0x67, 0x4c, 0x69, 0x73, 0x74,
-	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x0f, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x57, 0x61, 0x69, 0x74,
-	0x69, 0x6e, 0x67, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x18, 0x57, 0x61, 0x69, 0x74, 0x69, 0x6e, 0x67, 0x4c, 0x69, 0x73,
-	0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x34,
-	0x0a, 0x0b, 0x4d, 0x75, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x10, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4d, 0x75, 0x74, 0x65,
-	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0b, 0x4d, 0x75, 0x74, 0x65, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x12, 0x49, 0x0a, 0x12, 0x52, 0x61, 0x6e, 0x64, 0x6f, 0x6d, 0x4d, 0x61,
-	0x74, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x11, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x19, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x52, 0x61, 0x6e, 0x64, 0x6f, 0x6d, 0x4d,
-	0x61, 0x74, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x52, 0x61, 0x6e,
-	0x64, 0x6f, 0x6d, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
-	0x5b, 0x0a, 0x18, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x74,
-	0x74, 0x69, 0x6e, 0x67, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x12, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x1f, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x52, 0x18, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65,
-	0x74, 0x74, 0x69, 0x6e, 0x67, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x4c, 0x0a, 0x13,
-	0x4d, 0x69, 0x63, 0x49, 0x64, 0x78, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74,
-	0x65, 0x6e, 0x74, 0x18, 0x13, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x4c, 0x69, 0x6e, 0x6b,
-	0x65, 0x72, 0x4d, 0x69, 0x63, 0x49, 0x64, 0x78, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x13, 0x4d, 0x69, 0x63, 0x49, 0x64, 0x78, 0x55, 0x70, 0x64,
-	0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x46, 0x0a, 0x11, 0x4c, 0x69,
-	0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18,
-	0x14, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4c, 0x69,
-	0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52,
+	0x74, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x52, 0x11, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x43, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x12, 0x5b, 0x0a, 0x18, 0x57, 0x61, 0x69, 0x74, 0x69, 0x6e, 0x67, 0x4c,
+	0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x0f, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x57,
+	0x61, 0x69, 0x74, 0x69, 0x6e, 0x67, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x18, 0x57, 0x61, 0x69, 0x74, 0x69, 0x6e, 0x67,
+	0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x12, 0x34, 0x0a, 0x0b, 0x4d, 0x75, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x10, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4d,
+	0x75, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0b, 0x4d, 0x75, 0x74, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x49, 0x0a, 0x12, 0x52, 0x61, 0x6e, 0x64, 0x6f,
+	0x6d, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x11, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x52, 0x61, 0x6e, 0x64,
+	0x6f, 0x6d, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12,
+	0x52, 0x61, 0x6e, 0x64, 0x6f, 0x6d, 0x4d, 0x61, 0x74, 0x63, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x12, 0x5b, 0x0a, 0x18, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
+	0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x12,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x18, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
+	0x72, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x4c, 0x0a, 0x13, 0x4d, 0x69, 0x63, 0x49, 0x64, 0x78, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43,
+	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x13, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x4c,
+	0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4d, 0x69, 0x63, 0x49, 0x64, 0x78, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x13, 0x4d, 0x69, 0x63, 0x49, 0x64, 0x78,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x46, 0x0a,
 	0x11, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x12, 0x52, 0x0a, 0x17, 0x43, 0x6f, 0x68, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74,
-	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x15, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x43, 0x6f, 0x68, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74,
-	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x17, 0x43,
-	0x6f, 0x68, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x49, 0x0a, 0x12, 0x4d, 0x65, 0x64, 0x69, 0x61, 0x43,
-	0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x16, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x19, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4d, 0x65, 0x64, 0x69, 0x61,
-	0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x4d,
-	0x65, 0x64, 0x69, 0x61, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x12, 0x4c, 0x0a, 0x13, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x4e, 0x6f, 0x74, 0x69, 0x63,
-	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x17, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
-	0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x4e, 0x6f, 0x74,
-	0x69, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x13, 0x41, 0x63, 0x63, 0x65,
-	0x70, 0x74, 0x4e, 0x6f, 0x74, 0x69, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
-	0x46, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x18, 0x65, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e,
-	0x6b, 0x65, 0x72, 0x53, 0x79, 0x73, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x53, 0x79, 0x73, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74,
-	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x44, 0x0a, 0x10, 0x55, 0x73, 0x65, 0x72, 0x54,
-	0x6f, 0x61, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x66, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x6d, 0x69, 0x63, 0x55, 0x73, 0x65, 0x72, 0x54,
-	0x6f, 0x61, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x10, 0x55, 0x73, 0x65,
-	0x72, 0x54, 0x6f, 0x61, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x15, 0x0a,
-	0x05, 0x65, 0x78, 0x74, 0x72, 0x61, 0x18, 0xc8, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65,
-	0x78, 0x74, 0x72, 0x61, 0x12, 0x29, 0x0a, 0x0f, 0x65, 0x78, 0x70, 0x69, 0x72, 0x65, 0x54, 0x69,
-	0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0xc9, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0f,
-	0x65, 0x78, 0x70, 0x69, 0x72, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12,
-	0x25, 0x0a, 0x0d, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x45, 0x78, 0x74, 0x72, 0x61,
-	0x18, 0xca, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65,
-	0x72, 0x45, 0x78, 0x74, 0x72, 0x61, 0x22, 0xc0, 0x0a, 0x0a, 0x17, 0x57, 0x65, 0x62, 0x63, 0x61,
-	0x73, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x4c, 0x61, 0x79, 0x65, 0x72, 0x4d, 0x65, 0x73, 0x73, 0x61,
+	0x6e, 0x74, 0x18, 0x14, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65,
+	0x72, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x52, 0x11, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x52, 0x0a, 0x17, 0x43, 0x6f, 0x68, 0x6f, 0x73, 0x74, 0x4c,
+	0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x15, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x43, 0x6f, 0x68, 0x6f, 0x73, 0x74, 0x4c,
+	0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x52, 0x17, 0x43, 0x6f, 0x68, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e,
+	0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x49, 0x0a, 0x12, 0x4d, 0x65, 0x64,
+	0x69, 0x61, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18,
+	0x16, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x4d, 0x65,
+	0x64, 0x69, 0x61, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x52, 0x12, 0x4d, 0x65, 0x64, 0x69, 0x61, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x12, 0x4c, 0x0a, 0x13, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x4e, 0x6f,
+	0x74, 0x69, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x17, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x1a, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74,
+	0x4e, 0x6f, 0x74, 0x69, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x13, 0x41,
+	0x63, 0x63, 0x65, 0x70, 0x74, 0x4e, 0x6f, 0x74, 0x69, 0x63, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x12, 0x46, 0x0a, 0x11, 0x53, 0x79, 0x73, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x65, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e,
+	0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x72, 0x53, 0x79, 0x73, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x53, 0x79, 0x73, 0x4b, 0x69, 0x63, 0x6b,
+	0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x44, 0x0a, 0x10, 0x55, 0x73,
+	0x65, 0x72, 0x54, 0x6f, 0x61, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x66,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x6d, 0x69, 0x63, 0x55, 0x73,
+	0x65, 0x72, 0x54, 0x6f, 0x61, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x10,
+	0x55, 0x73, 0x65, 0x72, 0x54, 0x6f, 0x61, 0x73, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x12, 0x15, 0x0a, 0x05, 0x65, 0x78, 0x74, 0x72, 0x61, 0x18, 0xc8, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x05, 0x65, 0x78, 0x74, 0x72, 0x61, 0x12, 0x29, 0x0a, 0x0f, 0x65, 0x78, 0x70, 0x69, 0x72,
+	0x65, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0xc9, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x0f, 0x65, 0x78, 0x70, 0x69, 0x72, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x6d, 0x70, 0x12, 0x25, 0x0a, 0x0d, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x66, 0x65, 0x72, 0x45, 0x78,
+	0x74, 0x72, 0x61, 0x18, 0xca, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x74, 0x72, 0x61, 0x6e,
+	0x73, 0x66, 0x65, 0x72, 0x45, 0x78, 0x74, 0x72, 0x61, 0x22, 0xc0, 0x0a, 0x0a, 0x17, 0x57, 0x65,
+	0x62, 0x63, 0x61, 0x73, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x4c, 0x61, 0x79, 0x65, 0x72, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x1f, 0x0a, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x52, 0x06,
+	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x12, 0x2e, 0x0a, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x54, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x0c, 0x2e, 0x4d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x52, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65,
+	0x6c, 0x49, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x68, 0x61, 0x6e, 0x6e,
+	0x65, 0x6c, 0x49, 0x64, 0x12, 0x1c, 0x0a, 0x05, 0x73, 0x63, 0x65, 0x6e, 0x65, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x06, 0x2e, 0x53, 0x63, 0x65, 0x6e, 0x65, 0x52, 0x05, 0x73, 0x63, 0x65,
+	0x6e, 0x65, 0x12, 0x49, 0x0a, 0x14, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x6e,
+	0x6e, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x64, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x15, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x14, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43,
+	0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x40, 0x0a,
+	0x11, 0x6c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x18, 0x66, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x43,
+	0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x6c, 0x69,
+	0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x34, 0x0a, 0x0d, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x67, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43,
+	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x0c, 0x61, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x68, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x41, 0x70,
+	0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x61, 0x70, 0x70, 0x6c,
+	0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x43, 0x0a, 0x12, 0x70, 0x65, 0x72, 0x6d,
+	0x69, 0x74, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x69,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x41, 0x70, 0x70,
+	0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x70, 0x65, 0x72, 0x6d, 0x69,
+	0x74, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x43, 0x0a,
+	0x12, 0x72, 0x65, 0x70, 0x6c, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x18, 0x6a, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x52, 0x65, 0x70, 0x6c,
+	0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12,
+	0x72, 0x65, 0x70, 0x6c, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x12, 0x37, 0x0a, 0x0e, 0x6b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x18, 0x6b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x4b, 0x69, 0x63,
+	0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0e, 0x6b, 0x69, 0x63,
+	0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x43, 0x0a, 0x12, 0x63,
+	0x61, 0x6e, 0x63, 0x65, 0x6c, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x18, 0x6c, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c,
+	0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x63, 0x61,
+	0x6e, 0x63, 0x65, 0x6c, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x12, 0x46, 0x0a, 0x13, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x6d, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e,
+	0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x52, 0x13, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x49, 0x6e, 0x76, 0x69, 0x74,
+	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x0c, 0x6c, 0x65, 0x61, 0x76,
+	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x6e, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d,
+	0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x6c,
+	0x65, 0x61, 0x76, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3b, 0x0a, 0x0d, 0x66,
+	0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x6f, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x15, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x68, 0x61, 0x6e, 0x6e,
+	0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x66, 0x69, 0x6e, 0x69, 0x73,
+	0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x40, 0x0a, 0x11, 0x6a, 0x6f, 0x69, 0x6e,
+	0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x70, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x6a, 0x6f, 0x69, 0x6e, 0x44, 0x69, 0x72,
+	0x65, 0x63, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3d, 0x0a, 0x10, 0x6a, 0x6f,
+	0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x71,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x10, 0x6a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x47, 0x0a, 0x12, 0x70, 0x65, 0x72,
+	0x6d, 0x69, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18,
+	0x72, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x4a, 0x6f,
+	0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12,
+	0x70, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x12, 0x47, 0x0a, 0x12, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x73, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17,
+	0x2e, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x44, 0x0a, 0x11, 0x6c,
+	0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x74, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x4a, 0x6f,
+	0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11,
+	0x6c, 0x65, 0x61, 0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
+	0x74, 0x12, 0x4c, 0x0a, 0x15, 0x70, 0x32, 0x70, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x68, 0x61,
+	0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x75, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x16, 0x2e, 0x50, 0x32, 0x50, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x68, 0x61, 0x6e, 0x67,
+	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x15, 0x70, 0x32, 0x70, 0x47, 0x72, 0x6f,
+	0x75, 0x70, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x3b, 0x0a, 0x0f, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x18, 0xc8, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x42, 0x75, 0x73, 0x69,
+	0x6e, 0x65, 0x73, 0x73, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0f, 0x62, 0x75, 0x73,
+	0x69, 0x6e, 0x65, 0x73, 0x73, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0xa4, 0x01, 0x0a,
+	0x11, 0x52, 0x6f, 0x6f, 0x6d, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61,
 	0x67, 0x65, 0x12, 0x1f, 0x0a, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x07, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x52, 0x06, 0x63, 0x6f, 0x6d,
-	0x6d, 0x6f, 0x6e, 0x12, 0x2e, 0x0a, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54, 0x79,
-	0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x0c, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x54, 0x79, 0x70, 0x65, 0x52, 0x0b, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x54,
-	0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x49, 0x64,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x63, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x49,
-	0x64, 0x12, 0x1c, 0x0a, 0x05, 0x73, 0x63, 0x65, 0x6e, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e,
-	0x32, 0x06, 0x2e, 0x53, 0x63, 0x65, 0x6e, 0x65, 0x52, 0x05, 0x73, 0x63, 0x65, 0x6e, 0x65, 0x12,
-	0x49, 0x0a, 0x14, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c,
-	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x64, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e,
-	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x14, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x6e,
-	0x6e, 0x65, 0x6c, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x40, 0x0a, 0x11, 0x6c, 0x69,
-	0x73, 0x74, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18,
-	0x66, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x43, 0x68, 0x61, 0x6e,
-	0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x6c, 0x69, 0x73, 0x74, 0x43,
-	0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x34, 0x0a, 0x0d,
-	0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x67, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74,
-	0x65, 0x6e, 0x74, 0x52, 0x0d, 0x69, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x12, 0x31, 0x0a, 0x0c, 0x61, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x18, 0x68, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x41, 0x70, 0x70, 0x6c, 0x79,
-	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x61, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x43, 0x0a, 0x12, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x41,
-	0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x69, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x13, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x41, 0x70,
-	0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x43, 0x0a, 0x12, 0x72, 0x65,
-	0x70, 0x6c, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
-	0x18, 0x6a, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x49, 0x6e,
-	0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x72, 0x65, 0x70,
-	0x6c, 0x79, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
-	0x37, 0x0a, 0x0e, 0x6b, 0x69, 0x63, 0x6b, 0x4f, 0x75, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x18, 0x6b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x4b, 0x69, 0x63, 0x6b, 0x4f, 0x75,
-	0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0e, 0x6b, 0x69, 0x63, 0x6b, 0x4f, 0x75,
-	0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x43, 0x0a, 0x12, 0x63, 0x61, 0x6e, 0x63,
-	0x65, 0x6c, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x6c,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x41, 0x70, 0x70,
-	0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x63, 0x61, 0x6e, 0x63, 0x65,
-	0x6c, 0x41, 0x70, 0x70, 0x6c, 0x79, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x46, 0x0a,
-	0x13, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x18, 0x6d, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x43, 0x61, 0x6e,
-	0x63, 0x65, 0x6c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
-	0x52, 0x13, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x49, 0x6e, 0x76, 0x69, 0x74, 0x65, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x0c, 0x6c, 0x65, 0x61, 0x76, 0x65, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x6e, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x4c, 0x65,
-	0x61, 0x76, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0c, 0x6c, 0x65, 0x61, 0x76,
-	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3b, 0x0a, 0x0d, 0x66, 0x69, 0x6e, 0x69,
-	0x73, 0x68, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x6f, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x15, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x68, 0x61, 0x6e, 0x6e, 0x65, 0x6c, 0x43,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0d, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x40, 0x0a, 0x11, 0x6a, 0x6f, 0x69, 0x6e, 0x44, 0x69, 0x72,
-	0x65, 0x63, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x70, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x12, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x6a, 0x6f, 0x69, 0x6e, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74,
-	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3d, 0x0a, 0x10, 0x6a, 0x6f, 0x69, 0x6e, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x71, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x11, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x10, 0x6a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x47, 0x0a, 0x12, 0x70, 0x65, 0x72, 0x6d, 0x69, 0x74,
-	0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x72, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x74, 0x4a, 0x6f, 0x69, 0x6e, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x70, 0x65, 0x72,
-	0x6d, 0x69, 0x74, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
-	0x47, 0x0a, 0x12, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x73, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x43, 0x61,
-	0x6e, 0x63, 0x65, 0x6c, 0x4a, 0x6f, 0x69, 0x6e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x52, 0x12, 0x63, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x47, 0x72, 0x6f, 0x75,
-	0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x44, 0x0a, 0x11, 0x6c, 0x65, 0x61, 0x76,
-	0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x74, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x4c, 0x65, 0x61, 0x76, 0x65, 0x4a, 0x6f, 0x69, 0x6e, 0x47,
-	0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x6c, 0x65, 0x61,
-	0x76, 0x65, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x4c,
-	0x0a, 0x15, 0x70, 0x32, 0x70, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65,
-	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x75, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e,
-	0x50, 0x32, 0x50, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x15, 0x70, 0x32, 0x70, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x43,
-	0x68, 0x61, 0x6e, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x3b, 0x0a, 0x0f,
-	0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18,
-	0xc8, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73,
-	0x73, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x0f, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65,
-	0x73, 0x73, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0xa4, 0x01, 0x0a, 0x11, 0x52, 0x6f,
-	0x6f, 0x6d, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12,
-	0x1f, 0x0a, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x07, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x52, 0x06, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
-	0x12, 0x16, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05,
-	0x52, 0x06, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74,
-	0x65, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65,
-	0x6e, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x6e, 0x6f, 0x74, 0x69, 0x63, 0x65, 0x54, 0x79, 0x70, 0x65,
-	0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x6e, 0x6f, 0x74, 0x69, 0x63, 0x65, 0x54, 0x79,
-	0x70, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x6c, 0x6f, 0x73, 0x65, 0x52, 0x6f, 0x6f, 0x6d, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x09, 0x63, 0x6c, 0x6f, 0x73, 0x65, 0x52, 0x6f, 0x6f, 0x6d,
-	0x42, 0x16, 0x5a, 0x14, 0x2e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x3b, 0x67, 0x6f, 0x74, 0x69,
-	0x6b, 0x74, 0x6f, 0x6b, 0x6c, 0x69, 0x76, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6d, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x05, 0x52, 0x06, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x63,
+	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f,
+	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x6e, 0x6f, 0x74, 0x69, 0x63, 0x65, 0x54,
+	0x79, 0x70, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x6e, 0x6f, 0x74, 0x69, 0x63,
+	0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x6c, 0x6f, 0x73, 0x65, 0x52, 0x6f,
+	0x6f, 0x6d, 0x18, 0x05, 0x20, 0x01, 0x28, 0x08, 0x52, 0x09, 0x63, 0x6c, 0x6f, 0x73, 0x65, 0x52,
+	0x6f, 0x6f, 0x6d, 0x42, 0x16, 0x5a, 0x14, 0x2e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x3b, 0x67,
+	0x6f, 0x74, 0x69, 0x6b, 0x74, 0x6f, 0x6b, 0x6c, 0x69, 0x76, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -8661,7 +8725,7 @@ func file_webcast_proto_rawDescGZIP() []byte {
 }
 
 var file_webcast_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_webcast_proto_msgTypes = make([]protoimpl.MessageInfo, 83)
+var file_webcast_proto_msgTypes = make([]protoimpl.MessageInfo, 84)
 var file_webcast_proto_goTypes = []interface{}{
 	(WebcastBarrageMessage_BarrageType)(0),                      // 0: WebcastBarrageMessage.BarrageType
 	(*WebcastPushFrame)(nil),                                    // 1: WebcastPushFrame
@@ -8699,341 +8763,344 @@ var file_webcast_proto_goTypes = []interface{}{
 	(*WebcastMsgDetectMessage)(nil),                             // 33: WebcastMsgDetectMessage
 	(*WebcastOecLiveShoppingMessage)(nil),                       // 34: WebcastOecLiveShoppingMessage
 	(*WebcastRoomPinMessage)(nil),                               // 35: WebcastRoomPinMessage
-	(*WebcastSystemMessage)(nil),                                // 36: WebcastSystemMessage
-	(*WebcastLinkMessage)(nil),                                  // 37: WebcastLinkMessage
-	(*WebcastLinkLayerMessage)(nil),                             // 38: WebcastLinkLayerMessage
-	(*RoomVerifyMessage)(nil),                                   // 39: RoomVerifyMessage
-	nil,                                                         // 40: WebcastPushFrame.HeadersEntry
-	nil,                                                         // 41: WebcastResponse.RouteParamsMapEntry
-	(*WebcastResponse_Message)(nil),                             // 42: WebcastResponse.Message
-	(*WebcastGiftMessage_UserGiftReciever)(nil),                 // 43: WebcastGiftMessage.UserGiftReciever
-	(*WebcastGiftMessage_GiftIMPriority)(nil),                   // 44: WebcastGiftMessage.GiftIMPriority
-	(*WebcastGiftMessage_PublicAreaCommon)(nil),                 // 45: WebcastGiftMessage.PublicAreaCommon
-	(*WebcastBarrageMessage_BarrageTypeUserGradeParam)(nil),     // 46: WebcastBarrageMessage.BarrageTypeUserGradeParam
-	(*WebcastBarrageMessage_BarrageTypeFansLevelParam)(nil),     // 47: WebcastBarrageMessage.BarrageTypeFansLevelParam
-	(*WebcastBarrageMessage_BarrageTypeSubscribeGiftParam)(nil), // 48: WebcastBarrageMessage.BarrageTypeSubscribeGiftParam
-	(*WebcastBarrageMessage_BarrageEvent)(nil),                  // 49: WebcastBarrageMessage.BarrageEvent
-	(*WebcastCaptionMessage_CaptionData)(nil),                   // 50: WebcastCaptionMessage.CaptionData
-	nil, // 51: WebcastChatMessage.CommentQualityScoresEntry
-	(*WebcastChatMessage_EmoteWithIndex)(nil),                                     // 52: WebcastChatMessage.EmoteWithIndex
-	(*WebcastControlMessage_Extra)(nil),                                           // 53: WebcastControlMessage.Extra
-	(*WebcastEnvelopeMessage_EnvelopeInfo)(nil),                                   // 54: WebcastEnvelopeMessage.EnvelopeInfo
-	(*WebcastRoomUserSeqMessage_Contributor)(nil),                                 // 55: WebcastRoomUserSeqMessage.Contributor
-	(*WebcastRankUpdateMessage_RankTabInfo)(nil),                                  // 56: WebcastRankUpdateMessage.RankTabInfo
-	(*WebcastRankUpdateMessage_RankUpdate)(nil),                                   // 57: WebcastRankUpdateMessage.RankUpdate
-	(*WebcastMemberMessage_EffectConfig)(nil),                                     // 58: WebcastMemberMessage.EffectConfig
-	(*WebcastQuestionNewMessage_QuestionDetails)(nil),                             // 59: WebcastQuestionNewMessage.QuestionDetails
-	(*WebcastHourlyRankMessage_RankContainer)(nil),                                // 60: WebcastHourlyRankMessage.RankContainer
-	(*WebcastHourlyRankMessage_RankContainer_RankingData)(nil),                    // 61: WebcastHourlyRankMessage.RankContainer.RankingData
-	(*WebcastHourlyRankMessage_RankContainer_RankingData2)(nil),                   // 62: WebcastHourlyRankMessage.RankContainer.RankingData2
-	(*WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData)(nil),        // 63: WebcastLinkMicBattlePunishFinish.LinkMicBattlePunishFinishData
-	(*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData)(nil),                 // 64: WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData
-	(*WebcastLinkmicBattleTaskMessage_BattleTaskData)(nil),                        // 65: WebcastLinkmicBattleTaskMessage.BattleTaskData
-	(*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2)(nil),                // 66: WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData2
-	(*WebcastLinkMicBattle_Host2V2Data)(nil),                                      // 67: WebcastLinkMicBattle.Host2v2Data
-	(*WebcastLinkMicBattle_LinkMicBattleConfig)(nil),                              // 68: WebcastLinkMicBattle.LinkMicBattleConfig
-	(*WebcastLinkMicBattle_LinkMicBattleTeamData)(nil),                            // 69: WebcastLinkMicBattle.LinkMicBattleTeamData
-	(*WebcastLinkMicBattle_LinkMicBattleData)(nil),                                // 70: WebcastLinkMicBattle.LinkMicBattleData
-	(*WebcastLinkMicBattle_LinkMicBattleDetails)(nil),                             // 71: WebcastLinkMicBattle.LinkMicBattleDetails
-	(*WebcastLinkMicBattle_LinkMicBattleTopViewers)(nil),                          // 72: WebcastLinkMicBattle.LinkMicBattleTopViewers
-	(*WebcastLinkMicBattle_LinkMicBattleHost)(nil),                                // 73: WebcastLinkMicBattle.LinkMicBattleHost
-	(*WebcastLinkMicBattle_Host2V2Data_HostData)(nil),                             // 74: WebcastLinkMicBattle.Host2v2Data.HostData
-	(*WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary)(nil), // 75: WebcastLinkMicBattle.LinkMicBattleDetails.LinkMicBattleDetailsSummary
-	(*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup)(nil),           // 76: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup
-	(*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer)(nil), // 77: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.TopViewer
-	(*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup)(nil),                      // 78: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup
-	(*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host)(nil),                 // 79: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.Host
-	(*WebcastMsgDetectMessage_TimeInfo)(nil),                                      // 80: WebcastMsgDetectMessage.TimeInfo
-	(*WebcastMsgDetectMessage_TriggerCondition)(nil),                              // 81: WebcastMsgDetectMessage.TriggerCondition
-	(*WebcastOecLiveShoppingMessage_LiveShoppingData)(nil),                        // 82: WebcastOecLiveShoppingMessage.LiveShoppingData
-	(*WebcastOecLiveShoppingMessage_LiveShoppingDetails)(nil),                     // 83: WebcastOecLiveShoppingMessage.LiveShoppingDetails
-	(*Common)(nil),                         // 84: Common
-	(*User)(nil),                           // 85: User
-	(*GiftStruct)(nil),                     // 86: GiftStruct
-	(*UserIdentity)(nil),                   // 87: UserIdentity
-	(*Image)(nil),                          // 88: Image
-	(*Text)(nil),                           // 89: Text
-	(ControlAction)(0),                     // 90: ControlAction
-	(*PunishEventInfo)(nil),                // 91: PunishEventInfo
-	(*Emote)(nil),                          // 92: Emote
-	(*MsgFilter)(nil),                      // 93: MsgFilter
-	(EnvelopeDisplay)(0),                   // 94: EnvelopeDisplay
-	(*Indicator)(nil),                      // 95: Indicator
-	(*Goal)(nil),                           // 96: Goal
-	(SubscribeType)(0),                     // 97: SubscribeType
-	(OldSubscribeStatus)(0),                // 98: OldSubscribeStatus
-	(SubscribingStatus)(0),                 // 99: SubscribingStatus
-	(MemberMessageAction)(0),               // 100: MemberMessageAction
-	(MessageType)(0),                       // 101: MessageType
-	(*PollStartContent)(nil),               // 102: PollStartContent
-	(*PollEndContent)(nil),                 // 103: PollEndContent
-	(*PollUpdateVotesContent)(nil),         // 104: PollUpdateVotesContent
-	(*LinkMicArmiesItems)(nil),             // 105: LinkMicArmiesItems
-	(LinkMicBattleStatus)(0),               // 106: LinkMicBattleStatus
-	(*FanTicketRoomNoticeContent)(nil),     // 107: FanTicketRoomNoticeContent
-	(AuditStatus)(0),                       // 108: AuditStatus
-	(*BadgeStruct)(nil),                    // 109: BadgeStruct
-	(*TimeStampContainer)(nil),             // 110: TimeStampContainer
-	(LinkMessageType)(0),                   // 111: LinkMessageType
-	(Scene)(0),                             // 112: Scene
-	(*LinkerInviteContent)(nil),            // 113: LinkerInviteContent
-	(*LinkerReplyContent)(nil),             // 114: LinkerReplyContent
-	(*LinkerCreateContent)(nil),            // 115: LinkerCreateContent
-	(*LinkerCloseContent)(nil),             // 116: LinkerCloseContent
-	(*LinkerEnterContent)(nil),             // 117: LinkerEnterContent
-	(*LinkerLeaveContent)(nil),             // 118: LinkerLeaveContent
-	(*LinkerCancelContent)(nil),            // 119: LinkerCancelContent
-	(*LinkerKickOutContent)(nil),           // 120: LinkerKickOutContent
-	(*LinkerLinkedListChangeContent)(nil),  // 121: LinkerLinkedListChangeContent
-	(*LinkerUpdateUserContent)(nil),        // 122: LinkerUpdateUserContent
-	(*LinkerWaitingListChangeContent)(nil), // 123: LinkerWaitingListChangeContent
-	(*LinkerMuteContent)(nil),              // 124: LinkerMuteContent
-	(*LinkerRandomMatchContent)(nil),       // 125: LinkerRandomMatchContent
-	(*LinkerUpdateUserSettingContent)(nil), // 126: LinkerUpdateUserSettingContent
-	(*LinkerMicIdxUpdateContent)(nil),      // 127: LinkerMicIdxUpdateContent
-	(*LinkerListChangeContent)(nil),        // 128: LinkerListChangeContent
-	(*CohostListChangeContent)(nil),        // 129: CohostListChangeContent
-	(*LinkerMediaChangeContent)(nil),       // 130: LinkerMediaChangeContent
-	(*LinkerAcceptNoticeContent)(nil),      // 131: LinkerAcceptNoticeContent
-	(*LinkerSysKickOutContent)(nil),        // 132: LinkerSysKickOutContent
-	(*LinkmicUserToastContent)(nil),        // 133: LinkmicUserToastContent
-	(*CreateChannelContent)(nil),           // 134: CreateChannelContent
-	(*ListChangeContent)(nil),              // 135: ListChangeContent
-	(*InviteContent)(nil),                  // 136: InviteContent
-	(*ApplyContent)(nil),                   // 137: ApplyContent
-	(*PermitApplyContent)(nil),             // 138: PermitApplyContent
-	(*ReplyInviteContent)(nil),             // 139: ReplyInviteContent
-	(*KickOutContent)(nil),                 // 140: KickOutContent
-	(*CancelApplyContent)(nil),             // 141: CancelApplyContent
-	(*CancelInviteContent)(nil),            // 142: CancelInviteContent
-	(*LeaveContent)(nil),                   // 143: LeaveContent
-	(*FinishChannelContent)(nil),           // 144: FinishChannelContent
-	(*JoinDirectContent)(nil),              // 145: JoinDirectContent
-	(*JoinGroupContent)(nil),               // 146: JoinGroupContent
-	(*PermitJoinGroupContent)(nil),         // 147: PermitJoinGroupContent
-	(*CancelJoinGroupContent)(nil),         // 148: CancelJoinGroupContent
-	(*LeaveJoinGroupContent)(nil),          // 149: LeaveJoinGroupContent
-	(*P2PGroupChangeContent)(nil),          // 150: P2PGroupChangeContent
-	(*BusinessContent)(nil),                // 151: BusinessContent
-	(EnvelopeBusinessType)(0),              // 152: EnvelopeBusinessType
-	(EnvelopeFollowShowStatus)(0),          // 153: EnvelopeFollowShowStatus
-	(*Ranking)(nil),                        // 154: Ranking
-	(*ValueLabel)(nil),                     // 155: ValueLabel
+	(*WebcastLiveGameIntroMessage)(nil),                         // 36: WebcastLiveGameIntroMessage
+	(*WebcastSystemMessage)(nil),                                // 37: WebcastSystemMessage
+	(*WebcastLinkMessage)(nil),                                  // 38: WebcastLinkMessage
+	(*WebcastLinkLayerMessage)(nil),                             // 39: WebcastLinkLayerMessage
+	(*RoomVerifyMessage)(nil),                                   // 40: RoomVerifyMessage
+	nil,                                                         // 41: WebcastPushFrame.HeadersEntry
+	nil,                                                         // 42: WebcastResponse.RouteParamsMapEntry
+	(*WebcastResponse_Message)(nil),                             // 43: WebcastResponse.Message
+	(*WebcastGiftMessage_UserGiftReciever)(nil),                 // 44: WebcastGiftMessage.UserGiftReciever
+	(*WebcastGiftMessage_GiftIMPriority)(nil),                   // 45: WebcastGiftMessage.GiftIMPriority
+	(*WebcastGiftMessage_PublicAreaCommon)(nil),                 // 46: WebcastGiftMessage.PublicAreaCommon
+	(*WebcastBarrageMessage_BarrageTypeUserGradeParam)(nil),     // 47: WebcastBarrageMessage.BarrageTypeUserGradeParam
+	(*WebcastBarrageMessage_BarrageTypeFansLevelParam)(nil),     // 48: WebcastBarrageMessage.BarrageTypeFansLevelParam
+	(*WebcastBarrageMessage_BarrageTypeSubscribeGiftParam)(nil), // 49: WebcastBarrageMessage.BarrageTypeSubscribeGiftParam
+	(*WebcastBarrageMessage_BarrageEvent)(nil),                  // 50: WebcastBarrageMessage.BarrageEvent
+	(*WebcastCaptionMessage_CaptionData)(nil),                   // 51: WebcastCaptionMessage.CaptionData
+	nil, // 52: WebcastChatMessage.CommentQualityScoresEntry
+	(*WebcastChatMessage_EmoteWithIndex)(nil),                                     // 53: WebcastChatMessage.EmoteWithIndex
+	(*WebcastControlMessage_Extra)(nil),                                           // 54: WebcastControlMessage.Extra
+	(*WebcastEnvelopeMessage_EnvelopeInfo)(nil),                                   // 55: WebcastEnvelopeMessage.EnvelopeInfo
+	(*WebcastRoomUserSeqMessage_Contributor)(nil),                                 // 56: WebcastRoomUserSeqMessage.Contributor
+	(*WebcastRankUpdateMessage_RankTabInfo)(nil),                                  // 57: WebcastRankUpdateMessage.RankTabInfo
+	(*WebcastRankUpdateMessage_RankUpdate)(nil),                                   // 58: WebcastRankUpdateMessage.RankUpdate
+	(*WebcastMemberMessage_EffectConfig)(nil),                                     // 59: WebcastMemberMessage.EffectConfig
+	(*WebcastQuestionNewMessage_QuestionDetails)(nil),                             // 60: WebcastQuestionNewMessage.QuestionDetails
+	(*WebcastHourlyRankMessage_RankContainer)(nil),                                // 61: WebcastHourlyRankMessage.RankContainer
+	(*WebcastHourlyRankMessage_RankContainer_RankingData)(nil),                    // 62: WebcastHourlyRankMessage.RankContainer.RankingData
+	(*WebcastHourlyRankMessage_RankContainer_RankingData2)(nil),                   // 63: WebcastHourlyRankMessage.RankContainer.RankingData2
+	(*WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData)(nil),        // 64: WebcastLinkMicBattlePunishFinish.LinkMicBattlePunishFinishData
+	(*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData)(nil),                 // 65: WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData
+	(*WebcastLinkmicBattleTaskMessage_BattleTaskData)(nil),                        // 66: WebcastLinkmicBattleTaskMessage.BattleTaskData
+	(*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2)(nil),                // 67: WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData2
+	(*WebcastLinkMicBattle_Host2V2Data)(nil),                                      // 68: WebcastLinkMicBattle.Host2v2Data
+	(*WebcastLinkMicBattle_LinkMicBattleConfig)(nil),                              // 69: WebcastLinkMicBattle.LinkMicBattleConfig
+	(*WebcastLinkMicBattle_LinkMicBattleTeamData)(nil),                            // 70: WebcastLinkMicBattle.LinkMicBattleTeamData
+	(*WebcastLinkMicBattle_LinkMicBattleData)(nil),                                // 71: WebcastLinkMicBattle.LinkMicBattleData
+	(*WebcastLinkMicBattle_LinkMicBattleDetails)(nil),                             // 72: WebcastLinkMicBattle.LinkMicBattleDetails
+	(*WebcastLinkMicBattle_LinkMicBattleTopViewers)(nil),                          // 73: WebcastLinkMicBattle.LinkMicBattleTopViewers
+	(*WebcastLinkMicBattle_LinkMicBattleHost)(nil),                                // 74: WebcastLinkMicBattle.LinkMicBattleHost
+	(*WebcastLinkMicBattle_Host2V2Data_HostData)(nil),                             // 75: WebcastLinkMicBattle.Host2v2Data.HostData
+	(*WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary)(nil), // 76: WebcastLinkMicBattle.LinkMicBattleDetails.LinkMicBattleDetailsSummary
+	(*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup)(nil),           // 77: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup
+	(*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer)(nil), // 78: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.TopViewer
+	(*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup)(nil),                      // 79: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup
+	(*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host)(nil),                 // 80: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.Host
+	(*WebcastMsgDetectMessage_TimeInfo)(nil),                                      // 81: WebcastMsgDetectMessage.TimeInfo
+	(*WebcastMsgDetectMessage_TriggerCondition)(nil),                              // 82: WebcastMsgDetectMessage.TriggerCondition
+	(*WebcastOecLiveShoppingMessage_LiveShoppingData)(nil),                        // 83: WebcastOecLiveShoppingMessage.LiveShoppingData
+	(*WebcastOecLiveShoppingMessage_LiveShoppingDetails)(nil),                     // 84: WebcastOecLiveShoppingMessage.LiveShoppingDetails
+	(*Common)(nil),                         // 85: Common
+	(*User)(nil),                           // 86: User
+	(*GiftStruct)(nil),                     // 87: GiftStruct
+	(*UserIdentity)(nil),                   // 88: UserIdentity
+	(*Image)(nil),                          // 89: Image
+	(*Text)(nil),                           // 90: Text
+	(ControlAction)(0),                     // 91: ControlAction
+	(*PunishEventInfo)(nil),                // 92: PunishEventInfo
+	(*Emote)(nil),                          // 93: Emote
+	(*MsgFilter)(nil),                      // 94: MsgFilter
+	(EnvelopeDisplay)(0),                   // 95: EnvelopeDisplay
+	(*Indicator)(nil),                      // 96: Indicator
+	(*Goal)(nil),                           // 97: Goal
+	(SubscribeType)(0),                     // 98: SubscribeType
+	(OldSubscribeStatus)(0),                // 99: OldSubscribeStatus
+	(SubscribingStatus)(0),                 // 100: SubscribingStatus
+	(MemberMessageAction)(0),               // 101: MemberMessageAction
+	(MessageType)(0),                       // 102: MessageType
+	(*PollStartContent)(nil),               // 103: PollStartContent
+	(*PollEndContent)(nil),                 // 104: PollEndContent
+	(*PollUpdateVotesContent)(nil),         // 105: PollUpdateVotesContent
+	(*LinkMicArmiesItems)(nil),             // 106: LinkMicArmiesItems
+	(LinkMicBattleStatus)(0),               // 107: LinkMicBattleStatus
+	(*FanTicketRoomNoticeContent)(nil),     // 108: FanTicketRoomNoticeContent
+	(AuditStatus)(0),                       // 109: AuditStatus
+	(*BadgeStruct)(nil),                    // 110: BadgeStruct
+	(*TimeStampContainer)(nil),             // 111: TimeStampContainer
+	(LinkMessageType)(0),                   // 112: LinkMessageType
+	(Scene)(0),                             // 113: Scene
+	(*LinkerInviteContent)(nil),            // 114: LinkerInviteContent
+	(*LinkerReplyContent)(nil),             // 115: LinkerReplyContent
+	(*LinkerCreateContent)(nil),            // 116: LinkerCreateContent
+	(*LinkerCloseContent)(nil),             // 117: LinkerCloseContent
+	(*LinkerEnterContent)(nil),             // 118: LinkerEnterContent
+	(*LinkerLeaveContent)(nil),             // 119: LinkerLeaveContent
+	(*LinkerCancelContent)(nil),            // 120: LinkerCancelContent
+	(*LinkerKickOutContent)(nil),           // 121: LinkerKickOutContent
+	(*LinkerLinkedListChangeContent)(nil),  // 122: LinkerLinkedListChangeContent
+	(*LinkerUpdateUserContent)(nil),        // 123: LinkerUpdateUserContent
+	(*LinkerWaitingListChangeContent)(nil), // 124: LinkerWaitingListChangeContent
+	(*LinkerMuteContent)(nil),              // 125: LinkerMuteContent
+	(*LinkerRandomMatchContent)(nil),       // 126: LinkerRandomMatchContent
+	(*LinkerUpdateUserSettingContent)(nil), // 127: LinkerUpdateUserSettingContent
+	(*LinkerMicIdxUpdateContent)(nil),      // 128: LinkerMicIdxUpdateContent
+	(*LinkerListChangeContent)(nil),        // 129: LinkerListChangeContent
+	(*CohostListChangeContent)(nil),        // 130: CohostListChangeContent
+	(*LinkerMediaChangeContent)(nil),       // 131: LinkerMediaChangeContent
+	(*LinkerAcceptNoticeContent)(nil),      // 132: LinkerAcceptNoticeContent
+	(*LinkerSysKickOutContent)(nil),        // 133: LinkerSysKickOutContent
+	(*LinkmicUserToastContent)(nil),        // 134: LinkmicUserToastContent
+	(*CreateChannelContent)(nil),           // 135: CreateChannelContent
+	(*ListChangeContent)(nil),              // 136: ListChangeContent
+	(*InviteContent)(nil),                  // 137: InviteContent
+	(*ApplyContent)(nil),                   // 138: ApplyContent
+	(*PermitApplyContent)(nil),             // 139: PermitApplyContent
+	(*ReplyInviteContent)(nil),             // 140: ReplyInviteContent
+	(*KickOutContent)(nil),                 // 141: KickOutContent
+	(*CancelApplyContent)(nil),             // 142: CancelApplyContent
+	(*CancelInviteContent)(nil),            // 143: CancelInviteContent
+	(*LeaveContent)(nil),                   // 144: LeaveContent
+	(*FinishChannelContent)(nil),           // 145: FinishChannelContent
+	(*JoinDirectContent)(nil),              // 146: JoinDirectContent
+	(*JoinGroupContent)(nil),               // 147: JoinGroupContent
+	(*PermitJoinGroupContent)(nil),         // 148: PermitJoinGroupContent
+	(*CancelJoinGroupContent)(nil),         // 149: CancelJoinGroupContent
+	(*LeaveJoinGroupContent)(nil),          // 150: LeaveJoinGroupContent
+	(*P2PGroupChangeContent)(nil),          // 151: P2PGroupChangeContent
+	(*BusinessContent)(nil),                // 152: BusinessContent
+	(EnvelopeBusinessType)(0),              // 153: EnvelopeBusinessType
+	(EnvelopeFollowShowStatus)(0),          // 154: EnvelopeFollowShowStatus
+	(*Ranking)(nil),                        // 155: Ranking
+	(*ValueLabel)(nil),                     // 156: ValueLabel
 }
 var file_webcast_proto_depIdxs = []int32{
-	40,  // 0: WebcastPushFrame.headers:type_name -> WebcastPushFrame.HeadersEntry
-	42,  // 1: WebcastResponse.messages:type_name -> WebcastResponse.Message
-	41,  // 2: WebcastResponse.routeParamsMap:type_name -> WebcastResponse.RouteParamsMapEntry
-	84,  // 3: WebcastGiftMessage.common:type_name -> Common
-	85,  // 4: WebcastGiftMessage.user:type_name -> User
-	85,  // 5: WebcastGiftMessage.toUser:type_name -> User
-	86,  // 6: WebcastGiftMessage.gift:type_name -> GiftStruct
-	87,  // 7: WebcastGiftMessage.userIdentity:type_name -> UserIdentity
-	43,  // 8: WebcastGiftMessage.userGiftReciever:type_name -> WebcastGiftMessage.UserGiftReciever
-	84,  // 9: RoomMessage.common:type_name -> Common
-	88,  // 10: RoomMessage.icon:type_name -> Image
-	84,  // 11: WebcastRoomMessage.common:type_name -> Common
-	84,  // 12: WebcastBarrageMessage.common:type_name -> Common
-	49,  // 13: WebcastBarrageMessage.event:type_name -> WebcastBarrageMessage.BarrageEvent
+	41,  // 0: WebcastPushFrame.headers:type_name -> WebcastPushFrame.HeadersEntry
+	43,  // 1: WebcastResponse.messages:type_name -> WebcastResponse.Message
+	42,  // 2: WebcastResponse.routeParamsMap:type_name -> WebcastResponse.RouteParamsMapEntry
+	85,  // 3: WebcastGiftMessage.common:type_name -> Common
+	86,  // 4: WebcastGiftMessage.user:type_name -> User
+	86,  // 5: WebcastGiftMessage.toUser:type_name -> User
+	87,  // 6: WebcastGiftMessage.gift:type_name -> GiftStruct
+	88,  // 7: WebcastGiftMessage.userIdentity:type_name -> UserIdentity
+	44,  // 8: WebcastGiftMessage.userGiftReciever:type_name -> WebcastGiftMessage.UserGiftReciever
+	85,  // 9: RoomMessage.common:type_name -> Common
+	89,  // 10: RoomMessage.icon:type_name -> Image
+	85,  // 11: WebcastRoomMessage.common:type_name -> Common
+	85,  // 12: WebcastBarrageMessage.common:type_name -> Common
+	50,  // 13: WebcastBarrageMessage.event:type_name -> WebcastBarrageMessage.BarrageEvent
 	0,   // 14: WebcastBarrageMessage.msgType:type_name -> WebcastBarrageMessage.BarrageType
-	88,  // 15: WebcastBarrageMessage.icon:type_name -> Image
-	89,  // 16: WebcastBarrageMessage.content:type_name -> Text
-	88,  // 17: WebcastBarrageMessage.background:type_name -> Image
-	88,  // 18: WebcastBarrageMessage.rightIcon:type_name -> Image
-	46,  // 19: WebcastBarrageMessage.userGradeParam:type_name -> WebcastBarrageMessage.BarrageTypeUserGradeParam
-	47,  // 20: WebcastBarrageMessage.fansLevelParam:type_name -> WebcastBarrageMessage.BarrageTypeFansLevelParam
-	48,  // 21: WebcastBarrageMessage.subscribeGiftParam:type_name -> WebcastBarrageMessage.BarrageTypeSubscribeGiftParam
-	84,  // 22: WebcastCaptionMessage.common:type_name -> Common
-	50,  // 23: WebcastCaptionMessage.captionData:type_name -> WebcastCaptionMessage.CaptionData
-	84,  // 24: WebcastChatMessage.common:type_name -> Common
-	85,  // 25: WebcastChatMessage.user:type_name -> User
-	88,  // 26: WebcastChatMessage.backgroundImage:type_name -> Image
-	88,  // 27: WebcastChatMessage.backgroundImageV2:type_name -> Image
-	88,  // 28: WebcastChatMessage.giftImage:type_name -> Image
-	85,  // 29: WebcastChatMessage.atUser:type_name -> User
-	52,  // 30: WebcastChatMessage.emotesList:type_name -> WebcastChatMessage.EmoteWithIndex
-	87,  // 31: WebcastChatMessage.UserIdentity:type_name -> UserIdentity
-	51,  // 32: WebcastChatMessage.CommentQualityScores:type_name -> WebcastChatMessage.CommentQualityScoresEntry
-	84,  // 33: WebcastControlMessage.common:type_name -> Common
-	90,  // 34: WebcastControlMessage.action:type_name -> ControlAction
-	53,  // 35: WebcastControlMessage.extra:type_name -> WebcastControlMessage.Extra
-	89,  // 36: WebcastControlMessage.perceptionAudienceText:type_name -> Text
-	91,  // 37: WebcastControlMessage.punishInfo:type_name -> PunishEventInfo
-	89,  // 38: WebcastControlMessage.floatText:type_name -> Text
-	84,  // 39: WebcastEmoteChatMessage.common:type_name -> Common
-	85,  // 40: WebcastEmoteChatMessage.user:type_name -> User
-	92,  // 41: WebcastEmoteChatMessage.emoteList:type_name -> Emote
-	93,  // 42: WebcastEmoteChatMessage.msgFilter:type_name -> MsgFilter
-	87,  // 43: WebcastEmoteChatMessage.userIdentity:type_name -> UserIdentity
-	84,  // 44: WebcastEnvelopeMessage.common:type_name -> Common
-	54,  // 45: WebcastEnvelopeMessage.envelopeInfo:type_name -> WebcastEnvelopeMessage.EnvelopeInfo
-	94,  // 46: WebcastEnvelopeMessage.display:type_name -> EnvelopeDisplay
-	84,  // 47: WebcastGoalUpdateMessage.common:type_name -> Common
-	95,  // 48: WebcastGoalUpdateMessage.indicator:type_name -> Indicator
-	96,  // 49: WebcastGoalUpdateMessage.goal:type_name -> Goal
-	88,  // 50: WebcastGoalUpdateMessage.contributorAvatar:type_name -> Image
-	84,  // 51: WebcastImDeleteMessage.common:type_name -> Common
-	84,  // 52: WebcastInRoomBannerMessage.header:type_name -> Common
-	84,  // 53: WebcastLikeMessage.common:type_name -> Common
-	85,  // 54: WebcastLikeMessage.user:type_name -> User
-	84,  // 55: WebcastRoomUserSeqMessage.common:type_name -> Common
-	55,  // 56: WebcastRoomUserSeqMessage.ranksList:type_name -> WebcastRoomUserSeqMessage.Contributor
-	55,  // 57: WebcastRoomUserSeqMessage.seatsList:type_name -> WebcastRoomUserSeqMessage.Contributor
-	84,  // 58: WebcastSocialMessage.common:type_name -> Common
-	85,  // 59: WebcastSocialMessage.user:type_name -> User
-	84,  // 60: WebcastSubNotifyMessage.common:type_name -> Common
-	85,  // 61: WebcastSubNotifyMessage.user:type_name -> User
-	97,  // 62: WebcastSubNotifyMessage.subscribeType:type_name -> SubscribeType
-	98,  // 63: WebcastSubNotifyMessage.oldSubscribeStatus:type_name -> OldSubscribeStatus
-	99,  // 64: WebcastSubNotifyMessage.subscribingStatus:type_name -> SubscribingStatus
-	84,  // 65: WebcastRankUpdateMessage.common:type_name -> Common
-	57,  // 66: WebcastRankUpdateMessage.updatesList:type_name -> WebcastRankUpdateMessage.RankUpdate
-	56,  // 67: WebcastRankUpdateMessage.tabsList:type_name -> WebcastRankUpdateMessage.RankTabInfo
-	84,  // 68: WebcastMemberMessage.common:type_name -> Common
-	85,  // 69: WebcastMemberMessage.user:type_name -> User
-	85,  // 70: WebcastMemberMessage.operator:type_name -> User
-	100, // 71: WebcastMemberMessage.action:type_name -> MemberMessageAction
-	58,  // 72: WebcastMemberMessage.effectConfig:type_name -> WebcastMemberMessage.EffectConfig
-	58,  // 73: WebcastMemberMessage.enterEffectConfig:type_name -> WebcastMemberMessage.EffectConfig
-	88,  // 74: WebcastMemberMessage.backgroundImage:type_name -> Image
-	88,  // 75: WebcastMemberMessage.backgroundImageV2:type_name -> Image
-	89,  // 76: WebcastMemberMessage.anchorDisplayText:type_name -> Text
-	84,  // 77: WebcastPollMessage.common:type_name -> Common
-	101, // 78: WebcastPollMessage.messageType:type_name -> MessageType
-	102, // 79: WebcastPollMessage.startContent:type_name -> PollStartContent
-	103, // 80: WebcastPollMessage.endContent:type_name -> PollEndContent
-	104, // 81: WebcastPollMessage.updateContent:type_name -> PollUpdateVotesContent
-	84,  // 82: WebcastQuestionNewMessage.common:type_name -> Common
-	59,  // 83: WebcastQuestionNewMessage.details:type_name -> WebcastQuestionNewMessage.QuestionDetails
-	84,  // 84: WebcastRankTextMessage.common:type_name -> Common
-	89,  // 85: WebcastRankTextMessage.selfGetBadgeMsg:type_name -> Text
-	89,  // 86: WebcastRankTextMessage.otherGetBadgeMsg:type_name -> Text
-	84,  // 87: WebcastHourlyRankMessage.common:type_name -> Common
-	60,  // 88: WebcastHourlyRankMessage.data:type_name -> WebcastHourlyRankMessage.RankContainer
-	84,  // 89: WebcastLinkMicArmies.common:type_name -> Common
-	105, // 90: WebcastLinkMicArmies.battleItems:type_name -> LinkMicArmiesItems
-	106, // 91: WebcastLinkMicArmies.battleStatus:type_name -> LinkMicBattleStatus
-	88,  // 92: WebcastLinkMicArmies.Image:type_name -> Image
-	84,  // 93: WebcastLinkMicBattlePunishFinish.Header:type_name -> Common
-	63,  // 94: WebcastLinkMicBattlePunishFinish.Data6:type_name -> WebcastLinkMicBattlePunishFinish.LinkMicBattlePunishFinishData
-	84,  // 95: WebcastLinkmicBattleTaskMessage.Header:type_name -> Common
-	64,  // 96: WebcastLinkmicBattleTaskMessage.Data3:type_name -> WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData
-	66,  // 97: WebcastLinkmicBattleTaskMessage.Data5:type_name -> WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData2
-	84,  // 98: WebcastLinkMicBattle.common:type_name -> Common
-	68,  // 99: WebcastLinkMicBattle.battleConfig:type_name -> WebcastLinkMicBattle.LinkMicBattleConfig
-	106, // 100: WebcastLinkMicBattle.battleStatus:type_name -> LinkMicBattleStatus
-	71,  // 101: WebcastLinkMicBattle.details:type_name -> WebcastLinkMicBattle.LinkMicBattleDetails
-	72,  // 102: WebcastLinkMicBattle.viewerTeam:type_name -> WebcastLinkMicBattle.LinkMicBattleTopViewers
-	73,  // 103: WebcastLinkMicBattle.hostTeam:type_name -> WebcastLinkMicBattle.LinkMicBattleHost
-	69,  // 104: WebcastLinkMicBattle.teamData:type_name -> WebcastLinkMicBattle.LinkMicBattleTeamData
-	67,  // 105: WebcastLinkMicBattle.hostData2v2:type_name -> WebcastLinkMicBattle.Host2v2Data
-	84,  // 106: WebcastLinkMicFanTicketMethod.common:type_name -> Common
-	107, // 107: WebcastLinkMicFanTicketMethod.FanTicketRoomNotice:type_name -> FanTicketRoomNoticeContent
-	84,  // 108: WebcastLinkMicMethod.common:type_name -> Common
-	101, // 109: WebcastLinkMicMethod.messageType:type_name -> MessageType
-	84,  // 110: WebcastLiveIntroMessage.common:type_name -> Common
-	108, // 111: WebcastLiveIntroMessage.auditStatus:type_name -> AuditStatus
-	85,  // 112: WebcastLiveIntroMessage.host:type_name -> User
-	109, // 113: WebcastLiveIntroMessage.badges:type_name -> BadgeStruct
-	84,  // 114: WebcastUnauthorizedMemberMessage.common:type_name -> Common
-	89,  // 115: WebcastUnauthorizedMemberMessage.nickNamePrefix:type_name -> Text
-	89,  // 116: WebcastUnauthorizedMemberMessage.enterText:type_name -> Text
-	84,  // 117: WebcastMsgDetectMessage.common:type_name -> Common
-	81,  // 118: WebcastMsgDetectMessage.triggerCondition:type_name -> WebcastMsgDetectMessage.TriggerCondition
-	80,  // 119: WebcastMsgDetectMessage.timeInfo:type_name -> WebcastMsgDetectMessage.TimeInfo
-	84,  // 120: WebcastOecLiveShoppingMessage.common:type_name -> Common
-	82,  // 121: WebcastOecLiveShoppingMessage.shopData:type_name -> WebcastOecLiveShoppingMessage.LiveShoppingData
-	110, // 122: WebcastOecLiveShoppingMessage.shopTimings:type_name -> TimeStampContainer
-	83,  // 123: WebcastOecLiveShoppingMessage.details:type_name -> WebcastOecLiveShoppingMessage.LiveShoppingDetails
-	84,  // 124: WebcastRoomPinMessage.common:type_name -> Common
-	84,  // 125: WebcastSystemMessage.common:type_name -> Common
-	84,  // 126: WebcastLinkMessage.common:type_name -> Common
-	111, // 127: WebcastLinkMessage.MessageType:type_name -> LinkMessageType
-	112, // 128: WebcastLinkMessage.Scene:type_name -> Scene
-	113, // 129: WebcastLinkMessage.InviteContent:type_name -> LinkerInviteContent
-	114, // 130: WebcastLinkMessage.ReplyContent:type_name -> LinkerReplyContent
-	115, // 131: WebcastLinkMessage.CreateContent:type_name -> LinkerCreateContent
-	116, // 132: WebcastLinkMessage.CloseContent:type_name -> LinkerCloseContent
-	117, // 133: WebcastLinkMessage.EnterContent:type_name -> LinkerEnterContent
-	118, // 134: WebcastLinkMessage.LeaveContent:type_name -> LinkerLeaveContent
-	119, // 135: WebcastLinkMessage.CancelContent:type_name -> LinkerCancelContent
-	120, // 136: WebcastLinkMessage.KickOutContent:type_name -> LinkerKickOutContent
-	121, // 137: WebcastLinkMessage.LinkedListChangeContent:type_name -> LinkerLinkedListChangeContent
-	122, // 138: WebcastLinkMessage.UpdateUserContent:type_name -> LinkerUpdateUserContent
-	123, // 139: WebcastLinkMessage.WaitingListChangeContent:type_name -> LinkerWaitingListChangeContent
-	124, // 140: WebcastLinkMessage.MuteContent:type_name -> LinkerMuteContent
-	125, // 141: WebcastLinkMessage.RandomMatchContent:type_name -> LinkerRandomMatchContent
-	126, // 142: WebcastLinkMessage.UpdateUserSettingContent:type_name -> LinkerUpdateUserSettingContent
-	127, // 143: WebcastLinkMessage.MicIdxUpdateContent:type_name -> LinkerMicIdxUpdateContent
-	128, // 144: WebcastLinkMessage.ListChangeContent:type_name -> LinkerListChangeContent
-	129, // 145: WebcastLinkMessage.CohostListChangeContent:type_name -> CohostListChangeContent
-	130, // 146: WebcastLinkMessage.MediaChangeContent:type_name -> LinkerMediaChangeContent
-	131, // 147: WebcastLinkMessage.AcceptNoticeContent:type_name -> LinkerAcceptNoticeContent
-	132, // 148: WebcastLinkMessage.SysKickOutContent:type_name -> LinkerSysKickOutContent
-	133, // 149: WebcastLinkMessage.UserToastContent:type_name -> LinkmicUserToastContent
-	84,  // 150: WebcastLinkLayerMessage.common:type_name -> Common
-	101, // 151: WebcastLinkLayerMessage.messageType:type_name -> MessageType
-	112, // 152: WebcastLinkLayerMessage.scene:type_name -> Scene
-	134, // 153: WebcastLinkLayerMessage.createChannelContent:type_name -> CreateChannelContent
-	135, // 154: WebcastLinkLayerMessage.listChangeContent:type_name -> ListChangeContent
-	136, // 155: WebcastLinkLayerMessage.inviteContent:type_name -> InviteContent
-	137, // 156: WebcastLinkLayerMessage.applyContent:type_name -> ApplyContent
-	138, // 157: WebcastLinkLayerMessage.permitApplyContent:type_name -> PermitApplyContent
-	139, // 158: WebcastLinkLayerMessage.replyInviteContent:type_name -> ReplyInviteContent
-	140, // 159: WebcastLinkLayerMessage.kickOutContent:type_name -> KickOutContent
-	141, // 160: WebcastLinkLayerMessage.cancelApplyContent:type_name -> CancelApplyContent
-	142, // 161: WebcastLinkLayerMessage.cancelInviteContent:type_name -> CancelInviteContent
-	143, // 162: WebcastLinkLayerMessage.leaveContent:type_name -> LeaveContent
-	144, // 163: WebcastLinkLayerMessage.finishContent:type_name -> FinishChannelContent
-	145, // 164: WebcastLinkLayerMessage.joinDirectContent:type_name -> JoinDirectContent
-	146, // 165: WebcastLinkLayerMessage.joinGroupContent:type_name -> JoinGroupContent
-	147, // 166: WebcastLinkLayerMessage.permitGroupContent:type_name -> PermitJoinGroupContent
-	148, // 167: WebcastLinkLayerMessage.cancelGroupContent:type_name -> CancelJoinGroupContent
-	149, // 168: WebcastLinkLayerMessage.leaveGroupContent:type_name -> LeaveJoinGroupContent
-	150, // 169: WebcastLinkLayerMessage.p2pGroupChangeContent:type_name -> P2PGroupChangeContent
-	151, // 170: WebcastLinkLayerMessage.businessContent:type_name -> BusinessContent
-	84,  // 171: RoomVerifyMessage.common:type_name -> Common
-	88,  // 172: WebcastGiftMessage.PublicAreaCommon.userLabel:type_name -> Image
-	85,  // 173: WebcastBarrageMessage.BarrageTypeUserGradeParam.user:type_name -> User
-	85,  // 174: WebcastBarrageMessage.BarrageTypeFansLevelParam.user:type_name -> User
-	92,  // 175: WebcastChatMessage.EmoteWithIndex.emote:type_name -> Emote
-	89,  // 176: WebcastControlMessage.Extra.title:type_name -> Text
-	89,  // 177: WebcastControlMessage.Extra.violationReason:type_name -> Text
-	89,  // 178: WebcastControlMessage.Extra.content:type_name -> Text
-	89,  // 179: WebcastControlMessage.Extra.gotItButton:type_name -> Text
-	89,  // 180: WebcastControlMessage.Extra.banDetailButton:type_name -> Text
-	152, // 181: WebcastEnvelopeMessage.EnvelopeInfo.businessType:type_name -> EnvelopeBusinessType
-	88,  // 182: WebcastEnvelopeMessage.EnvelopeInfo.sendUserAvatar:type_name -> Image
-	153, // 183: WebcastEnvelopeMessage.EnvelopeInfo.followShowStatus:type_name -> EnvelopeFollowShowStatus
-	85,  // 184: WebcastRoomUserSeqMessage.Contributor.user:type_name -> User
-	89,  // 185: WebcastRankUpdateMessage.RankTabInfo.titleText:type_name -> Text
-	89,  // 186: WebcastRankUpdateMessage.RankUpdate.defaultContent:type_name -> Text
-	88,  // 187: WebcastMemberMessage.EffectConfig.icon:type_name -> Image
-	89,  // 188: WebcastMemberMessage.EffectConfig.text:type_name -> Text
-	88,  // 189: WebcastMemberMessage.EffectConfig.textIcon:type_name -> Image
-	88,  // 190: WebcastMemberMessage.EffectConfig.badge:type_name -> Image
-	85,  // 191: WebcastQuestionNewMessage.QuestionDetails.user:type_name -> User
-	61,  // 192: WebcastHourlyRankMessage.RankContainer.rankingdata:type_name -> WebcastHourlyRankMessage.RankContainer.RankingData
-	154, // 193: WebcastHourlyRankMessage.RankContainer.rankings:type_name -> Ranking
-	62,  // 194: WebcastHourlyRankMessage.RankContainer.rankingdata2:type_name -> WebcastHourlyRankMessage.RankContainer.RankingData2
-	154, // 195: WebcastHourlyRankMessage.RankContainer.RankingData.rankdata:type_name -> Ranking
-	154, // 196: WebcastHourlyRankMessage.RankContainer.RankingData2.rankdata:type_name -> Ranking
-	65,  // 197: WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData.Data1:type_name -> WebcastLinkmicBattleTaskMessage.BattleTaskData
-	74,  // 198: WebcastLinkMicBattle.Host2v2Data.hostdata:type_name -> WebcastLinkMicBattle.Host2v2Data.HostData
-	70,  // 199: WebcastLinkMicBattle.LinkMicBattleTeamData.data:type_name -> WebcastLinkMicBattle.LinkMicBattleData
-	75,  // 200: WebcastLinkMicBattle.LinkMicBattleDetails.summary:type_name -> WebcastLinkMicBattle.LinkMicBattleDetails.LinkMicBattleDetailsSummary
-	76,  // 201: WebcastLinkMicBattle.LinkMicBattleTopViewers.viewerGroup:type_name -> WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup
-	78,  // 202: WebcastLinkMicBattle.LinkMicBattleHost.hostGroup:type_name -> WebcastLinkMicBattle.LinkMicBattleHost.HostGroup
-	77,  // 203: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.viewer:type_name -> WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.TopViewer
-	88,  // 204: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.TopViewer.images:type_name -> Image
-	79,  // 205: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.host:type_name -> WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.Host
-	88,  // 206: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.Host.images:type_name -> Image
-	155, // 207: WebcastOecLiveShoppingMessage.LiveShoppingDetails.data:type_name -> ValueLabel
-	208, // [208:208] is the sub-list for method output_type
-	208, // [208:208] is the sub-list for method input_type
-	208, // [208:208] is the sub-list for extension type_name
-	208, // [208:208] is the sub-list for extension extendee
-	0,   // [0:208] is the sub-list for field type_name
+	89,  // 15: WebcastBarrageMessage.icon:type_name -> Image
+	90,  // 16: WebcastBarrageMessage.content:type_name -> Text
+	89,  // 17: WebcastBarrageMessage.background:type_name -> Image
+	89,  // 18: WebcastBarrageMessage.rightIcon:type_name -> Image
+	47,  // 19: WebcastBarrageMessage.userGradeParam:type_name -> WebcastBarrageMessage.BarrageTypeUserGradeParam
+	48,  // 20: WebcastBarrageMessage.fansLevelParam:type_name -> WebcastBarrageMessage.BarrageTypeFansLevelParam
+	49,  // 21: WebcastBarrageMessage.subscribeGiftParam:type_name -> WebcastBarrageMessage.BarrageTypeSubscribeGiftParam
+	85,  // 22: WebcastCaptionMessage.common:type_name -> Common
+	51,  // 23: WebcastCaptionMessage.captionData:type_name -> WebcastCaptionMessage.CaptionData
+	85,  // 24: WebcastChatMessage.common:type_name -> Common
+	86,  // 25: WebcastChatMessage.user:type_name -> User
+	89,  // 26: WebcastChatMessage.backgroundImage:type_name -> Image
+	89,  // 27: WebcastChatMessage.backgroundImageV2:type_name -> Image
+	89,  // 28: WebcastChatMessage.giftImage:type_name -> Image
+	86,  // 29: WebcastChatMessage.atUser:type_name -> User
+	53,  // 30: WebcastChatMessage.emotesList:type_name -> WebcastChatMessage.EmoteWithIndex
+	88,  // 31: WebcastChatMessage.UserIdentity:type_name -> UserIdentity
+	52,  // 32: WebcastChatMessage.CommentQualityScores:type_name -> WebcastChatMessage.CommentQualityScoresEntry
+	85,  // 33: WebcastControlMessage.common:type_name -> Common
+	91,  // 34: WebcastControlMessage.action:type_name -> ControlAction
+	54,  // 35: WebcastControlMessage.extra:type_name -> WebcastControlMessage.Extra
+	90,  // 36: WebcastControlMessage.perceptionAudienceText:type_name -> Text
+	92,  // 37: WebcastControlMessage.punishInfo:type_name -> PunishEventInfo
+	90,  // 38: WebcastControlMessage.floatText:type_name -> Text
+	85,  // 39: WebcastEmoteChatMessage.common:type_name -> Common
+	86,  // 40: WebcastEmoteChatMessage.user:type_name -> User
+	93,  // 41: WebcastEmoteChatMessage.emoteList:type_name -> Emote
+	94,  // 42: WebcastEmoteChatMessage.msgFilter:type_name -> MsgFilter
+	88,  // 43: WebcastEmoteChatMessage.userIdentity:type_name -> UserIdentity
+	85,  // 44: WebcastEnvelopeMessage.common:type_name -> Common
+	55,  // 45: WebcastEnvelopeMessage.envelopeInfo:type_name -> WebcastEnvelopeMessage.EnvelopeInfo
+	95,  // 46: WebcastEnvelopeMessage.display:type_name -> EnvelopeDisplay
+	85,  // 47: WebcastGoalUpdateMessage.common:type_name -> Common
+	96,  // 48: WebcastGoalUpdateMessage.indicator:type_name -> Indicator
+	97,  // 49: WebcastGoalUpdateMessage.goal:type_name -> Goal
+	89,  // 50: WebcastGoalUpdateMessage.contributorAvatar:type_name -> Image
+	85,  // 51: WebcastImDeleteMessage.common:type_name -> Common
+	85,  // 52: WebcastInRoomBannerMessage.header:type_name -> Common
+	85,  // 53: WebcastLikeMessage.common:type_name -> Common
+	86,  // 54: WebcastLikeMessage.user:type_name -> User
+	85,  // 55: WebcastRoomUserSeqMessage.common:type_name -> Common
+	56,  // 56: WebcastRoomUserSeqMessage.ranksList:type_name -> WebcastRoomUserSeqMessage.Contributor
+	56,  // 57: WebcastRoomUserSeqMessage.seatsList:type_name -> WebcastRoomUserSeqMessage.Contributor
+	85,  // 58: WebcastSocialMessage.common:type_name -> Common
+	86,  // 59: WebcastSocialMessage.user:type_name -> User
+	85,  // 60: WebcastSubNotifyMessage.common:type_name -> Common
+	86,  // 61: WebcastSubNotifyMessage.user:type_name -> User
+	98,  // 62: WebcastSubNotifyMessage.subscribeType:type_name -> SubscribeType
+	99,  // 63: WebcastSubNotifyMessage.oldSubscribeStatus:type_name -> OldSubscribeStatus
+	100, // 64: WebcastSubNotifyMessage.subscribingStatus:type_name -> SubscribingStatus
+	85,  // 65: WebcastRankUpdateMessage.common:type_name -> Common
+	58,  // 66: WebcastRankUpdateMessage.updatesList:type_name -> WebcastRankUpdateMessage.RankUpdate
+	57,  // 67: WebcastRankUpdateMessage.tabsList:type_name -> WebcastRankUpdateMessage.RankTabInfo
+	85,  // 68: WebcastMemberMessage.common:type_name -> Common
+	86,  // 69: WebcastMemberMessage.user:type_name -> User
+	86,  // 70: WebcastMemberMessage.operator:type_name -> User
+	101, // 71: WebcastMemberMessage.action:type_name -> MemberMessageAction
+	59,  // 72: WebcastMemberMessage.effectConfig:type_name -> WebcastMemberMessage.EffectConfig
+	59,  // 73: WebcastMemberMessage.enterEffectConfig:type_name -> WebcastMemberMessage.EffectConfig
+	89,  // 74: WebcastMemberMessage.backgroundImage:type_name -> Image
+	89,  // 75: WebcastMemberMessage.backgroundImageV2:type_name -> Image
+	90,  // 76: WebcastMemberMessage.anchorDisplayText:type_name -> Text
+	85,  // 77: WebcastPollMessage.common:type_name -> Common
+	102, // 78: WebcastPollMessage.messageType:type_name -> MessageType
+	103, // 79: WebcastPollMessage.startContent:type_name -> PollStartContent
+	104, // 80: WebcastPollMessage.endContent:type_name -> PollEndContent
+	105, // 81: WebcastPollMessage.updateContent:type_name -> PollUpdateVotesContent
+	85,  // 82: WebcastQuestionNewMessage.common:type_name -> Common
+	60,  // 83: WebcastQuestionNewMessage.details:type_name -> WebcastQuestionNewMessage.QuestionDetails
+	85,  // 84: WebcastRankTextMessage.common:type_name -> Common
+	90,  // 85: WebcastRankTextMessage.selfGetBadgeMsg:type_name -> Text
+	90,  // 86: WebcastRankTextMessage.otherGetBadgeMsg:type_name -> Text
+	85,  // 87: WebcastHourlyRankMessage.common:type_name -> Common
+	61,  // 88: WebcastHourlyRankMessage.data:type_name -> WebcastHourlyRankMessage.RankContainer
+	85,  // 89: WebcastLinkMicArmies.common:type_name -> Common
+	106, // 90: WebcastLinkMicArmies.battleItems:type_name -> LinkMicArmiesItems
+	107, // 91: WebcastLinkMicArmies.battleStatus:type_name -> LinkMicBattleStatus
+	89,  // 92: WebcastLinkMicArmies.Image:type_name -> Image
+	85,  // 93: WebcastLinkMicBattlePunishFinish.Header:type_name -> Common
+	64,  // 94: WebcastLinkMicBattlePunishFinish.Data6:type_name -> WebcastLinkMicBattlePunishFinish.LinkMicBattlePunishFinishData
+	85,  // 95: WebcastLinkmicBattleTaskMessage.Header:type_name -> Common
+	65,  // 96: WebcastLinkmicBattleTaskMessage.Data3:type_name -> WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData
+	67,  // 97: WebcastLinkmicBattleTaskMessage.Data5:type_name -> WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData2
+	85,  // 98: WebcastLinkMicBattle.common:type_name -> Common
+	69,  // 99: WebcastLinkMicBattle.battleConfig:type_name -> WebcastLinkMicBattle.LinkMicBattleConfig
+	107, // 100: WebcastLinkMicBattle.battleStatus:type_name -> LinkMicBattleStatus
+	72,  // 101: WebcastLinkMicBattle.details:type_name -> WebcastLinkMicBattle.LinkMicBattleDetails
+	73,  // 102: WebcastLinkMicBattle.viewerTeam:type_name -> WebcastLinkMicBattle.LinkMicBattleTopViewers
+	74,  // 103: WebcastLinkMicBattle.hostTeam:type_name -> WebcastLinkMicBattle.LinkMicBattleHost
+	70,  // 104: WebcastLinkMicBattle.teamData:type_name -> WebcastLinkMicBattle.LinkMicBattleTeamData
+	68,  // 105: WebcastLinkMicBattle.hostData2v2:type_name -> WebcastLinkMicBattle.Host2v2Data
+	85,  // 106: WebcastLinkMicFanTicketMethod.common:type_name -> Common
+	108, // 107: WebcastLinkMicFanTicketMethod.FanTicketRoomNotice:type_name -> FanTicketRoomNoticeContent
+	85,  // 108: WebcastLinkMicMethod.common:type_name -> Common
+	102, // 109: WebcastLinkMicMethod.messageType:type_name -> MessageType
+	85,  // 110: WebcastLiveIntroMessage.common:type_name -> Common
+	109, // 111: WebcastLiveIntroMessage.auditStatus:type_name -> AuditStatus
+	86,  // 112: WebcastLiveIntroMessage.host:type_name -> User
+	110, // 113: WebcastLiveIntroMessage.badges:type_name -> BadgeStruct
+	85,  // 114: WebcastUnauthorizedMemberMessage.common:type_name -> Common
+	90,  // 115: WebcastUnauthorizedMemberMessage.nickNamePrefix:type_name -> Text
+	90,  // 116: WebcastUnauthorizedMemberMessage.enterText:type_name -> Text
+	85,  // 117: WebcastMsgDetectMessage.common:type_name -> Common
+	82,  // 118: WebcastMsgDetectMessage.triggerCondition:type_name -> WebcastMsgDetectMessage.TriggerCondition
+	81,  // 119: WebcastMsgDetectMessage.timeInfo:type_name -> WebcastMsgDetectMessage.TimeInfo
+	85,  // 120: WebcastOecLiveShoppingMessage.common:type_name -> Common
+	83,  // 121: WebcastOecLiveShoppingMessage.shopData:type_name -> WebcastOecLiveShoppingMessage.LiveShoppingData
+	111, // 122: WebcastOecLiveShoppingMessage.shopTimings:type_name -> TimeStampContainer
+	84,  // 123: WebcastOecLiveShoppingMessage.details:type_name -> WebcastOecLiveShoppingMessage.LiveShoppingDetails
+	85,  // 124: WebcastRoomPinMessage.common:type_name -> Common
+	85,  // 125: WebcastLiveGameIntroMessage.common:type_name -> Common
+	90,  // 126: WebcastLiveGameIntroMessage.gameText:type_name -> Text
+	85,  // 127: WebcastSystemMessage.common:type_name -> Common
+	85,  // 128: WebcastLinkMessage.common:type_name -> Common
+	112, // 129: WebcastLinkMessage.MessageType:type_name -> LinkMessageType
+	113, // 130: WebcastLinkMessage.Scene:type_name -> Scene
+	114, // 131: WebcastLinkMessage.InviteContent:type_name -> LinkerInviteContent
+	115, // 132: WebcastLinkMessage.ReplyContent:type_name -> LinkerReplyContent
+	116, // 133: WebcastLinkMessage.CreateContent:type_name -> LinkerCreateContent
+	117, // 134: WebcastLinkMessage.CloseContent:type_name -> LinkerCloseContent
+	118, // 135: WebcastLinkMessage.EnterContent:type_name -> LinkerEnterContent
+	119, // 136: WebcastLinkMessage.LeaveContent:type_name -> LinkerLeaveContent
+	120, // 137: WebcastLinkMessage.CancelContent:type_name -> LinkerCancelContent
+	121, // 138: WebcastLinkMessage.KickOutContent:type_name -> LinkerKickOutContent
+	122, // 139: WebcastLinkMessage.LinkedListChangeContent:type_name -> LinkerLinkedListChangeContent
+	123, // 140: WebcastLinkMessage.UpdateUserContent:type_name -> LinkerUpdateUserContent
+	124, // 141: WebcastLinkMessage.WaitingListChangeContent:type_name -> LinkerWaitingListChangeContent
+	125, // 142: WebcastLinkMessage.MuteContent:type_name -> LinkerMuteContent
+	126, // 143: WebcastLinkMessage.RandomMatchContent:type_name -> LinkerRandomMatchContent
+	127, // 144: WebcastLinkMessage.UpdateUserSettingContent:type_name -> LinkerUpdateUserSettingContent
+	128, // 145: WebcastLinkMessage.MicIdxUpdateContent:type_name -> LinkerMicIdxUpdateContent
+	129, // 146: WebcastLinkMessage.ListChangeContent:type_name -> LinkerListChangeContent
+	130, // 147: WebcastLinkMessage.CohostListChangeContent:type_name -> CohostListChangeContent
+	131, // 148: WebcastLinkMessage.MediaChangeContent:type_name -> LinkerMediaChangeContent
+	132, // 149: WebcastLinkMessage.AcceptNoticeContent:type_name -> LinkerAcceptNoticeContent
+	133, // 150: WebcastLinkMessage.SysKickOutContent:type_name -> LinkerSysKickOutContent
+	134, // 151: WebcastLinkMessage.UserToastContent:type_name -> LinkmicUserToastContent
+	85,  // 152: WebcastLinkLayerMessage.common:type_name -> Common
+	102, // 153: WebcastLinkLayerMessage.messageType:type_name -> MessageType
+	113, // 154: WebcastLinkLayerMessage.scene:type_name -> Scene
+	135, // 155: WebcastLinkLayerMessage.createChannelContent:type_name -> CreateChannelContent
+	136, // 156: WebcastLinkLayerMessage.listChangeContent:type_name -> ListChangeContent
+	137, // 157: WebcastLinkLayerMessage.inviteContent:type_name -> InviteContent
+	138, // 158: WebcastLinkLayerMessage.applyContent:type_name -> ApplyContent
+	139, // 159: WebcastLinkLayerMessage.permitApplyContent:type_name -> PermitApplyContent
+	140, // 160: WebcastLinkLayerMessage.replyInviteContent:type_name -> ReplyInviteContent
+	141, // 161: WebcastLinkLayerMessage.kickOutContent:type_name -> KickOutContent
+	142, // 162: WebcastLinkLayerMessage.cancelApplyContent:type_name -> CancelApplyContent
+	143, // 163: WebcastLinkLayerMessage.cancelInviteContent:type_name -> CancelInviteContent
+	144, // 164: WebcastLinkLayerMessage.leaveContent:type_name -> LeaveContent
+	145, // 165: WebcastLinkLayerMessage.finishContent:type_name -> FinishChannelContent
+	146, // 166: WebcastLinkLayerMessage.joinDirectContent:type_name -> JoinDirectContent
+	147, // 167: WebcastLinkLayerMessage.joinGroupContent:type_name -> JoinGroupContent
+	148, // 168: WebcastLinkLayerMessage.permitGroupContent:type_name -> PermitJoinGroupContent
+	149, // 169: WebcastLinkLayerMessage.cancelGroupContent:type_name -> CancelJoinGroupContent
+	150, // 170: WebcastLinkLayerMessage.leaveGroupContent:type_name -> LeaveJoinGroupContent
+	151, // 171: WebcastLinkLayerMessage.p2pGroupChangeContent:type_name -> P2PGroupChangeContent
+	152, // 172: WebcastLinkLayerMessage.businessContent:type_name -> BusinessContent
+	85,  // 173: RoomVerifyMessage.common:type_name -> Common
+	89,  // 174: WebcastGiftMessage.PublicAreaCommon.userLabel:type_name -> Image
+	86,  // 175: WebcastBarrageMessage.BarrageTypeUserGradeParam.user:type_name -> User
+	86,  // 176: WebcastBarrageMessage.BarrageTypeFansLevelParam.user:type_name -> User
+	93,  // 177: WebcastChatMessage.EmoteWithIndex.emote:type_name -> Emote
+	90,  // 178: WebcastControlMessage.Extra.title:type_name -> Text
+	90,  // 179: WebcastControlMessage.Extra.violationReason:type_name -> Text
+	90,  // 180: WebcastControlMessage.Extra.content:type_name -> Text
+	90,  // 181: WebcastControlMessage.Extra.gotItButton:type_name -> Text
+	90,  // 182: WebcastControlMessage.Extra.banDetailButton:type_name -> Text
+	153, // 183: WebcastEnvelopeMessage.EnvelopeInfo.businessType:type_name -> EnvelopeBusinessType
+	89,  // 184: WebcastEnvelopeMessage.EnvelopeInfo.sendUserAvatar:type_name -> Image
+	154, // 185: WebcastEnvelopeMessage.EnvelopeInfo.followShowStatus:type_name -> EnvelopeFollowShowStatus
+	86,  // 186: WebcastRoomUserSeqMessage.Contributor.user:type_name -> User
+	90,  // 187: WebcastRankUpdateMessage.RankTabInfo.titleText:type_name -> Text
+	90,  // 188: WebcastRankUpdateMessage.RankUpdate.defaultContent:type_name -> Text
+	89,  // 189: WebcastMemberMessage.EffectConfig.icon:type_name -> Image
+	90,  // 190: WebcastMemberMessage.EffectConfig.text:type_name -> Text
+	89,  // 191: WebcastMemberMessage.EffectConfig.textIcon:type_name -> Image
+	89,  // 192: WebcastMemberMessage.EffectConfig.badge:type_name -> Image
+	86,  // 193: WebcastQuestionNewMessage.QuestionDetails.user:type_name -> User
+	62,  // 194: WebcastHourlyRankMessage.RankContainer.rankingdata:type_name -> WebcastHourlyRankMessage.RankContainer.RankingData
+	155, // 195: WebcastHourlyRankMessage.RankContainer.rankings:type_name -> Ranking
+	63,  // 196: WebcastHourlyRankMessage.RankContainer.rankingdata2:type_name -> WebcastHourlyRankMessage.RankContainer.RankingData2
+	155, // 197: WebcastHourlyRankMessage.RankContainer.RankingData.rankdata:type_name -> Ranking
+	155, // 198: WebcastHourlyRankMessage.RankContainer.RankingData2.rankdata:type_name -> Ranking
+	66,  // 199: WebcastLinkmicBattleTaskMessage.LinkmicBattleTaskData.Data1:type_name -> WebcastLinkmicBattleTaskMessage.BattleTaskData
+	75,  // 200: WebcastLinkMicBattle.Host2v2Data.hostdata:type_name -> WebcastLinkMicBattle.Host2v2Data.HostData
+	71,  // 201: WebcastLinkMicBattle.LinkMicBattleTeamData.data:type_name -> WebcastLinkMicBattle.LinkMicBattleData
+	76,  // 202: WebcastLinkMicBattle.LinkMicBattleDetails.summary:type_name -> WebcastLinkMicBattle.LinkMicBattleDetails.LinkMicBattleDetailsSummary
+	77,  // 203: WebcastLinkMicBattle.LinkMicBattleTopViewers.viewerGroup:type_name -> WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup
+	79,  // 204: WebcastLinkMicBattle.LinkMicBattleHost.hostGroup:type_name -> WebcastLinkMicBattle.LinkMicBattleHost.HostGroup
+	78,  // 205: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.viewer:type_name -> WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.TopViewer
+	89,  // 206: WebcastLinkMicBattle.LinkMicBattleTopViewers.TopViewerGroup.TopViewer.images:type_name -> Image
+	80,  // 207: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.host:type_name -> WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.Host
+	89,  // 208: WebcastLinkMicBattle.LinkMicBattleHost.HostGroup.Host.images:type_name -> Image
+	156, // 209: WebcastOecLiveShoppingMessage.LiveShoppingDetails.data:type_name -> ValueLabel
+	210, // [210:210] is the sub-list for method output_type
+	210, // [210:210] is the sub-list for method input_type
+	210, // [210:210] is the sub-list for extension type_name
+	210, // [210:210] is the sub-list for extension extendee
+	0,   // [0:210] is the sub-list for field type_name
 }
 
 func init() { file_webcast_proto_init() }
@@ -9465,7 +9532,7 @@ func file_webcast_proto_init() {
 			}
 		}
 		file_webcast_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WebcastSystemMessage); i {
+			switch v := v.(*WebcastLiveGameIntroMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9477,7 +9544,7 @@ func file_webcast_proto_init() {
 			}
 		}
 		file_webcast_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WebcastLinkMessage); i {
+			switch v := v.(*WebcastSystemMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9489,7 +9556,7 @@ func file_webcast_proto_init() {
 			}
 		}
 		file_webcast_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WebcastLinkLayerMessage); i {
+			switch v := v.(*WebcastLinkMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9501,6 +9568,18 @@ func file_webcast_proto_init() {
 			}
 		}
 		file_webcast_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WebcastLinkLayerMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_webcast_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RoomVerifyMessage); i {
 			case 0:
 				return &v.state
@@ -9512,7 +9591,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastResponse_Message); i {
 			case 0:
 				return &v.state
@@ -9524,7 +9603,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastGiftMessage_UserGiftReciever); i {
 			case 0:
 				return &v.state
@@ -9536,7 +9615,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastGiftMessage_GiftIMPriority); i {
 			case 0:
 				return &v.state
@@ -9548,7 +9627,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastGiftMessage_PublicAreaCommon); i {
 			case 0:
 				return &v.state
@@ -9560,7 +9639,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastBarrageMessage_BarrageTypeUserGradeParam); i {
 			case 0:
 				return &v.state
@@ -9572,7 +9651,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastBarrageMessage_BarrageTypeFansLevelParam); i {
 			case 0:
 				return &v.state
@@ -9584,7 +9663,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastBarrageMessage_BarrageTypeSubscribeGiftParam); i {
 			case 0:
 				return &v.state
@@ -9596,7 +9675,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastBarrageMessage_BarrageEvent); i {
 			case 0:
 				return &v.state
@@ -9608,7 +9687,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastCaptionMessage_CaptionData); i {
 			case 0:
 				return &v.state
@@ -9620,7 +9699,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastChatMessage_EmoteWithIndex); i {
 			case 0:
 				return &v.state
@@ -9632,7 +9711,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[52].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[53].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastControlMessage_Extra); i {
 			case 0:
 				return &v.state
@@ -9644,7 +9723,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[53].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[54].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastEnvelopeMessage_EnvelopeInfo); i {
 			case 0:
 				return &v.state
@@ -9656,7 +9735,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[54].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[55].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastRoomUserSeqMessage_Contributor); i {
 			case 0:
 				return &v.state
@@ -9668,7 +9747,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[55].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[56].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastRankUpdateMessage_RankTabInfo); i {
 			case 0:
 				return &v.state
@@ -9680,7 +9759,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[56].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[57].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastRankUpdateMessage_RankUpdate); i {
 			case 0:
 				return &v.state
@@ -9692,7 +9771,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[57].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[58].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastMemberMessage_EffectConfig); i {
 			case 0:
 				return &v.state
@@ -9704,7 +9783,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[58].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[59].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastQuestionNewMessage_QuestionDetails); i {
 			case 0:
 				return &v.state
@@ -9716,7 +9795,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[59].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[60].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastHourlyRankMessage_RankContainer); i {
 			case 0:
 				return &v.state
@@ -9728,7 +9807,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[60].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[61].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastHourlyRankMessage_RankContainer_RankingData); i {
 			case 0:
 				return &v.state
@@ -9740,7 +9819,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[61].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[62].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastHourlyRankMessage_RankContainer_RankingData2); i {
 			case 0:
 				return &v.state
@@ -9752,7 +9831,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[62].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[63].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattlePunishFinish_LinkMicBattlePunishFinishData); i {
 			case 0:
 				return &v.state
@@ -9764,7 +9843,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[63].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[64].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData); i {
 			case 0:
 				return &v.state
@@ -9776,7 +9855,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[64].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[65].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkmicBattleTaskMessage_BattleTaskData); i {
 			case 0:
 				return &v.state
@@ -9788,7 +9867,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[65].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[66].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkmicBattleTaskMessage_LinkmicBattleTaskData2); i {
 			case 0:
 				return &v.state
@@ -9800,7 +9879,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[66].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[67].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_Host2V2Data); i {
 			case 0:
 				return &v.state
@@ -9812,7 +9891,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[67].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[68].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleConfig); i {
 			case 0:
 				return &v.state
@@ -9824,7 +9903,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[68].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[69].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleTeamData); i {
 			case 0:
 				return &v.state
@@ -9836,7 +9915,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[69].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[70].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleData); i {
 			case 0:
 				return &v.state
@@ -9848,7 +9927,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[70].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[71].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleDetails); i {
 			case 0:
 				return &v.state
@@ -9860,7 +9939,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[71].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[72].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleTopViewers); i {
 			case 0:
 				return &v.state
@@ -9872,7 +9951,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[72].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[73].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleHost); i {
 			case 0:
 				return &v.state
@@ -9884,7 +9963,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[73].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[74].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_Host2V2Data_HostData); i {
 			case 0:
 				return &v.state
@@ -9896,7 +9975,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[74].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[75].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleDetails_LinkMicBattleDetailsSummary); i {
 			case 0:
 				return &v.state
@@ -9908,7 +9987,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[75].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[76].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup); i {
 			case 0:
 				return &v.state
@@ -9920,7 +9999,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[76].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[77].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleTopViewers_TopViewerGroup_TopViewer); i {
 			case 0:
 				return &v.state
@@ -9932,7 +10011,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[77].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[78].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup); i {
 			case 0:
 				return &v.state
@@ -9944,7 +10023,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[78].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[79].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastLinkMicBattle_LinkMicBattleHost_HostGroup_Host); i {
 			case 0:
 				return &v.state
@@ -9956,7 +10035,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[79].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[80].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastMsgDetectMessage_TimeInfo); i {
 			case 0:
 				return &v.state
@@ -9968,7 +10047,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[80].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[81].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastMsgDetectMessage_TriggerCondition); i {
 			case 0:
 				return &v.state
@@ -9980,7 +10059,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[81].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[82].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastOecLiveShoppingMessage_LiveShoppingData); i {
 			case 0:
 				return &v.state
@@ -9992,7 +10071,7 @@ func file_webcast_proto_init() {
 				return nil
 			}
 		}
-		file_webcast_proto_msgTypes[82].Exporter = func(v interface{}, i int) interface{} {
+		file_webcast_proto_msgTypes[83].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WebcastOecLiveShoppingMessage_LiveShoppingDetails); i {
 			case 0:
 				return &v.state
@@ -10011,7 +10090,7 @@ func file_webcast_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_webcast_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   83,
+			NumMessages:   84,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

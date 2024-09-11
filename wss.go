@@ -208,11 +208,12 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		}
 
 		for _, rawMsg := range response.Messages {
-			msg, err := parseMsg(rawMsg, l.t.warnHandler)
+			msg, err := parseMsg(rawMsg, l.t.warnHandler, l.t.debugHandler)
 			if err != nil {
 				return fmt.Errorf("Failed to parse response message: %w", err)
 			}
 			if msg != nil {
+				// TODO, let's fix this
 				// If channel is full, discard the first message
 				if len(l.Events) == l.chanSize {
 					<-l.Events
