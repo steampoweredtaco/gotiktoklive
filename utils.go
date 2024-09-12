@@ -43,6 +43,52 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Type:    pt.Common.Method,
 			Message: pt.Content,
 		}, nil
+	case *pb.WebcastRoomPinMessage:
+		{
+			tReflect, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(pt.OriginalMsgType))
+			if err != nil {
+				base := base64.RawStdEncoding.EncodeToString(msg.Payload)
+				debugHandler("cannot find type %s:\n%s ", msg.Method, base)
+				warnHandler(fmt.Sprintf("cannot find proto type: %s", msg.Method))
+				return RoomEvent{
+					Type:    pt.OriginalMsgType,
+					Message: "<unknown>",
+				}, nil
+			}
+			m := tReflect.New().Interface()
+			if err = proto.Unmarshal(msg.Payload, m); err != nil {
+				base := base64.RawStdEncoding.EncodeToString(msg.Payload)
+				err = fmt.Errorf("failed to unmarshal proto %T: %w\n%s", m, err, base)
+				debugHandler(err)
+				warnHandler(fmt.Errorf("failed to unmarshal proto %T: %w", m, err))
+				return RoomEvent{
+					Type:    pt.OriginalMsgType,
+					Message: "<unknown>",
+				}, nil
+			}
+
+			typeStr := pt.OriginalMsgType
+			msg := "<unknown pinned type>"
+			switch pt2 := m.(type) {
+			// Todo make a pin return type
+			case *pb.WebcastChatMessage:
+				return ChatEvent{
+					Comment:   "<pinned>: " + pt2.Content,
+					User:      toUser(pt2.User),
+					Timestamp: pt2.Common.CreateTime,
+				}, nil
+			default:
+				base := base64.RawStdEncoding.EncodeToString(pt.PinnedMessage)
+				err = fmt.Errorf("unimplemented pinned message type %T\n%s", m, base)
+				debugHandler(err)
+				warnHandler(fmt.Sprintf("unimplemented pinned message type %T", m))
+				return nil, nil
+			}
+			return RoomEvent{
+				Type:    typeStr,
+				Message: msg,
+			}, nil
+		}
 	case *pb.WebcastChatMessage:
 		return UserEvent{
 			Event: toUserType(pt.Common.Method),
@@ -78,7 +124,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			return nil, nil
 		}
 
-		out = GiftEvent{
+		return GiftEvent{
 			ID:          int64(pt.GiftId),
 			Name:        pt.Gift.Name,
 			Describe:    pt.Gift.Describe,
@@ -89,7 +135,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			ToUserID:    int64(pt.UserGiftReciever.UserId),
 			Timestamp:   int64(pt.Common.CreateTime),
 			User:        toUser(pt.User),
-		}
+		}, nil
 	case *pb.WebcastLikeMessage:
 		return LikeEvent{
 			Likes:       int(pt.Count),
