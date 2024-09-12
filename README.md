@@ -1,4 +1,27 @@
-[![GoDoc](https://godoc.org/github.com/Davincible/gotiktoklive?status.svg)](https://godoc.org/github.com/Davincible/gotiktoklive) [![Go Report Card](https://goreportcard.com/badge/github.com/Davincible/gotiktoklive)](https://goreportcard.com/report/github.com/Davincible/gotiktoklive)
+[![GoDoc](https://godoc.org/github.com/steampoweredtaco/gotiktoklive?status.svg)](https://godoc.org/github.com/steampoweredtaco/gotiktoklive) [![Go Report Card](https://goreportcard.com/badge/github.com/steampoweredtaco/gotiktoklive)](https://goreportcard.com/report/github.com/steampoweredtaco/gotiktoklive)
+
+# WARNING this fork of [Davincible's GotTikTokLive](https://github.com/Davincible/gotiktoklive) is in an alpha state at the moment
+
+## Current Known working state of implementation
+- [x] Using the new signing server and endpoints and can provide API key and secret
+- [x] working live user and room id tracking
+- [x] updated protobuf version 3 messages and synced with python's types
+- [x] Websocket event system
+
+## Planned updates
+- [ ] Support many of the new event features over the last two years
+   * [ ] Pinned webchat messages, currently in alpha using ChatMessage event type, will move to a new type.
+   * [ ] Intro messages for live stream categories, these currently will be RoomEvents
+     * [x] WebcastLiveGameIntroMessage 
+     * Others TBD.
+     
+## Unknown state:
+- GetUserInfo
+- GetRoomInfo
+- GetPriceList
+- NewFeed
+- Using session_id functionality
+- Polling for events instead of websocket
 
 # GoTikTokLive
 
@@ -21,13 +44,10 @@ Go rewrite of [zerodytrash/TikTok-Livestream-Chat-Connector](https://github.com/
 - [Contributing](#contributing)
 
 ## Getting started
-
 1. Install the package using the Go package manager
-
 ```sh
 go get github.com/Davincible/gotiktoklive
 ```
-
 2. Create your first chat connection
 
 ```go
@@ -385,4 +405,4 @@ tiktok.SetErrorHandler(func(err error) {
 
 ## Contributing
 
-Your improvements are welcome! Feel free to open an <a href="https://github.com/Davincible/gotiktoklive/issues">issue</a> or <a href="https://github.com/Davincible/gotiktoklive/pulls">pull request</a>.
+Your improvements are welcome! Feel free to open an <a href="https://github.com/steampoweredtaco/gotiktoklive/issues">issue</a> or <a href="https://github.com/steampoweredtaco/gotiktoklive/pulls">pull request</a>.
