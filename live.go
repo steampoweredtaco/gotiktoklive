@@ -248,7 +248,7 @@ func (l *Live) getRoomData() error {
 		return fmt.Errorf("X-SetTT-Cookie not parsable: %w", err)
 	}
 
-	for i, _ := range cookies {
+	for i := range cookies {
 		cookies[i].Domain = ".tiktok.com"
 	}
 	u, err := url.Parse("https://tiktok.com")

@@ -56,7 +56,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 				}, nil
 			}
 			m := tReflect.New().Interface()
-			if err = proto.Unmarshal(msg.Payload, m); err != nil {
+			if err = proto.Unmarshal(pt.PinnedMessage, m); err != nil {
 				base := base64.RawStdEncoding.EncodeToString(msg.Payload)
 				err = fmt.Errorf("failed to unmarshal proto %T: %w\n%s", m, err, base)
 				debugHandler(err)
