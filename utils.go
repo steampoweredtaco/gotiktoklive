@@ -90,10 +90,11 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			}, nil
 		}
 	case *pb.WebcastChatMessage:
-		return UserEvent{
-			Event: toUserType(pt.Common.Method),
-			User:  toUser(pt.User),
-		}, nil
+		out = ChatEvent{
+			Comment:   pt.Content,
+			User:      toUser(pt.User),
+			Timestamp: int64(pt.Common.CreateTime),
+		}
 	case *pb.WebcastMemberMessage:
 		return UserEvent{
 			Event: toUserType(pt.Common.Method),
