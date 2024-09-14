@@ -60,8 +60,8 @@ func NewTikTokWithApikey(clientName, apiKey string) *TikTok {
 		warnHandler:  defaultLogHandler,
 		debugHandler: defaultLogHandler,
 		errHandler:   routineErrHandler,
-		clientName:   clientNameDefault,
-		apiKey:       apiKeyDefault,
+		clientName:   clientName,
+		apiKey:       apiKey,
 	}
 
 	envs := []string{"HTTP_PROXY", "HTTPS_PROXY"}
