@@ -273,7 +273,7 @@ func (l *Live) getRoomData() error {
 	}
 
 	for _, msg := range rsp.Messages {
-		parsed, err := parseMsg(msg, t.warnHandler, t.debugHandler)
+		parsed, err := parseMsg(msg, t.warnHandler, t.debugHandler, t.enableExperimentalEvents)
 		if err != nil {
 			return err
 		}

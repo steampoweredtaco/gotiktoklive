@@ -208,7 +208,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		}
 
 		for _, rawMsg := range response.Messages {
-			msg, err := parseMsg(rawMsg, l.t.warnHandler, l.t.debugHandler)
+			msg, err := parseMsg(rawMsg, l.t.warnHandler, l.t.debugHandler, l.t.enableExperimentalEvents)
 			if err != nil {
 				return fmt.Errorf("Failed to parse response message: %w", err)
 			}
