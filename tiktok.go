@@ -34,10 +34,11 @@ type TikTok struct {
 	debugHandler func(...interface{})
 	errHandler   func(...interface{})
 
-	proxy           *neturl.URL
-	apiKey          string
-	clientName      string
-	shouldReconnect bool
+	proxy                    *neturl.URL
+	apiKey                   string
+	clientName               string
+	shouldReconnect          bool
+	enableExperimentalEvents bool
 }
 
 // NewTikTok creates a tiktok instance that allows you to track live streams and

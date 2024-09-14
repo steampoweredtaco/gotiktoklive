@@ -21,7 +21,7 @@ func getRandomDeviceID() string {
 	return string(b)
 }
 
-func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}), debugHandler func(...interface{})) (out interface{}, err error) {
+func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}), debugHandler func(...interface{}), enableExperimentalEvents bool) (out interface{}, err error) {
 	tReflect, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(msg.Method))
 	if err != nil {
 		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
@@ -82,7 +82,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 				err = fmt.Errorf("unimplemented pinned message type %T\n%s", m, base)
 				debugHandler(err)
 				warnHandler(fmt.Sprintf("unimplemented pinned message type %T", m))
-				return nil, nil
+
 			}
 			return RoomEvent{
 				Type:    typeStr,
@@ -97,7 +97,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}, nil
 	case *pb.WebcastMemberMessage:
 		return UserEvent{
-			Event: toUserType(pt.Common.Method),
+			Event: userEventType(pt.Action.String()),
 			User:  toUser(pt.User),
 		}, nil
 	case *pb.WebcastLiveGameIntroMessage:
@@ -116,6 +116,15 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Viewers: int(pt.Total),
 		}, nil
 	case *pb.WebcastSocialMessage:
+		if !enableExperimentalEvents {
+			debugHandler("skipping experimental event WebcastSocialMessage")
+			return nil, nil
+		}
+		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
+		err = fmt.Errorf("WebCastSocialMessage %T\n%s", m, base)
+		debugHandler(err)
+		// TODO: Probably need a new Social event once we figure out what the proto fields mean. Current idea
+		// might be user levels for various social badges.
 		return UserEvent{
 			Event: toUserType(pt.Common.Method),
 			User:  toUser(pt.User),
@@ -296,10 +305,13 @@ func toUser(u *pb.User) *User {
 	if u == nil {
 		return &User{}
 	}
-
+	username := u.IdStr
+	if u.IdStr == "" {
+		username = u.Nickname
+	}
 	user := User{
 		ID:       int64(u.Id),
-		Username: u.IdStr,
+		Username: username,
 		Nickname: u.Nickname,
 	}
 
