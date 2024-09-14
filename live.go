@@ -23,7 +23,6 @@ import (
 )
 
 // TODO: check gift prices of gifts not in wish list
-
 const (
 	POLLING_INTERVAL         = time.Second
 	DEFAULT_EVENTS_CHAN_SIZE = 100
