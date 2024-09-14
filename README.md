@@ -84,7 +84,25 @@ for event := range live.Events {
     }
 }
 ```
+## Options
+Options are used when creating a new TikTokLive instance and are used to modify the default behavior of the system in various ways.
 
+```go
+// DoNotAutoReconnect prevents auto retrying to reconnect to the TikTok webcast backend once after a failure, which is
+// the default behavior.  This is useful for if you have a program trying to monitor and manage the reconnections by
+// monitoring the live Events channel for closure.
+func DoNotAutoReconnect(t *TikTok) {}
+
+// SigningApiKey sets the singer API key.
+func SigningApiKey(apiKey string) TikTokLiveOption {}
+```
+### Example Usage
+```go
+// Create TikTok Instance, do not reconnect when tracking and
+// use an API key for the signer 
+tiktok := gotiktoklive.NewTikTok(DoNotAutoReconnect, SigningApiKey("<secretkey>"))
+
+```
 ## Methods
 
 ```go

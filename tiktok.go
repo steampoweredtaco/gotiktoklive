@@ -34,34 +34,37 @@ type TikTok struct {
 	debugHandler func(...interface{})
 	errHandler   func(...interface{})
 
-	proxy      *neturl.URL
-	apiKey     string
-	clientName string
+	proxy           *neturl.URL
+	apiKey          string
+	clientName      string
+	shouldReconnect bool
 }
 
 // NewTikTok creates a tiktok instance that allows you to track live streams and
 //
 //	discover current livestreams.
-func NewTikTok() *TikTok {
-	return NewTikTokWithApikey(clientNameDefault, apiKeyDefault)
+func NewTikTok(options ...TikTokLiveOption) *TikTok {
+	return NewTikTokWithApiKey(clientNameDefault, apiKeyDefault, options...)
 }
 
-func NewTikTokWithApikey(clientName, apiKey string) *TikTok {
+// NewTikTokWithApiKey allows to use an ApiKey with the default signer.
+func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption) *TikTok {
 	jar, _ := cookiejar.New(nil)
 	wg := sync.WaitGroup{}
 	ctx, cancel := context.WithCancel(context.Background())
 
 	tiktok := TikTok{
-		c:            &http.Client{Jar: jar},
-		wg:           &wg,
-		done:         ctx.Done,
-		mu:           &sync.Mutex{},
-		infoHandler:  defaultLogHandler,
-		warnHandler:  defaultLogHandler,
-		debugHandler: defaultLogHandler,
-		errHandler:   routineErrHandler,
-		clientName:   clientName,
-		apiKey:       apiKey,
+		c:               &http.Client{Jar: jar},
+		wg:              &wg,
+		done:            ctx.Done,
+		mu:              &sync.Mutex{},
+		infoHandler:     defaultLogHandler,
+		warnHandler:     defaultLogHandler,
+		debugHandler:    defaultLogHandler,
+		errHandler:      routineErrHandler,
+		clientName:      clientName,
+		apiKey:          apiKey,
+		shouldReconnect: true,
 	}
 
 	envs := []string{"HTTP_PROXY", "HTTPS_PROXY"}
@@ -70,7 +73,9 @@ func NewTikTokWithApikey(clientName, apiKey string) *TikTok {
 			tiktok.SetProxy(e, false)
 		}
 	}
-
+	for _, option := range options {
+		option(&tiktok)
+	}
 	setupInterruptHandler(
 		func(c chan os.Signal) {
 			<-c
