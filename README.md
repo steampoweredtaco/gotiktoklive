@@ -38,6 +38,7 @@ Go rewrite of [zerodytrash/TikTok-Livestream-Chat-Connector](https://github.com/
 #### Overview
 
 - [Getting started](#getting-started)
+- [Options](#options)
 - [Methods](#methods)
 - [Events](#events)
 - [Examples](#examples)
