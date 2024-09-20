@@ -118,11 +118,9 @@ func (l *Live) readSocket() {
 	for {
 		hdr, err := rd.NextFrame()
 		if err != nil {
-			l.t.warnHandler(fmt.Errorf("Failed to read websocket message, attempting to reconnect: %w", err))
+			l.t.errHandler(fmt.Errorf("failed to read websocket from server: %w", err))
 			l.wss.Close()
-			if !l.t.shouldReconnect || !l.reconnectWebsocket() {
-				return
-			}
+			return
 		}
 
 		// If msg is ping or close
@@ -135,10 +133,8 @@ func (l *Live) readSocket() {
 
 		// Reopen connection if it was closed
 		if hdr.OpCode == ws.OpClose {
-			l.t.warnHandler("Websocket connection was closed by server, attempting to reconnect...")
-			if !l.reconnectWebsocket() {
-				return
-			}
+			l.t.warnHandler("Websocket connection was closed by server.")
+			return
 		}
 
 		// Wrong OpCode
@@ -169,21 +165,6 @@ func (l *Live) readSocket() {
 		default:
 		}
 	}
-}
-
-func (l *Live) reconnectWebsocket() bool {
-	time.Sleep(3 * time.Second)
-	connected, err := l.tryConnectionUpgrade()
-	if err != nil {
-		l.t.warnHandler(fmt.Errorf("Failed to re-open websocket connection: %w", err))
-	} else {
-		l.t.infoHandler("Reconnected to websocket successfully")
-	}
-	if !connected {
-		l.t.wg.Add(1)
-		go l.startPolling()
-	}
-	return connected
 }
 
 func (l *Live) parseWssMsg(wssMsg []byte) error {
@@ -282,22 +263,25 @@ func (l *Live) sendAck(id uint64) error {
 	return nil
 }
 
-func (l *Live) tryConnectionUpgrade() (bool, error) {
-	if l.wsURL != "" && l.wsParams != nil {
-		err := l.connect(l.wsURL, l.wsParams)
-		if err != nil {
-			return false, fmt.Errorf("Connection upgrade failed: %w", err)
-		}
-		if l.t.Debug {
-			l.t.debugHandler("Connected to websocket")
-		}
-
-		l.t.wg.Add(2)
-		go l.readSocket()
-		go l.sendPing()
-
-		l.t.infoHandler("Connected to websocket")
-		return true, nil
+func (l *Live) tryConnectionUpgrade() error {
+	if l.wsURL == "" {
+		return fmt.Errorf("cannot upgrade connection without a wsURL")
 	}
-	return false, nil
+	if l.wsParams == nil {
+		return fmt.Errorf("cannot upgrade connection without a wsURL")
+	}
+	err := l.connect(l.wsURL, l.wsParams)
+	if err != nil {
+		return fmt.Errorf("Connection upgrade failed: %w", err)
+	}
+	if l.t.Debug {
+		l.t.debugHandler("Connected to websocket")
+	}
+
+	l.t.wg.Add(2)
+	go l.readSocket()
+	go l.sendPing()
+
+	l.t.infoHandler("Connected to websocket")
+	return nil
 }

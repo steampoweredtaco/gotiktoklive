@@ -25,7 +25,6 @@ import (
 // TODO: check gift prices of gifts not in wish list
 
 const (
-	POLLING_INTERVAL         = time.Second
 	DEFAULT_EVENTS_CHAN_SIZE = 100
 )
 
@@ -155,16 +154,7 @@ func (t *TikTok) TrackRoom(roomId string) (*Live, error) {
 }
 
 func (live *Live) connectRoom() error {
-	wss, err := live.tryConnectionUpgrade()
-	if err != nil {
-		return err
-	}
-	if !wss {
-		live.t.wg.Add(1)
-		live.startPolling()
-	}
-
-	return nil
+	return live.tryConnectionUpgrade()
 }
 
 func (t *TikTok) getRoomID(user string) (string, error) {
@@ -281,40 +271,6 @@ func (l *Live) getRoomData() error {
 	}
 
 	return nil
-}
-
-func (l *Live) startPolling() {
-	ticker := time.NewTicker(POLLING_INTERVAL)
-	defer ticker.Stop()
-	defer l.t.wg.Done()
-
-	var lastUpgradeAttempt time.Time
-
-	l.t.infoHandler("Started polling")
-
-	for {
-		select {
-		case <-ticker.C:
-			err := l.getRoomData()
-			if err != nil {
-				l.t.errHandler(err)
-			}
-
-			if lastUpgradeAttempt.IsZero() || time.Now().Add(-time.Minute*5).Unix() > lastUpgradeAttempt.Unix() {
-				lastUpgradeAttempt = time.Now()
-				wss, err := l.tryConnectionUpgrade()
-				if err != nil {
-					l.t.errHandler(err)
-				}
-				if wss {
-					return
-				}
-			}
-		case <-l.t.done():
-			l.t.infoHandler("Stopped polling")
-			return
-		}
-	}
 }
 
 // DownloadStream will download the stream to an .mkv file.

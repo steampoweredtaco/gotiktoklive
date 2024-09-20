@@ -97,7 +97,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}, nil
 	case *pb.WebcastMemberMessage:
 		return UserEvent{
-			Event: userEventType(pt.Action.String()),
+			Event: toUserType(pt.Action.String()),
 			User:  toUser(pt.User),
 		}, nil
 	case *pb.WebcastLiveGameIntroMessage:
@@ -355,6 +355,8 @@ func toUserType(displayType string) userEventType {
 	case "pm_mt_guidance_share":
 		return USER_SHARE
 	case "live_room_enter_toast":
+		return USER_JOIN
+	case "JOINED":
 		return USER_JOIN
 	}
 	return userEventType(fmt.Sprintf("User type not implemented, please report: %s", displayType))
