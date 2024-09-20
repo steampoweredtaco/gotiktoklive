@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	pb "github.com/Davincible/gotiktoklive/proto"
+	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	"math/rand"

@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Davincible/gotiktoklive"
+	"github.com/steampoweredtaco/gotiktoklive"
 )
 
 func TestLiveTrackUser(t *testing.T) {
