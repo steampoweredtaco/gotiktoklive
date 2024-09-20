@@ -17,7 +17,7 @@ import (
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 
-	pb "github.com/Davincible/gotiktoklive/proto"
+	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 
 	"google.golang.org/protobuf/proto"
 )

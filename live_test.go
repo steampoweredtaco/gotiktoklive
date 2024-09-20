@@ -3,7 +3,7 @@ package gotiktoklive
 import (
 	"testing"
 
-	"github.com/Davincible/gotiktoklive/tests"
+	"github.com/steampoweredtaco/gotiktoklive/tests"
 )
 
 func TestRoomID(t *testing.T) {

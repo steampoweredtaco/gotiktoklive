@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/Davincible/gotiktoklive"
+	"github.com/steampoweredtaco/gotiktoklive"
 )
 
 func TestUserInfo(t *testing.T) {
