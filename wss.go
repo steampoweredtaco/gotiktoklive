@@ -178,9 +178,12 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		if err := proto.Unmarshal(rsp.Payload, &response); err != nil {
 			return fmt.Errorf("Failed to unmarshal proto WebcastResponse: %w", err)
 		}
-
-		if err := l.sendAck(rsp.LogId); err != nil {
-			return fmt.Errorf("Failed to send websocket ack msg: %w", err)
+		if response.NeedsAck {
+			if err := l.sendAck(rsp.LogId, response.InternalExt); err != nil {
+				// Might as well finishing processing all messages, the connection reset will be
+				// caught later
+				l.t.warnHandler("Failed to send websocket ack msg, likely connection reset: %w", err)
+			}
 		}
 		l.cursor = response.Cursor
 
@@ -245,11 +248,11 @@ func (l *Live) sendPing() {
 	}
 }
 
-func (l *Live) sendAck(id uint64) error {
+func (l *Live) sendAck(id uint64, extra []byte) error {
 	msg := pb.WebcastPushFrame{
 		LogId:       id,
 		PayloadType: "ack",
-		//TODO: does this need a payload?
+		Payload:     extra,
 	}
 
 	b, err := proto.Marshal(&msg)

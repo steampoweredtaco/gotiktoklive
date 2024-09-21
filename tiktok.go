@@ -39,6 +39,7 @@ type TikTok struct {
 	clientName               string
 	shouldReconnect          bool
 	enableExperimentalEvents bool
+	enableExtraDebug         bool
 }
 
 // NewTikTok creates a tiktok instance that allows you to track live streams and
