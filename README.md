@@ -47,7 +47,7 @@ Go rewrite of [zerodytrash/TikTok-Livestream-Chat-Connector](https://github.com/
 ## Getting started
 1. Install the package using the Go package manager
 ```sh
-go get github.com/Davincible/gotiktoklive
+go get github.com/steampoweredtaco/gotiktoklive
 ```
 2. Create your first chat connection
 
