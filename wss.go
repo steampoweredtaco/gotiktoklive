@@ -206,13 +206,11 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 			}
 
 			// If livestream has ended
-			if m, ok := msg.(ControlEvent); ok && m.Action == 3 {
-				go func() {
-					select {
-					case <-time.After(10 * time.Second):
-						l.close()
-					}
-				}()
+			if m, ok := msg.(ControlEvent); ok &&
+				(pb.ControlAction(m.Action) == pb.ControlAction_STREAM_ENDED ||
+					pb.ControlAction(m.Action) == pb.ControlAction_STREAM_ENDED_BAN) {
+				l.t.warnHandler("live has ended due to %s, closing event stream", pb.ControlAction(m.Action).String())
+				l.close()
 			}
 		}
 		return nil

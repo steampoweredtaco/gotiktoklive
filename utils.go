@@ -163,7 +163,8 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 
 	case *pb.WebcastControlMessage:
 		return ControlEvent{
-			Action: int(pt.Action),
+			Action:      int(pt.Action),
+			Description: pt.Action.String(),
 		}, nil
 
 	case *pb.WebcastLinkMicBattle:

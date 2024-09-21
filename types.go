@@ -57,7 +57,8 @@ type QuestionEvent struct {
 }
 
 type ControlEvent struct {
-	Action int
+	Action      int
+	Description string
 }
 
 type MicBattleEvent struct {
