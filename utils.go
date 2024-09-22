@@ -26,7 +26,6 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 	if err != nil {
 		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
 		debugHandler("cannot find type %s:\n%s ", msg.Method, base)
-		warnHandler(fmt.Sprintf("cannot find proto type: %s", msg.Method))
 		return nil, nil
 	}
 	m := tReflect.New().Interface()
@@ -48,8 +47,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			tReflect, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(pt.OriginalMsgType))
 			if err != nil {
 				base := base64.RawStdEncoding.EncodeToString(msg.Payload)
-				debugHandler("cannot find type %s:\n%s ", msg.Method, base)
-				warnHandler(fmt.Sprintf("cannot find proto type: %s", msg.Method))
+				debugHandler("cannot find proto type for pin message %s:\n%s ", msg.Method, base)
 				return RoomEvent{
 					Type:    pt.OriginalMsgType,
 					Message: "<unknown>",
@@ -235,8 +233,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		return RoomBannerEvent{
 			Data: data,
 		}, nil
-
-		// TODO implement remaining message types as needed
+	// TODO implement remaining message types as needed
 	//case "WebcastEnvelopeMessage":
 	//	// Example: Ci4KFldlYmNhc3RFbnZlbG9wZU1lc3NhZ2UQhZab7qCftKViGIGWgM7G8KylYjABEjIKEzcwODI2ODgxODIxMzU1ODk2MzgaBm1hbGl2YVoTNzA4MjY3MDc0NTI4NDc3NDY1NxgC
 	//	return nil, nil
