@@ -16,9 +16,19 @@ func EnableExperimentalEvents(t *TikTok) {
 	t.enableExperimentalEvents = true
 }
 
-// EnableExtraWebCastDebug an unreasonable amount of debug for librarydevelopment
-// and troubleshooting. This option makes no gurantee of ever having the same
-// output and is only for development and triage purposes.
+// EnableExtraWebCastDebug an unreasonable amount of debug for library
+// development and troubleshooting. This option makes no guarantee of ever having
+// the same output and is only for development and triage purposes.
 func EnableExtraWebCastDebug(t *TikTok) {
 	t.enableExtraDebug = true
+}
+
+// EnableWSTrace will put traces for all websocket messages into the give file. The file will be overwritten so
+// if you want multiple traces make sure handle giving a unique filename each startup.
+func EnableWSTrace(file string) func(t *TikTok) {
+	return func(t *TikTok) {
+		t.enableWSTrace = true
+		t.wsTraceFile = file
+		t.wsTraceChan = make(chan struct{ direction, hex string }, 50)
+	}
 }

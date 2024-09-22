@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
@@ -102,6 +102,7 @@ func (l *Live) connect(addr string, params map[string]string) error {
 func (l *Live) readSocket() {
 	defer l.wss.Close()
 	defer l.t.wg.Done()
+	defer l.cancel()
 
 	want := ws.OpBinary
 	s := ws.StateClientSide
@@ -122,7 +123,6 @@ func (l *Live) readSocket() {
 			l.wss.Close()
 			return
 		}
-
 		// If msg is ping or close
 		if hdr.OpCode.IsControl() {
 			if err := controlHandler(hdr, &rd); err != nil {
@@ -133,19 +133,31 @@ func (l *Live) readSocket() {
 
 		if hdr.OpCode == ws.OpClose {
 			l.t.warnHandler("Websocket connection was closed by server.")
+			if l.t.enableWSTrace {
+				l.t.wsTraceChan <- struct{ direction, hex string }{direction: "<=", hex: "websocket closed"}
+			}
 			return
 		}
 
 		// Wrong OpCode
 		if hdr.OpCode&want == 0 {
-			if err := rd.Discard(); err != nil {
-				l.t.errHandler(err)
+			msgBytes, err := io.ReadAll(&rd)
+			if err != nil {
+				l.t.errHandler(fmt.Errorf("Failed to read websocket message: %w", err))
 			}
+			if l.t.enableWSTrace {
+				l.t.wsTraceChan <- struct{ direction, hex string }{direction: fmt.Sprintf("<= (unexpected opcode %02x)", hdr.OpCode), hex: hex.EncodeToString(msgBytes)}
+			}
+
 			continue
 		}
 
 		// Read message
-		msgBytes, err := ioutil.ReadAll(&rd)
+		msgBytes, err := io.ReadAll(&rd)
+		if l.t.enableWSTrace {
+			l.t.wsTraceChan <- struct{ direction, hex string }{direction: "<=", hex: hex.EncodeToString(msgBytes)}
+		}
+
 		if err != nil {
 			l.t.errHandler(fmt.Errorf("Failed to read websocket message: %w", err))
 		}
@@ -222,8 +234,8 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 
 func (l *Live) sendPing() {
 	defer l.t.wg.Done()
-
-	b, err := hex.DecodeString("3A026862")
+	const helloHex = "3a026862"
+	b, err := hex.DecodeString(helloHex)
 	if err != nil {
 		l.t.errHandler(err)
 	}
@@ -240,6 +252,10 @@ func (l *Live) sendPing() {
 		case <-t.C:
 			if err := wsutil.WriteClientBinary(l.wss, b); err != nil {
 				l.t.errHandler(fmt.Errorf("Failed to send ping: %w", err))
+			} else {
+				if l.t.enableWSTrace {
+					l.t.wsTraceChan <- struct{ direction, hex string }{direction: "=>", hex: helloHex}
+				}
 			}
 		}
 	}

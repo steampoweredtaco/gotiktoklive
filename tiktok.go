@@ -1,6 +1,7 @@
 package gotiktoklive
 
 import (
+	"bufio"
 	"context"
 	"crypto/tls"
 	"encoding/json"
@@ -10,6 +11,7 @@ import (
 	neturl "net/url"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"sync"
 	"syscall"
 )
@@ -40,6 +42,10 @@ type TikTok struct {
 	shouldReconnect          bool
 	enableExperimentalEvents bool
 	enableExtraDebug         bool
+	enableWSTrace            bool
+	wsTraceFile              string
+	wsTraceChan              chan struct{ direction, hex string }
+	wsTraceOut               *bufio.Writer
 }
 
 // NewTikTok creates a tiktok instance that allows you to track live streams and
@@ -78,6 +84,38 @@ func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption)
 	for _, option := range options {
 		option(&tiktok)
 	}
+	if tiktok.enableWSTrace {
+		var err error
+		tiktok.wsTraceFile, err = filepath.Abs(tiktok.wsTraceFile)
+		if err != nil {
+			tiktok.errHandler(fmt.Errorf("cannot get info for ws trace file, it will not be enable: %w", err))
+			tiktok.enableWSTrace = false
+			goto continueSetup
+		}
+		f, err := os.Create(tiktok.wsTraceFile)
+		tiktok.wsTraceOut = bufio.NewWriter(f)
+
+		wg.Add(1)
+		go func() {
+			defer func() {
+				_ = f.Close()
+			}()
+			defer wg.Done()
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case t := <-tiktok.wsTraceChan:
+					tiktok.wsTraceOut.Write([]byte(t.direction))
+					tiktok.wsTraceOut.Write([]byte(" "))
+					tiktok.wsTraceOut.Write([]byte(t.hex))
+					tiktok.wsTraceOut.Write([]byte("\n"))
+					tiktok.wsTraceOut.Flush()
+				}
+			}
+		}()
+	}
+continueSetup:
 	setupInterruptHandler(
 		func(c chan os.Signal) {
 			<-c
