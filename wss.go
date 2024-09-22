@@ -102,6 +102,7 @@ func (l *Live) connect(addr string, params map[string]string) error {
 func (l *Live) readSocket() {
 	defer l.wss.Close()
 	defer l.t.wg.Done()
+	defer l.close()
 
 	want := ws.OpBinary
 	s := ws.StateClientSide
@@ -131,7 +132,6 @@ func (l *Live) readSocket() {
 			continue
 		}
 
-		// Reopen connection if it was closed
 		if hdr.OpCode == ws.OpClose {
 			l.t.warnHandler("Websocket connection was closed by server.")
 			return
