@@ -102,7 +102,6 @@ func (l *Live) connect(addr string, params map[string]string) error {
 func (l *Live) readSocket() {
 	defer l.wss.Close()
 	defer l.t.wg.Done()
-	defer l.close()
 
 	want := ws.OpBinary
 	s := ws.StateClientSide
