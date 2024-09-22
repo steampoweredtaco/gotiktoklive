@@ -39,6 +39,7 @@ type Live struct {
 	wsParams map[string]string
 	close    func()
 	done     func() <-chan struct{}
+	cancel   context.CancelFunc
 
 	ID       string
 	Info     *RoomInfo
@@ -59,10 +60,15 @@ func (t *TikTok) newLive(roomId string) *Live {
 	t.mu.Unlock()
 
 	ctx, cancel := context.WithCancel(context.Background())
+	live.cancel = cancel
 	live.done = ctx.Done
 	o := sync.Once{}
 	live.close = func() {
 		o.Do(func() {
+			// cancel needs to be first as live.done is used to know to exit in all the
+			// various goroutines which should release the waitgroup. It is ok for anywhere
+			// to call cancel to trigger the other routines, but calls to close is only for
+			// cleanup and block till done
 			cancel()
 			t.wg.Wait()
 			close(live.Events)
