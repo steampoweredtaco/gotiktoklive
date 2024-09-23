@@ -227,7 +227,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		return nil
 	}
 	if l.t.Debug {
-		l.t.debugHandler(fmt.Sprintf("Message type unknown, %s : '%s'", rsp.PayloadType, string(rsp.Payload)))
+		l.t.debugHandler(fmt.Sprintf("Message type unknown, %s : '%s\n%s", rsp.PayloadType, string(rsp.Payload), hex.EncodeToString(wssMsg)))
 	}
 	return nil
 }
@@ -275,6 +275,9 @@ func (l *Live) sendAck(id uint64, extra []byte) error {
 
 	if err := wsutil.WriteClientBinary(l.wss, b); err != nil {
 		return err
+	}
+	if l.t.enableWSTrace {
+		l.t.wsTraceChan <- struct{ direction, hex string }{direction: "=>", hex: hex.EncodeToString(b)}
 	}
 	return nil
 }

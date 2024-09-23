@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"sync"
 	"syscall"
+	"time"
 )
 
 // TikTok allows you to track and discover current live streams.
@@ -106,6 +107,8 @@ func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption)
 				case <-ctx.Done():
 					return
 				case t := <-tiktok.wsTraceChan:
+					timestamp := time.Now().UTC().Format("2006-01-02 15:04:05.000")
+					tiktok.wsTraceOut.Write([]byte(timestamp))
 					tiktok.wsTraceOut.Write([]byte(t.direction))
 					tiktok.wsTraceOut.Write([]byte(" "))
 					tiktok.wsTraceOut.Write([]byte(t.hex))
