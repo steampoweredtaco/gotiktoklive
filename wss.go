@@ -101,7 +101,10 @@ func (l *Live) connect(addr string, params map[string]string) error {
 
 func (l *Live) readSocket() {
 	defer l.wss.Close()
-	defer l.t.wg.Done()
+	defer l.wg.Done()
+	defer func() {
+		l.Events <- DisconnectEvent{}
+	}()
 	defer l.cancel()
 
 	want := ws.OpBinary
@@ -233,7 +236,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 }
 
 func (l *Live) sendPing() {
-	defer l.t.wg.Done()
+	defer l.wg.Done()
 	const helloHex = "3a026862"
 	b, err := hex.DecodeString(helloHex)
 	if err != nil {
@@ -297,7 +300,7 @@ func (l *Live) tryConnectionUpgrade() error {
 		l.t.debugHandler("Connected to websocket")
 	}
 
-	l.t.wg.Add(2)
+	l.wg.Add(2)
 	go l.readSocket()
 	go l.sendPing()
 
