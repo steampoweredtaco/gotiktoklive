@@ -955,3 +955,9 @@ type LiveRoomUser struct {
 	Status       int    `json:"status"`
 	FollowStatus int    `json:"followStatus"`
 }
+
+// DisconnectEvent sent went disconnected from live. When this event occurs no other events will be emitted and the live
+// instance should be closed with `Closed`. A new track user/room should be invoked to reconnect if desired. This event
+// should always be emitted.
+type DisconnectEvent struct {
+}

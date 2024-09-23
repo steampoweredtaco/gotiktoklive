@@ -46,12 +46,14 @@ type Live struct {
 	GiftInfo *GiftInfo
 	Events   chan interface{}
 	chanSize int
+	wg       *sync.WaitGroup
 }
 
 func (t *TikTok) newLive(roomId string) *Live {
 	live := Live{
 		t:        t,
 		ID:       roomId,
+		wg:       &sync.WaitGroup{},
 		Events:   make(chan interface{}, DEFAULT_EVENTS_CHAN_SIZE),
 		chanSize: DEFAULT_EVENTS_CHAN_SIZE,
 	}
@@ -70,7 +72,8 @@ func (t *TikTok) newLive(roomId string) *Live {
 			// to call cancel to trigger the other routines, but calls to close is only for
 			// cleanup and block till done
 			cancel()
-			t.wg.Wait()
+			live.wss.Close()
+			live.wg.Wait()
 			close(live.Events)
 			t.mu.Lock()
 			t.streams -= 1
@@ -87,18 +90,18 @@ func (l *Live) Close() {
 }
 
 func (l *Live) fetchRoom() error {
-	//TODO: make these optional and fix the out dated process.
-	//roomInfo, err := l.getRoomInfo()
-	//if err != nil {
+	// TODO: make these optional and fix the out dated process.
+	// roomInfo, err := l.getRoomInfo()
+	// if err != nil {
 	//	return err
-	//}
-	//l.Info = roomInfo
+	// }
+	// l.Info = roomInfo
 	//
-	//giftInfo, err := l.getGiftInfo()
-	//if err != nil {
+	// giftInfo, err := l.getGiftInfo()
+	// if err != nil {
 	//	return err
-	//}
-	//l.GiftInfo = giftInfo
+	// }
+	// l.GiftInfo = giftInfo
 
 	err := l.getRoomData()
 	if err != nil {

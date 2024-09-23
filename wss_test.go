@@ -1,6 +1,7 @@
 package gotiktoklive
 
 import (
+	"sync"
 	"testing"
 	"time"
 
@@ -22,6 +23,7 @@ func TestWebsocket(t *testing.T) {
 	live := Live{
 		t:      tiktok,
 		ID:     id,
+		wg:     &sync.WaitGroup{},
 		Events: make(chan interface{}, 100),
 	}
 
