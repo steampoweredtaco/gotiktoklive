@@ -4,7 +4,11 @@ go 1.18
 
 require github.com/gobwas/ws v1.1.0
 
-require github.com/google/go-cmp v0.6.0 // indirect
+require (
+	github.com/benbjohnson/clock v1.3.0 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
+	go.uber.org/ratelimit v0.3.1 // indirect
+)
 
 require (
 	github.com/gobwas/httphead v0.1.0 // indirect

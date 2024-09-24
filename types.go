@@ -961,3 +961,12 @@ type LiveRoomUser struct {
 // should always be emitted.
 type DisconnectEvent struct {
 }
+
+// SigningLimits are the rates and result from the configured signer.
+type SigningLimits struct {
+	Code    int
+	Message string
+	Day     int
+	Hour    int
+	Minute  int
+}

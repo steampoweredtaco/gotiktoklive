@@ -9,7 +9,6 @@ const (
 	// Base URL
 	tiktokBaseUrl = "https://www.tiktok.com/"
 	tiktokAPIUrl  = "https://webcast.tiktok.com/webcast/"
-	tiktokSigner  = "https://tiktok.eulerstream.com/"
 
 	// Endpoints
 	urlLive      = "live/"
@@ -18,10 +17,11 @@ const (
 	urlPriceList = "diamond/"
 	urlUser      = "@%s/"
 	// Think this changed to room/enter/
-	urlRoomInfo       = "room/info/"
-	urlRoomData       = "webcast/fetch/"
-	urlGiftInfo       = "gift/list/"
-	urlSignReq        = "webcast/fetch/"
+	urlRoomInfo = "room/info/"
+	urlRoomData = "webcast/fetch/"
+	urlGiftInfo = "gift/list/"
+	// added slash is intention to simplify the base signer url which is now configurable.
+	urlSignReq        = "/webcast/fetch/"
 	clientNameDefault = "gotiktok_live"
 	apiKeyDefault     = ""
 	userAgent         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
@@ -71,7 +71,7 @@ var (
 		"Accept":        "text/html,application/json,application/protobuf",
 		"Referer":       referer,
 		"Origin":        origin,
-		//clientId:  = "ttlive-golang"
+		// clientId:  = "ttlive-golang"
 		"Accept-Language": "en-US,en;q=0.9",
 		"Accept-Encoding": "gzip, deflate",
 	}
