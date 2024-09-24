@@ -7,6 +7,7 @@ import (
 	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
+	"log/slog"
 	"math/rand"
 
 	"google.golang.org/protobuf/proto"
@@ -25,7 +26,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 	tReflect, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(msg.Method))
 	if err != nil {
 		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
-		debugHandler("cannot find type %s:\n%s ", msg.Method, base)
+		debugHandler(fmt.Sprintf("cannot find type %s:\n%s ", msg.Method, base))
 		return nil, nil
 	}
 	m := tReflect.New().Interface()
@@ -292,11 +293,11 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 }
 
 func defaultLogHandler(i ...interface{}) {
-	fmt.Println(i...)
+	slog.Debug(fmt.Sprint(i...), "logger", "gotiktoklive-default")
 }
 
 func routineErrHandler(err ...interface{}) {
-	panic(err[0])
+	slog.Debug(fmt.Sprint(err...), "logger", "gotiktoklive-default")
 }
 
 func toUser(u *pb.User) *User {
