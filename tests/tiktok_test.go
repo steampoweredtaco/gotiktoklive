@@ -7,7 +7,10 @@ import (
 )
 
 func TestUserInfo(t *testing.T) {
-	tiktok := gotiktoklive.NewTikTok()
+	tiktok, err := gotiktoklive.NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	info, err := tiktok.GetUserInfo(USERNAME)
 	if err != nil {
@@ -18,8 +21,10 @@ func TestUserInfo(t *testing.T) {
 }
 
 func TestRoomInfo(t *testing.T) {
-	tiktok := gotiktoklive.NewTikTok()
-
+	tiktok, err := gotiktoklive.NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
 	info, err := tiktok.GetRoomInfo(USERNAME)
 	if err != nil {
 		t.Fatal(err)

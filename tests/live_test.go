@@ -8,7 +8,10 @@ import (
 )
 
 func TestLiveTrackUser(t *testing.T) {
-	tiktok := gotiktoklive.NewTikTok()
+	tiktok, err := gotiktoklive.NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
 	live, err := tiktok.TrackUser(USERNAME)
 	if err != nil {
 		t.Fatal(err)
@@ -32,8 +35,10 @@ func TestLiveTrackUser(t *testing.T) {
 }
 
 func TestLivePriceList(t *testing.T) {
-	tiktok := gotiktoklive.NewTikTok()
-
+	tiktok, err := gotiktoklive.NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
 	priceList, err := tiktok.GetPriceList()
 	if err != nil {
 		t.Fatal(err)
@@ -43,7 +48,10 @@ func TestLivePriceList(t *testing.T) {
 }
 
 func TestLiveDownload(t *testing.T) {
-	tiktok := gotiktoklive.NewTikTok()
+	tiktok, err := gotiktoklive.NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
 	live, err := tiktok.TrackUser(USERNAME)
 	if err != nil {
 		t.Fatal(err)
