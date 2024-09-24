@@ -1,6 +1,7 @@
 package gotiktoklive
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,9 +10,11 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/pkg/errors"
@@ -90,12 +93,11 @@ func (l *Live) Close() {
 }
 
 func (l *Live) fetchRoom() error {
-	// TODO: make these optional and fix the out dated process.
-	// roomInfo, err := l.getRoomInfo()
-	// if err != nil {
-	//	return err
-	// }
-	// l.Info = roomInfo
+	roomInfo, err := l.getRoomInfo()
+	if err != nil {
+		return err
+	}
+	l.Info = roomInfo
 	//
 	// giftInfo, err := l.getGiftInfo()
 	// if err != nil {
@@ -103,7 +105,7 @@ func (l *Live) fetchRoom() error {
 	// }
 	// l.GiftInfo = giftInfo
 
-	err := l.getRoomData()
+	err = l.getRoomData()
 	if err != nil {
 		return err
 	}
@@ -322,7 +324,8 @@ func (l *Live) DownloadStream(file ...string) error {
 	if l.t.proxy != nil && (l.t.proxy.Scheme == "http" || l.t.proxy.Scheme == "https") {
 		c = append([]string{"-http_proxy", l.t.proxy.String()}, c...)
 	}
-	cmd := exec.Command("ffmpeg", c...)
+	ctx, cancel := context.WithCancel(context.Background())
+	cmd := exec.CommandContext(ctx, "ffmpeg", c...)
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
@@ -347,31 +350,63 @@ func (l *Live) DownloadStream(file ...string) error {
 	finished := false
 
 	go func(c *exec.Cmd) {
-		<-l.done()
-
+	drainFor:
+		for {
+			select {
+			case <-l.done():
+				break drainFor
+			// Needs to be drained or deadlocks can occur, maybe at some point make a download option
+			// where the library user needs to drain
+			case <-l.Events:
+			}
+		}
 		mu.Lock()
-		defer mu.Unlock()
-		if !finished {
-			// Send q key press to quit
-			stdin.Write([]byte("q\n"))
+		func() {
+			defer mu.Unlock()
+			if !finished {
+				// Send q key press to quit
+				stdin.Write([]byte("q\n"))
+				cmd.Process.Signal(syscall.SIGINT)
+				time.Sleep(5 * time.Second)
+			}
+			cancel()
+		}()
+		// naturally should be closed, but keep draining to prevent deadlocks
+		for {
+			if _, ok := <-l.Events; !ok {
+				break
+			}
 		}
 	}(cmd)
 
 	// Go routine to wait for process to exit and return result
-	l.t.wg.Add(1)
+	l.wg.Add(1)
 	go func(c *exec.Cmd, stdout, stderr io.ReadCloser) {
-		defer l.t.wg.Done()
-
-		stdoutb, _ := io.ReadAll(stdout)
-		stderrb, _ := io.ReadAll(stderr)
-
-		if err := cmd.Wait(); err != nil {
-			nerr := new(exec.ExitError)
-			if errors.As(err, &nerr) {
-				l.t.errHandler(fmt.Errorf("download command failed with: %w\nCommand: %v\nStderr: %v\nStdout: %v\n", err, cmd.Args, string(stderrb), string(stdoutb)))
+		defer l.wg.Done()
+		removeNewlineExp := regexp.MustCompile(`[\r\n]+$`)
+		go func() {
+			r := bufio.NewReader(stdout)
+			for {
+				str, err := r.ReadString('\n')
+				if err != nil {
+					return
+				}
+				l.t.debugHandler(removeNewlineExp.ReplaceAllString(str, ""))
 			}
-			l.t.errHandler(fmt.Errorf("download command failed with: %w\nCommand: %v\n", err, cmd.Args))
-		}
+		}()
+
+		go func() {
+			r := bufio.NewReader(stderr)
+			for {
+				str, err := r.ReadString('\n')
+				if err != nil {
+					return
+				}
+				l.t.debugHandler(removeNewlineExp.ReplaceAllString(str, ""))
+			}
+		}()
+
+		cmd.Wait()
 
 		mu.Lock()
 		defer mu.Unlock()

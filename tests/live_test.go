@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"log/slog"
 	"testing"
 	"time"
 
@@ -56,7 +57,10 @@ func TestLiveDownload(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	live.DownloadStream()
+	err = live.DownloadStream()
+	if err != nil {
+		t.Fatal(err)
+	}
 	time.Sleep(10 * time.Second)
 	live.Close()
 
@@ -64,8 +68,12 @@ func TestLiveDownload(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	live.DownloadStream("my-test-download.mkv")
-	time.Sleep(10 * time.Second)
+	slog.SetLogLoggerLevel(slog.LevelDebug)
+	err = live.DownloadStream("my-test-download.mkv")
+	if err != nil {
+		t.Fatal(err)
+	}
+	time.Sleep(1 * time.Minute)
 	live.Close()
 }
 
