@@ -8,6 +8,7 @@
 - [x] updated protobuf version 3 messages and synced with python's types
 - [x] Websocket event system
 - [x] GetPriceList
+- [x] DownloadStream (18+ with id_session not verified)
 
 ## Planned updates
 - [ ] Support many of the new event features over the last two years
@@ -21,7 +22,6 @@
 - GetRoomInfo
 - NewFeed
 - Using session_id functionality
-- Polling for events instead of websocket
 
 # GoTikTokLive
 
