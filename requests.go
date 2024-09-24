@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 )
@@ -86,7 +85,7 @@ func (t *TikTok) sendRequest(o *reqOptions) ([]byte, http.Header, error) {
 	ua := userAgent
 	fullUrl := u.String()
 	if !o.OmitAPI && o.URI == "" && o.Endpoint == urlRoomData {
-		log.Print("signing for url ", fullUrl)
+		t.debugHandler("signing for url ", fullUrl)
 		return t.signURL(fullUrl, o)
 	}
 
