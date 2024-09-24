@@ -394,9 +394,12 @@ func (t *TikTok) signURL(reqUrl string, options *reqOptions) ([]byte, http.Heade
 	if t.apiKey != "" {
 		query["apiKey"] = t.apiKey
 	}
-
+	// A badly formed implementation using this library might spam connection requests (ask me
+	// how I know) this limiter is a safety guard to never go over the signer's advertised
+	// capabilities so the client does not exceed limits or get banned from the signer.
+	t.limiter.Take()
 	body, header, err := t.sendRequest(&reqOptions{
-		URI:      tiktokSigner,
+		URI:      t.signerUrl,
 		Endpoint: urlSignReq,
 		Query:    query,
 	})
