@@ -14,7 +14,7 @@ const (
 	urlLive      = "live/"
 	urlFeed      = "feed/"
 	urlRankList  = "ranklist/online_audience/"
-	urlPriceList = "diamond/"
+	urlPriceList = "wallet_api/fs/diamond"
 	urlUser      = "@%s/"
 	// Think this changed to room/enter/
 	urlRoomInfo = "room/info/"
@@ -26,7 +26,8 @@ const (
 	apiKeyDefault     = ""
 	userAgent         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
 	referer           = "https://www.tiktok.com/"
-	origin
+	// webcast backend will fail if origin is an ending /
+	origin = "https://www.tiktok.com"
 )
 
 var (

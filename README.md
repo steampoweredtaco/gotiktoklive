@@ -7,6 +7,7 @@
 - [x] working live user and room id tracking
 - [x] updated protobuf version 3 messages and synced with python's types
 - [x] Websocket event system
+- [x] GetPriceList
 
 ## Planned updates
 - [ ] Support many of the new event features over the last two years
@@ -14,11 +15,10 @@
    * [ ] Intro messages for live stream categories, these currently will be RoomEvents
      * [x] WebcastLiveGameIntroMessage 
      * Others TBD.
-     
+
 ## Unknown state:
 - GetUserInfo
 - GetRoomInfo
-- GetPriceList
 - NewFeed
 - Using session_id functionality
 - Polling for events instead of websocket
