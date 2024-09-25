@@ -14,7 +14,6 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"syscall"
 	"time"
 
 	"github.com/pkg/errors"
@@ -77,7 +76,6 @@ func (t *TikTok) newLive(roomId string) *Live {
 			cancel()
 			live.wss.Close()
 			live.wg.Wait()
-			close(live.Events)
 			t.mu.Lock()
 			t.streams -= 1
 			t.mu.Unlock()
@@ -154,6 +152,7 @@ func (t *TikTok) TrackRoom(roomId string) (*Live, error) {
 	live := t.newLive(roomId)
 
 	if err := live.fetchRoom(); err != nil {
+		close(live.Events)
 		return nil, err
 	}
 
@@ -319,13 +318,16 @@ func (l *Live) DownloadStream(file ...string) error {
 		path = fmt.Sprintf("%s-%d%s", t, time.Now().Unix(), format)
 	}
 
-	// Run ffmpeg command
-	c := []string{"-i", url, "-c", "copy", path}
+	options := []string{}
 	if l.t.proxy != nil && (l.t.proxy.Scheme == "http" || l.t.proxy.Scheme == "https") {
-		c = append([]string{"-http_proxy", l.t.proxy.String()}, c...)
+		options = append([]string{"-http_proxy", l.t.proxy.String()}, options...)
 	}
+	options = append(options, []string{"-i", url}...)
+	// important to come after the -i
+	options = append(options, "-c:v", "libx264", "-c:a", "aac", "-bufsize", "2M", "-fflags", "+discardcorrupt",
+		"-fflags", "+genpts", path)
 	ctx, cancel := context.WithCancel(context.Background())
-	cmd := exec.CommandContext(ctx, "ffmpeg", c...)
+	cmd := exec.CommandContext(ctx, "ffmpeg", options...)
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
@@ -357,7 +359,10 @@ func (l *Live) DownloadStream(file ...string) error {
 				break drainFor
 			// Needs to be drained or deadlocks can occur, maybe at some point make a download option
 			// where the library user needs to drain
-			case <-l.Events:
+			case _, ok := <-l.Events:
+				if !ok {
+					break drainFor
+				}
 			}
 		}
 		mu.Lock()
@@ -366,7 +371,6 @@ func (l *Live) DownloadStream(file ...string) error {
 			if !finished {
 				// Send q key press to quit
 				stdin.Write([]byte("q\n"))
-				cmd.Process.Signal(syscall.SIGINT)
 				time.Sleep(5 * time.Second)
 			}
 			cancel()
@@ -384,7 +388,10 @@ func (l *Live) DownloadStream(file ...string) error {
 	go func(c *exec.Cmd, stdout, stderr io.ReadCloser) {
 		defer l.wg.Done()
 		removeNewlineExp := regexp.MustCompile(`[\r\n]+$`)
+		streamWG := new(sync.WaitGroup)
+		streamWG.Add(2)
 		go func() {
+			defer streamWG.Done()
 			r := bufio.NewReader(stdout)
 			for {
 				str, err := r.ReadString('\n')
@@ -396,6 +403,7 @@ func (l *Live) DownloadStream(file ...string) error {
 		}()
 
 		go func() {
+			defer streamWG.Done()
 			r := bufio.NewReader(stderr)
 			for {
 				str, err := r.ReadString('\n')
@@ -405,15 +413,18 @@ func (l *Live) DownloadStream(file ...string) error {
 				l.t.debugHandler(removeNewlineExp.ReplaceAllString(str, ""))
 			}
 		}()
-
-		cmd.Wait()
-
+		streamWG.Wait()
+		err := cmd.Wait()
 		mu.Lock()
 		defer mu.Unlock()
 		finished = true
+		if err != nil {
+			l.t.errHandler(fmt.Sprintf("Download for %s failed: %s", err))
+		}
+		return
 		l.t.infoHandler(fmt.Sprintf("Download for %s finished!", l.Info.Owner.Username))
 	}(cmd, stdout, stderr)
-
+	l.wg.Wait()
 	l.t.infoHandler(fmt.Sprintf("Started downloading stream by %s to %s\n", l.Info.Owner.Username, path))
 
 	return nil
