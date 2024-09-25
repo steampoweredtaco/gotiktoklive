@@ -101,9 +101,11 @@ func (l *Live) connect(addr string, params map[string]string) error {
 
 func (l *Live) readSocket() {
 	defer l.wss.Close()
-	defer l.wg.Done()
 	defer func() {
-		l.Events <- DisconnectEvent{}
+		select {
+		case <-time.After(5 * time.Second):
+		case l.Events <- DisconnectEvent{}:
+		}
 	}()
 	defer l.cancel()
 
@@ -236,7 +238,6 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 }
 
 func (l *Live) sendPing() {
-	defer l.wg.Done()
 	const helloHex = "3a026862"
 	b, err := hex.DecodeString(helloHex)
 	if err != nil {
@@ -294,6 +295,7 @@ func (l *Live) tryConnectionUpgrade() error {
 	}
 	err := l.connect(l.wsURL, l.wsParams)
 	if err != nil {
+		close(l.Events)
 		return fmt.Errorf("Connection upgrade failed: %w", err)
 	}
 	if l.t.Debug {
@@ -301,8 +303,15 @@ func (l *Live) tryConnectionUpgrade() error {
 	}
 
 	l.wg.Add(2)
-	go l.readSocket()
-	go l.sendPing()
+	go func() {
+		defer l.wg.Done()
+		defer close(l.Events)
+		l.readSocket()
+	}()
+	go func() {
+		defer l.wg.Done()
+		l.sendPing()
+	}()
 
 	l.t.infoHandler("Connected to websocket")
 	return nil

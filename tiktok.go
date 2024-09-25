@@ -79,7 +79,7 @@ func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption)
 		mu:              &sync.Mutex{},
 		infoHandler:     defaultLogHandler,
 		warnHandler:     defaultLogHandler,
-		debugHandler:    defaultLogHandler,
+		debugHandler:    routineErrHandler,
 		errHandler:      routineErrHandler,
 		signerUrl:       defaultSignerURL,
 		clientName:      clientName,

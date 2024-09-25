@@ -5,12 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	pb "github.com/steampoweredtaco/gotiktoklive/proto"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	"log/slog"
 	"math/rand"
-
-	"google.golang.org/protobuf/proto"
 )
 
 func getRandomDeviceID() string {

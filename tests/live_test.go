@@ -49,7 +49,8 @@ func TestLivePriceList(t *testing.T) {
 }
 
 func TestLiveDownload(t *testing.T) {
-	tiktok, err := gotiktoklive.NewTikTok()
+	slog.SetLogLoggerLevel(slog.LevelDebug)
+	tiktok, err := gotiktoklive.NewTikTok(gotiktoklive.SigningApiKey(APIKEY))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -57,23 +58,46 @@ func TestLiveDownload(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = live.DownloadStream()
-	if err != nil {
-		t.Fatal(err)
+	done := make(chan struct{})
+	go func() {
+		defer func() {
+			done <- struct{}{}
+		}()
+		err = live.DownloadStream()
+		if err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	select {
+	case _ = <-done:
+		t.Log("command exited")
+	case <-time.After(12 * time.Second):
+		t.Log("test complete")
 	}
-	time.Sleep(10 * time.Second)
 	live.Close()
 
 	live, err = tiktok.TrackUser(USERNAME)
 	if err != nil {
 		t.Fatal(err)
 	}
-	slog.SetLogLoggerLevel(slog.LevelDebug)
-	err = live.DownloadStream("my-test-download.mkv")
-	if err != nil {
-		t.Fatal(err)
+
+	done = make(chan struct{})
+	go func() {
+		defer func() {
+			done <- struct{}{}
+		}()
+		err = live.DownloadStream("my-test-download.mkv")
+		if err != nil {
+			t.Fatal(err)
+		}
+	}()
+	select {
+	case _ = <-done:
+		t.Log("command exited")
+	case <-time.After(2 * time.Hour):
+		t.Log("test complete")
 	}
-	time.Sleep(1 * time.Minute)
 	live.Close()
 }
 
