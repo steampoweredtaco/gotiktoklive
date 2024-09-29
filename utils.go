@@ -114,17 +114,8 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Viewers: int(pt.Total),
 		}, nil
 	case *pb.WebcastSocialMessage:
-		if !enableExperimentalEvents {
-			debugHandler("skipping experimental event WebcastSocialMessage")
-			return nil, nil
-		}
-		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
-		err = fmt.Errorf("WebCastSocialMessage %T\n%s", m, base)
-		debugHandler(err)
-		// TODO: Probably need a new Social event once we figure out what the proto fields mean. Current idea
-		// might be user levels for various social badges.
 		return UserEvent{
-			Event: toUserType(pt.Common.Method),
+			Event: toUserType(pt.Common.DisplayText.Key),
 			User:  toUser(pt.User),
 		}, nil
 	case *pb.WebcastGiftMessage:

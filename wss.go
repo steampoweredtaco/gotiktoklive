@@ -225,7 +225,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 			if m, ok := msg.(ControlEvent); ok &&
 				(pb.ControlAction(m.Action) == pb.ControlAction_STREAM_ENDED ||
 					pb.ControlAction(m.Action) == pb.ControlAction_STREAM_ENDED_BAN) {
-				l.t.warnHandler(fmt.Sprint("live has ended due to %s, closing event stream", pb.ControlAction(m.Action).String()))
+				l.t.warnHandler(fmt.Sprintf("live has ended due to %s, closing event stream", pb.ControlAction(m.Action).String()))
 				l.cancel()
 			}
 		}
