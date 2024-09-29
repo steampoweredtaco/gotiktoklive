@@ -924,38 +924,6 @@ type SignedURL struct {
 	Error          string `json:"error"`
 }
 
-type LiveRoom struct {
-	LoadingState struct {
-		GetRecommendLive int `json:"getRecommendLive"`
-		GetUserInfo      int `json:"getUserInfo"`
-		GetUserStat      int `json:"getUserStat"`
-	} `json:"loadingState"`
-	NeedLogin          bool     `json:"needLogin"`
-	ShowLiveGate       bool     `json:"showLiveGate"`
-	IsAgeGateRoom      bool     `json:"isAgeGateRoom"`
-	RecommendLiveRooms []string `json:"recommendLiveRooms"`
-	LiveRoomStatus     int      `json:"liveRoomStatus"`
-	LiveRoomUserInfo   *struct {
-		User LiveRoomUser `json:"user"`
-	} `json:"liveRoomUserInfo,omitempty"`
-}
-
-type LiveRoomUser struct {
-	AvatarLarger string `json:"avatarLarger"`
-	AvatarMedium string `json:"avatarMedium"`
-	AvatarThumb  string `json:"avatarThumb"`
-	ID           string `json:"id"`
-	Nickname     string `json:"nickname"`
-	SecUid       string `json:"secUid"`
-	Secret       bool   `json:"secret"`
-	UniqueId     string `json:"uniqueId"`
-	Verified     bool   `json:"verified"`
-	RoomId       string `json:"roomId"`
-	Signature    string `json:"signature"`
-	Status       int    `json:"status"`
-	FollowStatus int    `json:"followStatus"`
-}
-
 // DisconnectEvent sent went disconnected from live. When this event occurs no other events will be emitted and the live
 // instance should be closed with `Closed`. A new track user/room should be invoked to reconnect if desired. This event
 // should always be emitted.
@@ -969,4 +937,87 @@ type SigningLimits struct {
 	Day     int
 	Hour    int
 	Minute  int
+}
+
+type liveRoomContainer struct {
+	LiveRoomUserInfo *LiveRoomUserInfo `json:"liveRoomUserInfo,omitempty"`
+}
+
+type LiveRoomUserInfo struct {
+	LiveRoomUser *LiveRoomUser `json:"user,omitempty"`
+	Stats        Stats         `json:"stats"`
+	LiveRoom     *LiveRoom     `json:"liveRoom,omitempty"`
+}
+
+type LiveRoomUser struct {
+	AvatarLarger string `json:"avatarLarger"`
+	AvatarMedium string `json:"avatarMedium"`
+	AvatarThumb  string `json:"avatarThumb"`
+	ID           string `json:"id"`
+	Nickname     string `json:"nickname"`
+	SecUID       string `json:"secUid"`
+	Secret       bool   `json:"secret"`
+	UniqueID     string `json:"uniqueId"`
+	Verified     bool   `json:"verified"`
+	RoomID       string `json:"roomId"`
+	Signature    string `json:"signature"`
+	Status       int    `json:"status"`
+	FollowStatus int    `json:"followStatus"`
+}
+
+type Stats struct {
+	FollowingCount int `json:"followingCount"`
+	FollowerCount  int `json:"followerCount"`
+}
+
+type LiveRoom struct {
+	CoverURL          string        `json:"coverUrl"`
+	SquareCoverImg    string        `json:"squareCoverImg"`
+	Title             string        `json:"title"`
+	StartTime         int64         `json:"startTime"`
+	Status            int           `json:"status"`
+	PaidEvent         PaidEvent     `json:"paidEvent"`
+	LiveSubOnly       int           `json:"liveSubOnly"`
+	LiveRoomMode      int           `json:"liveRoomMode"`
+	HashTagID         int           `json:"hashTagId"`
+	GameTagID         int           `json:"gameTagId"`
+	LiveRoomStats     LiveRoomStats `json:"liveRoomStats"`
+	StreamData        StreamData    `json:"streamData"`
+	StreamID          string        `json:"streamId"`
+	MultiStreamScene  int           `json:"multiStreamScene"`
+	MultiStreamSource int           `json:"multiStreamSource"`
+	HevcStreamData    StreamData    `json:"hevcStreamData"`
+}
+
+type PaidEvent struct {
+	EventID  int `json:"event_id"`
+	PaidType int `json:"paid_type"`
+}
+
+type LiveRoomStats struct {
+	UserCount int `json:"userCount"`
+}
+
+type StreamData struct {
+	PullData PullData `json:"pull_data"`
+}
+
+type PullData struct {
+	Options    Options `json:"options"`
+	StreamData string  `json:"stream_data"`
+}
+
+type Options struct {
+	DefaultQuality    Quality   `json:"default_quality"`
+	Qualities         []Quality `json:"qualities"`
+	ShowQualityButton bool      `json:"show_quality_button"`
+}
+
+type Quality struct {
+	IconType   int    `json:"icon_type"`
+	Level      int    `json:"level"`
+	Name       string `json:"name"`
+	Resolution string `json:"resolution"`
+	SdkKey     string `json:"sdk_key"`
+	VCodec     string `json:"v_codec"`
 }

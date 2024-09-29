@@ -1,6 +1,7 @@
 package gotiktoklive
 
 import (
+	"github.com/stretchr/testify/assert"
 	"sort"
 	"testing"
 
@@ -8,7 +9,10 @@ import (
 )
 
 func TestFeedItem(t *testing.T) {
-	tiktok := NewTikTok()
+	tiktok, err := NewTikTok()
+	if !assert.NoError(t, err) {
+		return
+	}
 	feed := tiktok.NewFeed()
 
 	items := []*LiveStream{}

@@ -173,10 +173,10 @@ func (t *TikTok) getRoomID(user string) (string, error) {
 		return "", err
 	}
 
-	if userInfo.RoomId == "" {
+	if userInfo.RoomID == "" {
 		return "", ErrUserOffline
 	}
-	return userInfo.RoomId, nil
+	return userInfo.RoomID, nil
 }
 
 func (l *Live) getRoomInfo() (*RoomInfo, error) {
@@ -419,7 +419,7 @@ func (l *Live) DownloadStream(file ...string) error {
 		defer mu.Unlock()
 		finished = true
 		if err != nil {
-			l.t.errHandler(fmt.Sprintf("Download for %s failed: %s", err))
+			l.t.errHandler(fmt.Sprintf("Download for failed: %s", err))
 		}
 		return
 		l.t.infoHandler(fmt.Sprintf("Download for %s finished!", l.Info.Owner.Username))
