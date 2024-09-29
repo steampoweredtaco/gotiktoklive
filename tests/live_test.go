@@ -95,7 +95,7 @@ func TestLiveDownload(t *testing.T) {
 	select {
 	case _ = <-done:
 		t.Log("command exited")
-	case <-time.After(2 * time.Hour):
+	case <-time.After(4 * time.Hour):
 		t.Log("test complete")
 	}
 	live.Close()

@@ -9,6 +9,7 @@ import (
 	"go.uber.org/ratelimit"
 	"io"
 	"log/slog"
+	"maps"
 	"net/http"
 	"net/http/cookiejar"
 	neturl "net/url"
@@ -163,22 +164,18 @@ continueSetup:
 	return &tiktok, nil
 }
 
-// GetUserInfo will fetch information about the user, such as follwers stats,
-//
-//	their user ID, as well as the RoomID, with which you can tell if they are live.
-func (t *TikTok) GetUserInfo(user string) (*LiveRoomUser, error) {
+// GetLiveRoomUserInfo will fetch information about the user's live room which contains
+// information about the user and also the live room which contains their user ID, as well
+// as the RoomID, with which you can tell if they are live.
+func (t *TikTok) GetLiveRoomUserInfo(user string) (LiveRoomUserInfo, error) {
 	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: fmt.Sprintf(urlUser+urlLive, user),
 		Query:    defaultRequestHeeaders,
 		OmitAPI:  true,
 	})
 	if err != nil {
-		return nil, err
+		return LiveRoomUserInfo{}, err
 	}
-
-	// if len(matches) != 0 {
-	// 	return nil, ErrCaptcha
-	// }
 
 	// Find json data in HTML page
 	var matches [][]byte
@@ -189,22 +186,33 @@ func (t *TikTok) GetUserInfo(user string) (*LiveRoomUser, error) {
 		}
 	}
 	if len(matches) == 0 {
-		return nil, ErrIPBlocked
+		return LiveRoomUserInfo{}, ErrIPBlocked
 	}
 
 	// Parse json data
 	var res struct {
-		LiveRoom *LiveRoom `json:"liveRoom,omitempty"`
+		LiveRoom *liveRoomContainer `json:"liveRoom,omitempty"`
 	}
 	if err := json.Unmarshal(matches[1], &res); err != nil {
-		return nil, err
+		return LiveRoomUserInfo{}, err
 	}
 
 	if res.LiveRoom == nil || res.LiveRoom.LiveRoomUserInfo == nil {
-		return nil, ErrUserNotFound
+		return LiveRoomUserInfo{}, ErrUserNotFound
 	}
 
-	return &res.LiveRoom.LiveRoomUserInfo.User, nil
+	return *res.LiveRoom.LiveRoomUserInfo, nil
+}
+
+// GetUserInfo will fetch information about the user, such as followers stats,
+//
+//	their user ID, as well as the RoomID, with which you can tell if they are live.
+func (t *TikTok) GetUserInfo(user string) (LiveRoomUser, error) {
+	roomUserInfo, err := t.GetLiveRoomUserInfo(user)
+	if err != nil {
+		return LiveRoomUser{}, err
+	}
+	return *roomUserInfo.LiveRoomUser, nil
 }
 
 // GetPriceList fetches the price list of tiktok coins. Prices will be given in
@@ -276,6 +284,50 @@ func (t *TikTok) SetProxy(url string, insecure bool) error {
 	// 	},
 	// }
 	return nil
+}
+
+// IsLive can determine if the user is live. Use GetLiveRoomUserInfo first, if
+// user is not found that means there was never a live by that user in the first
+// place.
+func (t *TikTok) IsLive(info LiveRoomUserInfo) (bool, error) {
+	minGetParams := maps.Clone(minGetParams)
+	minGetParams["room_ids"] = info.LiveRoomUser.RoomID
+
+	type DataItem struct {
+		Alive     bool   `json:"alive"`
+		RoomID    int64  `json:"room_id"`
+		RoomIDStr string `json:"room_id_str"`
+	}
+
+	type Extra struct {
+		Now int64 `json:"now"`
+	}
+
+	type Response struct {
+		Data       []DataItem `json:"data"`
+		Extra      Extra      `json:"extra"`
+		StatusCode int        `json:"status_code"`
+	}
+
+	body, _, err := t.sendRequest(&reqOptions{
+		Endpoint: urlCheckLive,
+		Query:    minGetParams,
+		OmitAPI:  false,
+	})
+	if err != nil {
+		return false, err
+	}
+	var res Response
+	if err := json.Unmarshal(body, &res); err != nil {
+		return false, err
+	}
+
+	for i, _ := range res.Data {
+		if res.Data[i].RoomIDStr == info.LiveRoomUser.RoomID {
+			return res.Data[i].Alive, nil
+		}
+	}
+	return false, fmt.Errorf("roomID not found in result")
 }
 
 func setupInterruptHandler(f func(chan os.Signal)) {

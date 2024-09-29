@@ -1,13 +1,14 @@
 package gotiktoklive
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 
 	"github.com/steampoweredtaco/gotiktoklive/tests"
 )
 
 func TestRoomID(t *testing.T) {
-	tiktok := NewTikTok()
+	tiktok, _ := NewTikTok()
 	id, err := tiktok.getRoomID(tests.USERNAME)
 	if err != nil {
 		t.Fatal(err)
@@ -17,7 +18,7 @@ func TestRoomID(t *testing.T) {
 }
 
 func TestRoomInfo(t *testing.T) {
-	tiktok := NewTikTok()
+	tiktok, _ := NewTikTok()
 	id, err := tiktok.getRoomID(tests.USERNAME)
 	if err != nil {
 		t.Fatal(err)
@@ -37,7 +38,7 @@ func TestRoomInfo(t *testing.T) {
 }
 
 func TestGiftInfo(t *testing.T) {
-	tiktok := NewTikTok()
+	tiktok, _ := NewTikTok()
 	id, err := tiktok.getRoomID(tests.USERNAME)
 	if err != nil {
 		t.Fatal(err)
@@ -57,7 +58,7 @@ func TestGiftInfo(t *testing.T) {
 }
 
 func TestRoomData(t *testing.T) {
-	tiktok := NewTikTok()
+	tiktok, _ := NewTikTok()
 	id, err := tiktok.getRoomID(tests.USERNAME)
 	if err != nil {
 		t.Fatal(err)
@@ -75,6 +76,52 @@ func TestRoomData(t *testing.T) {
 	}
 
 	t.Logf("Ws url: %s, %+v", live.wsURL, live.wsParams)
+}
+
+func TestUserInfo(t *testing.T) {
+	tiktok, err := NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	info, err := tiktok.GetUserInfo(tests.USERNAME)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Logf("Got user info: %+v", info)
+}
+
+func TestLiveRoomUser(t *testing.T) {
+	tiktok, err := NewTikTok()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	info, err := tiktok.GetLiveRoomUserInfo(tests.USERNAME)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Logf("Got user info: %+v", info)
+}
+
+func TestIsLive(t *testing.T) {
+	tiktok, err := NewTikTok()
+	if !assert.NoError(t, err) {
+		return
+	}
+
+	info, err := tiktok.GetLiveRoomUserInfo(tests.USERNAME)
+	if !assert.NoError(t, err) {
+		return
+	}
+	t.Logf("Got user info: %+v", info)
+	isLive, err := tiktok.IsLive(info)
+	if !assert.NoError(t, err) {
+		return
+	}
+	t.Logf("User is live: %+v", isLive)
 }
 
 // func TestHeadless(t *testing.T) {

@@ -21,7 +21,9 @@ const (
 	urlRoomData = "webcast/fetch/"
 	urlGiftInfo = "gift/list/"
 	// added slash is intention to simplify the base signer url which is now configurable.
-	urlSignReq        = "/webcast/fetch/"
+	urlSignReq = "/webcast/fetch/"
+
+	urlCheckLive      = "room/check_alive/"
 	clientNameDefault = "gotiktok_live"
 	apiKeyDefault     = ""
 	userAgent         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
@@ -31,7 +33,12 @@ const (
 )
 
 var (
-	// Default GET Request parameters
+	// Used for webcast messages that don't require anything fancy
+	minGetParams = map[string]string{
+		"aid":          "1988",
+		"app_language": "en-US",
+		"app_name":     "tiktok_web",
+	}
 	defaultGETParams = map[string]string{
 		"aid":                 "1988",
 		"app_language":        "en-US",
