@@ -1,6 +1,7 @@
 package gotiktoklive
 
 import (
+	"github.com/stretchr/testify/assert"
 	"sync"
 	"testing"
 	"time"
@@ -10,14 +11,17 @@ import (
 )
 
 func TestWebsocket(t *testing.T) {
-	tiktok := NewTikTok()
+	tiktok, err := NewTikTok()
+	if !assert.NoError(t, err) {
+		return
+	}
 	tiktok.Debug = true
 	tiktok.debugHandler = func(i ...interface{}) {
 		t.Log(i...)
 	}
 	id, err := tiktok.getRoomID(tests.USERNAME)
-	if err != nil {
-		t.Fatal(err)
+	if !assert.NoError(t, err) {
+		return
 	}
 
 	live := Live{
@@ -35,8 +39,8 @@ func TestWebsocket(t *testing.T) {
 	}
 
 	err = live.getRoomData()
-	if err != nil {
-		t.Fatal(err)
+	if !assert.NoError(t, err) {
+		return
 	}
 
 	if live.wsURL == "" {
