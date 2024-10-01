@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"go.uber.org/ratelimit"
 	"io"
@@ -96,15 +97,21 @@ func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption)
 		getLimits:       true,
 	}
 	envs := []string{"HTTP_PROXY", "HTTPS_PROXY"}
+	var optionsErr []error
+
 	for _, env := range envs {
 		if e := os.Getenv(env); e != "" {
-			tiktok.SetProxy(e, false)
+			tiktok.setProxy(e, false)
 		}
 	}
 	for _, option := range options {
-		option(&tiktok)
+		optionsErr = append(optionsErr, option(&tiktok))
 	}
-
+	err := errors.Join(optionsErr...)
+	if err != nil {
+		cancel()
+		return nil, err
+	}
 	if tiktok.getLimits {
 		limits, err := GetSignerLimits(tiktok.signerUrl, tiktok.apiKey)
 		if err != nil {
@@ -272,13 +279,13 @@ func (t *TikTok) SetErrorHandler(f func(...interface{})) {
 	t.errHandler = f
 }
 
-// SetProxy will set a proxy for both the http client as well as the websocket.
+// setProxy will set a proxy for both the http client as well as the websocket.
 // You can manually set a proxy with this method, or by using the HTTPS_PROXY
 //
 //	environment variable.
 //
 // ALL_PROXY can be used to set a proxy only for the websocket.
-func (t *TikTok) SetProxy(url string, insecure bool) error {
+func (t *TikTok) setProxy(url string, insecure bool) error {
 	uri, err := neturl.Parse(url)
 	if err != nil {
 		return err
