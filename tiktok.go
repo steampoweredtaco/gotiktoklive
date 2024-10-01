@@ -16,6 +16,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -74,7 +75,13 @@ func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption)
 	ctx, cancel := context.WithCancel(context.Background())
 
 	tiktok := TikTok{
-		c:               &http.Client{Jar: jar},
+		c: &http.Client{
+			Jar: jar,
+			CheckRedirect: func(req *http.Request, via []*http.Request) error {
+				return http.ErrUseLastResponse
+			},
+			// Transport: &loggingTransport{},
+		},
 		wg:              &wg,
 		done:            ctx.Done,
 		mu:              &sync.Mutex{},
@@ -159,7 +166,7 @@ continueSetup:
 
 	tiktok.sendRequest(&reqOptions{
 		OmitAPI: true,
-	})
+	}, nil)
 
 	return &tiktok, nil
 }
@@ -168,10 +175,16 @@ continueSetup:
 // information about the user and also the live room which contains their user ID, as well
 // as the RoomID, with which you can tell if they are live.
 func (t *TikTok) GetLiveRoomUserInfo(user string) (LiveRoomUserInfo, error) {
+	user = cleanupUser(user)
 	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: fmt.Sprintf(urlUser+urlLive, user),
 		Query:    defaultRequestHeeaders,
 		OmitAPI:  true,
+	}, func(response *http.Response) error {
+		if response.StatusCode != 200 {
+			return UserNotFound{}
+		}
+		return nil
 	})
 	if err != nil {
 		return LiveRoomUserInfo{}, err
@@ -204,6 +217,10 @@ func (t *TikTok) GetLiveRoomUserInfo(user string) (LiveRoomUserInfo, error) {
 	return *res.LiveRoom.LiveRoomUserInfo, nil
 }
 
+func cleanupUser(user string) string {
+	return strings.TrimLeft(user, "@")
+}
+
 // GetUserInfo will fetch information about the user, such as followers stats,
 //
 //	their user ID, as well as the RoomID, with which you can tell if they are live.
@@ -226,7 +243,7 @@ func (t *TikTok) GetPriceList() (*PriceList, error) {
 	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: urlPriceList,
 		Query:    defaultGETParams,
-	})
+	}, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +330,7 @@ func (t *TikTok) IsLive(info LiveRoomUserInfo) (bool, error) {
 		Endpoint: urlCheckLive,
 		Query:    minGetParams,
 		OmitAPI:  false,
-	})
+	}, nil)
 	if err != nil {
 		return false, err
 	}

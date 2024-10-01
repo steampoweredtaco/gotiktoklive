@@ -1,19 +1,21 @@
-package tests
+//go:build requiresOnline
+
+package gotiktoklive
 
 import (
 	"log/slog"
 	"testing"
 	"time"
 
-	"github.com/steampoweredtaco/gotiktoklive"
+	"github.com/steampoweredtaco/gotiktoklive/test_types"
 )
 
 func TestLiveTrackUser(t *testing.T) {
-	tiktok, err := gotiktoklive.NewTikTok()
+	tiktok, err := NewTikTok()
 	if err != nil {
 		t.Fatal(err)
 	}
-	live, err := tiktok.TrackUser(USERNAME)
+	live, err := tiktok.TrackUser(test_types.USERNAME)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +38,7 @@ func TestLiveTrackUser(t *testing.T) {
 }
 
 func TestLivePriceList(t *testing.T) {
-	tiktok, err := gotiktoklive.NewTikTok()
+	tiktok, err := NewTikTok()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -50,11 +52,11 @@ func TestLivePriceList(t *testing.T) {
 
 func TestLiveDownload(t *testing.T) {
 	slog.SetLogLoggerLevel(slog.LevelDebug)
-	tiktok, err := gotiktoklive.NewTikTok(gotiktoklive.SigningApiKey(APIKEY))
+	tiktok, err := NewTikTok(SigningApiKey(test_types.APIKEY))
 	if err != nil {
 		t.Fatal(err)
 	}
-	live, err := tiktok.TrackUser(USERNAME)
+	live, err := tiktok.TrackUser(test_types.APIKEY)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +79,7 @@ func TestLiveDownload(t *testing.T) {
 	}
 	live.Close()
 
-	live, err = tiktok.TrackUser(USERNAME)
+	live, err = tiktok.TrackUser(test_types.APIKEY)
 	if err != nil {
 		t.Fatal(err)
 	}

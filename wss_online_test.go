@@ -1,3 +1,5 @@
+//go:build requiresOnline
+
 package gotiktoklive
 
 import (
@@ -6,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/steampoweredtaco/gotiktoklive/tests"
+	"github.com/steampoweredtaco/gotiktoklive/test_types"
 	"golang.org/x/net/context"
 )
 
@@ -19,7 +21,7 @@ func TestWebsocket(t *testing.T) {
 	tiktok.debugHandler = func(i ...interface{}) {
 		t.Log(i...)
 	}
-	id, err := tiktok.getRoomID(tests.USERNAME)
+	id, err := tiktok.getRoomID(test_types.USERNAME)
 	if !assert.NoError(t, err) {
 		return
 	}

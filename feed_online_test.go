@@ -1,3 +1,5 @@
+//go:build requiresOnline
+
 package gotiktoklive
 
 import (
@@ -5,7 +7,7 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/steampoweredtaco/gotiktoklive/tests"
+	"github.com/steampoweredtaco/gotiktoklive/test_types"
 )
 
 func TestFeedItem(t *testing.T) {
@@ -39,6 +41,6 @@ func TestFeedItem(t *testing.T) {
 		return items[i].Room.UserCount > items[j].Room.UserCount
 	})
 
-	tests.USERNAME = items[0].Room.Owner.Username
+	test_types.USERNAME = items[0].Room.Owner.Username
 	t.Logf("Setting username to %s", items[0].Room.Owner.Username)
 }

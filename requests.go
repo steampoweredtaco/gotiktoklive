@@ -41,7 +41,7 @@ type reqOptions struct {
 	ExtraTikTokCookies string
 }
 
-func (t *TikTok) sendRequest(o *reqOptions) ([]byte, http.Header, error) {
+func (t *TikTok) sendRequest(o *reqOptions, customValidate func(response *http.Response) error) ([]byte, http.Header, error) {
 	var err error
 
 	defer func() {
@@ -147,7 +147,11 @@ func (t *TikTok) sendRequest(o *reqOptions) ([]byte, http.Header, error) {
 		err = fmt.Errorf("received status code %d", resp.StatusCode)
 		return body, nil, err
 	}
-
+	if customValidate != nil {
+		if err = customValidate(resp); err != nil {
+			return body, nil, err
+		}
+	}
 	// Decode gzip encoded responses
 	encoding := resp.Header.Get("Content-Encoding")
 	if encoding != "" && encoding == "gzip" {

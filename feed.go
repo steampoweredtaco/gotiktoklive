@@ -45,7 +45,7 @@ func (f *Feed) Next() (*FeedItem, error) {
 	body, _, err := f.t.sendRequest(&reqOptions{
 		Endpoint: urlFeed,
 		Query:    params,
-	})
+	}, nil)
 	if err != nil {
 		return nil, err
 	}

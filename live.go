@@ -188,7 +188,7 @@ func (l *Live) getRoomInfo() (*RoomInfo, error) {
 	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: urlRoomInfo,
 		Query:    params,
-	})
+	}, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func (l *Live) getGiftInfo() (*GiftInfo, error) {
 	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: urlGiftInfo,
 		Query:    params,
-	})
+	}, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -238,7 +238,7 @@ func (l *Live) getRoomData() error {
 	body, headers, err := t.sendRequest(&reqOptions{
 		Endpoint: urlRoomData,
 		Query:    params,
-	})
+	}, nil)
 	if err != nil {
 		return err
 	}
@@ -448,7 +448,7 @@ func (t *TikTok) signURL(reqUrl string, options *reqOptions) ([]byte, http.Heade
 		URI:      t.signerUrl,
 		Endpoint: urlSignReq,
 		Query:    query,
-	})
+	}, nil)
 	if err != nil {
 		return nil, nil, errors.Wrap(err, fmt.Sprintf("Failed to sign request: %s", body))
 	}
