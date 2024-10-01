@@ -1,6 +1,8 @@
 package test_types
 
-var (
-	USERNAME = "judas_risen"
-	APIKEY   = ""
+const (
+	USERNAME       = "judas_risen"
+	APIKEY         = ""
+	PROXY          = ""
+	PROXY_INSECURE = true
 )
