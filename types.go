@@ -1,16 +1,29 @@
 package gotiktoklive
 
-// Events
+import "time"
+
+type Event interface {
+	CreatedTimestamp() int64
+}
 
 type RoomEvent struct {
-	Type    string
-	Message string
+	Timestamp int64
+	Type      string
+	Message   string
+}
+
+func (r RoomEvent) CreatedTimestamp() int64 {
+	return r.Timestamp
 }
 
 type ChatEvent struct {
 	Comment   string
 	User      *User
 	Timestamp int64
+}
+
+func (c ChatEvent) CreatedTimestamp() int64 {
+	return c.Timestamp
 }
 
 type userEventType string
@@ -22,12 +35,22 @@ const (
 )
 
 type UserEvent struct {
-	Event userEventType
-	User  *User
+	Event     userEventType
+	User      *User
+	Timestamp int64
+}
+
+func (u UserEvent) CreatedTimestamp() int64 {
+	return u.Timestamp
 }
 
 type ViewersEvent struct {
-	Viewers int
+	Viewers   int
+	Timestamp int64
+}
+
+func (v ViewersEvent) CreatedTimestamp() int64 {
+	return v.Timestamp
 }
 
 type GiftEvent struct {
@@ -43,41 +66,80 @@ type GiftEvent struct {
 	User        *User
 }
 
+func (g GiftEvent) CreatedTimestamp() int64 {
+	return g.Timestamp
+}
+
 type LikeEvent struct {
 	Likes       int
 	TotalLikes  int
 	User        *User
 	DisplayType string
 	Label       string
+	Timestamp   int64
+}
+
+func (l LikeEvent) CreatedTimestamp() int64 {
+	return l.Timestamp
 }
 
 type QuestionEvent struct {
-	Quesion string
-	User    *User
+	Quesion   string
+	User      *User
+	Timestamp int64
+}
+
+func (q QuestionEvent) CreatedTimestamp() int64 {
+	return q.Timestamp
 }
 
 type ControlEvent struct {
 	Action      int
 	Description string
+	Timestamp   int64
+}
+
+func (c ControlEvent) CreatedTimestamp() int64 {
+	return c.Timestamp
 }
 
 type MicBattleEvent struct {
-	Users []*User
+	Users     []*User
+	Timestamp int64
+}
+
+func (m MicBattleEvent) CreatedTimestamp() int64 {
+	return m.Timestamp
 }
 
 type BattlesEvent struct {
-	Status  int
-	Battles []*Battle
+	Status    int
+	Battles   []*Battle
+	Timestamp int64
+}
+
+func (b BattlesEvent) CreatedTimestamp() int64 {
+	return b.Timestamp
 }
 
 type RoomBannerEvent struct {
-	Data interface{}
+	Data      interface{}
+	Timestamp int64
+}
+
+func (r RoomBannerEvent) CreatedTimestamp() int64 {
+	return r.Timestamp
 }
 
 type IntroEvent struct {
-	ID    int
-	Title string
-	User  *User
+	ID        int
+	Title     string
+	User      *User
+	Timestamp int64
+}
+
+func (i IntroEvent) CreatedTimestamp() int64 {
+	return i.Timestamp
 }
 
 type Battle struct {
@@ -928,6 +990,11 @@ type SignedURL struct {
 // instance should be closed with `Closed`. A new track user/room should be invoked to reconnect if desired. This event
 // should always be emitted.
 type DisconnectEvent struct {
+	created time.Time
+}
+
+func (d DisconnectEvent) CreatedTimestamp() int64 {
+	return d.created.Unix()
 }
 
 // SigningLimits are the rates and result from the configured signer.

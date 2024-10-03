@@ -30,7 +30,7 @@ func TestWebsocket(t *testing.T) {
 		t:      tiktok,
 		ID:     id,
 		wg:     &sync.WaitGroup{},
-		Events: make(chan interface{}, 100),
+		Events: make(chan Event, 100),
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())

@@ -46,7 +46,7 @@ type Live struct {
 	ID       string
 	Info     *RoomInfo
 	GiftInfo *GiftInfo
-	Events   chan interface{}
+	Events   chan Event
 	chanSize int
 	wg       *sync.WaitGroup
 }
@@ -56,7 +56,7 @@ func (t *TikTok) newLive(roomId string) *Live {
 		t:        t,
 		ID:       roomId,
 		wg:       &sync.WaitGroup{},
-		Events:   make(chan interface{}, DEFAULT_EVENTS_CHAN_SIZE),
+		Events:   make(chan Event, DEFAULT_EVENTS_CHAN_SIZE),
 		chanSize: DEFAULT_EVENTS_CHAN_SIZE,
 	}
 	t.mu.Lock()

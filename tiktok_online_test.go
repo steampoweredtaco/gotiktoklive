@@ -138,7 +138,7 @@ func TestRoomData(t *testing.T) {
 			live := Live{
 				t:      tiktok,
 				ID:     id,
-				Events: make(chan interface{}, 100),
+				Events: make(chan Event, 100),
 			}
 
 			err = live.getRoomData()

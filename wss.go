@@ -104,7 +104,7 @@ func (l *Live) readSocket() {
 	defer func() {
 		select {
 		case <-time.After(5 * time.Second):
-		case l.Events <- DisconnectEvent{}:
+		case l.Events <- &DisconnectEvent{created: time.Now()}:
 		}
 	}()
 	defer l.cancel()
