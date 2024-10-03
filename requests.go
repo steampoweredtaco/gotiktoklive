@@ -144,6 +144,9 @@ func (t *TikTok) sendRequest(o *reqOptions, customValidate func(response *http.R
 		err = ErrRateLimitExceeded
 		return body, nil, err
 	} else if resp.StatusCode >= 400 {
+		if resp.StatusCode == 403 {
+			return nil, nil, &ErrIPBlockedOrBanned{}
+		}
 		err = fmt.Errorf("received status code %d", resp.StatusCode)
 		return body, nil, err
 	}
@@ -154,7 +157,7 @@ func (t *TikTok) sendRequest(o *reqOptions, customValidate func(response *http.R
 	}
 	// Decode gzip encoded responses
 	encoding := resp.Header.Get("Content-Encoding")
-	if encoding != "" && encoding == "gzip" {
+	if encoding == "gzip" {
 		buf := bytes.NewBuffer(body)
 		zr, err := gzip.NewReader(buf)
 		if err != nil {

@@ -56,6 +56,9 @@ func EnableWSTrace(file string) TikTokLiveOption {
 // manually set a proxy with option or by using the HTTPS_PROXY environment variable.
 // ALL_PROXY can be used to set a proxy only for the websocket.
 func SetProxy(url string, insecure bool) TikTokLiveOption {
+	if url == "" {
+		return nil
+	}
 	return func(t *TikTok) error {
 		return t.setProxy(url, insecure)
 	}

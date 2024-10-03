@@ -24,7 +24,10 @@ func TestRoomID(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(tt *testing.T) {
-			tiktok, _ := NewTikTok()
+			tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
+			if !assert.NoError(tt, err) {
+				return
+			}
 			id, err := tiktok.getRoomID(test.username)
 			if !assert.NoError(tt, err) {
 				return
@@ -49,7 +52,10 @@ func TestRoomInfo(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(tt *testing.T) {
-			tiktok, _ := NewTikTok()
+			tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
+			if !assert.NoError(tt, err) {
+				return
+			}
 			id, err := tiktok.getRoomID(test.username)
 			if !assert.NoError(tt, err) {
 				return
@@ -82,7 +88,10 @@ func TestGiftInfo(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(tt *testing.T) {
-			tiktok, _ := NewTikTok()
+			tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
+			if !assert.NoError(tt, err) {
+				return
+			}
 			id, err := tiktok.getRoomID(test.username)
 			if !assert.NoError(tt, err) {
 				return
@@ -117,7 +126,10 @@ func TestRoomData(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(tt *testing.T) {
-			tiktok, _ := NewTikTok()
+			tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
+			if !assert.NoError(tt, err) {
+				return
+			}
 			id, err := tiktok.getRoomID(test.username)
 			if !assert.NoError(tt, err) {
 				return
@@ -153,7 +165,7 @@ func TestUserInfo(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(tt *testing.T) {
-			tiktok, err := NewTikTok()
+			tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
 			if !assert.NoError(tt, err) {
 				return
 			}
@@ -183,7 +195,7 @@ func TestLiveRoomUser(t *testing.T) {
 
 	for testName, test := range tests {
 		t.Run(testName, func(tt *testing.T) {
-			tiktok, err := NewTikTok()
+			tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
 
 			if !assert.NoError(tt, err) {
 				return
@@ -200,7 +212,7 @@ func TestLiveRoomUser(t *testing.T) {
 }
 
 func TestIsLive(t *testing.T) {
-	tiktok, err := NewTikTok()
+	tiktok, err := NewTikTok(SetProxy(test_types.PROXY, test_types.PROXY_INSECURE))
 	if !assert.NoError(t, err) {
 		return
 	}

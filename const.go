@@ -92,7 +92,6 @@ var (
 
 var (
 	ErrUserOffline       = errors.New("user might be offline, Room ID not found")
-	ErrIPBlocked         = errors.New("your IP or country might be blocked by TikTok")
 	ErrLiveHasEnded      = errors.New("livestream has ended")
 	ErrMsgNotImplemented = errors.New("message protobuf type has not been implemented, please report")
 	ErrNoMoreFeedItems   = errors.New("no more feed items available")
@@ -103,3 +102,9 @@ var (
 	ErrRateLimitExceeded = errors.New("you have exceeded the rate limit, please wait a few min")
 	ErrUserInfoNotFound  = errors.New("user info not found")
 )
+
+type ErrIPBlockedOrBanned struct{}
+
+func (e ErrIPBlockedOrBanned) Error() string {
+	return "your IP or country might be blocked by TikTok or Signer service or you might be banned, please try again with a vpn, proxy, or different credentials"
+}

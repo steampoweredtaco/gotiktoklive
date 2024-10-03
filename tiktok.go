@@ -206,7 +206,7 @@ func (t *TikTok) GetLiveRoomUserInfo(user string) (LiveRoomUserInfo, error) {
 		}
 	}
 	if len(matches) == 0 {
-		return LiveRoomUserInfo{}, ErrIPBlocked
+		return LiveRoomUserInfo{}, &ErrIPBlockedOrBanned{}
 	}
 
 	// Parse json data
@@ -298,8 +298,11 @@ func (t *TikTok) setProxy(url string, insecure bool) error {
 		InsecureSkipVerify: insecure,
 	}
 	tr.Proxy = http.ProxyURL(uri)
-
-	t.c.Transport = tr
+	if originalClient, ok := t.c.Transport.(*loggingTransport); ok {
+		originalClient.transport = tr
+	} else {
+		t.c.Transport = tr
+	}
 
 	// t.c.Transport = &http.Transport{
 	// 	Proxy: http.ProxyURL(uri),
@@ -346,7 +349,7 @@ func (t *TikTok) IsLive(info LiveRoomUserInfo) (bool, error) {
 		return false, err
 	}
 
-	for i, _ := range res.Data {
+	for i := range res.Data {
 		if res.Data[i].RoomIDStr == info.LiveRoomUser.RoomID {
 			return res.Data[i].Alive, nil
 		}
