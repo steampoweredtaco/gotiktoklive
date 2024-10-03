@@ -57,7 +57,7 @@ type GiftEvent struct {
 	ID          int64
 	Name        string
 	Describe    string
-	Cost        int
+	Diamonds    int
 	RepeatCount int
 	RepeatEnd   bool
 	Type        int
