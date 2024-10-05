@@ -161,10 +161,6 @@ type User struct {
 	Badge           *BadgeAttributes
 }
 
-type ProfilePicture2 struct {
-	Urls []string
-}
-
 type ProfilePicture struct {
 	Urls         []string
 	Shrinked     string
