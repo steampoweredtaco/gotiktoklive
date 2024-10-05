@@ -161,8 +161,20 @@ type User struct {
 	Badge           *BadgeAttributes
 }
 
-type ProfilePicture struct {
+type ProfilePicture2 struct {
 	Urls []string
+}
+
+type ProfilePicture struct {
+	Urls         []string
+	Shrinked     string
+	Default      [2]string
+	DefaultJpeg  string
+	DefaultCount int
+}
+
+func (pp ProfilePicture) GetBestQualityProfilePicture() string {
+	return pp.DefaultJpeg
 }
 
 type ExtraAttributes struct {
