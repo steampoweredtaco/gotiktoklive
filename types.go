@@ -4,12 +4,18 @@ import "time"
 
 type Event interface {
 	CreatedTimestamp() int64
+	TimeComparableID() int64
 }
 
 type RoomEvent struct {
 	Timestamp int64
+	MessageID int64
 	Type      string
 	Message   string
+}
+
+func (r RoomEvent) TimeComparableID() int64 {
+	return r.MessageID
 }
 
 func (r RoomEvent) CreatedTimestamp() int64 {
@@ -17,9 +23,14 @@ func (r RoomEvent) CreatedTimestamp() int64 {
 }
 
 type ChatEvent struct {
+	MessageID int64
+	Timestamp int64
 	Comment   string
 	User      *User
-	Timestamp int64
+}
+
+func (c ChatEvent) TimeComparableID() int64 {
+	return c.MessageID
 }
 
 func (c ChatEvent) CreatedTimestamp() int64 {
@@ -35,9 +46,14 @@ const (
 )
 
 type UserEvent struct {
+	Timestamp int64
+	MessageID int64
 	Event     userEventType
 	User      *User
-	Timestamp int64
+}
+
+func (u UserEvent) TimeComparableID() int64 {
+	return u.MessageID
 }
 
 func (u UserEvent) CreatedTimestamp() int64 {
@@ -45,8 +61,13 @@ func (u UserEvent) CreatedTimestamp() int64 {
 }
 
 type ViewersEvent struct {
-	Viewers   int
 	Timestamp int64
+	MessageID int64
+	Viewers   int
+}
+
+func (v ViewersEvent) TimeComparableID() int64 {
+	return v.MessageID
 }
 
 func (v ViewersEvent) CreatedTimestamp() int64 {
@@ -54,6 +75,8 @@ func (v ViewersEvent) CreatedTimestamp() int64 {
 }
 
 type GiftEvent struct {
+	MessageID   int64
+	Timestamp   int64
 	ID          int64
 	Name        string
 	Describe    string
@@ -62,8 +85,11 @@ type GiftEvent struct {
 	RepeatEnd   bool
 	Type        int
 	ToUserID    int64
-	Timestamp   int64
 	User        *User
+}
+
+func (g GiftEvent) TimeComparableID() int64 {
+	return g.MessageID
 }
 
 func (g GiftEvent) CreatedTimestamp() int64 {
@@ -71,12 +97,17 @@ func (g GiftEvent) CreatedTimestamp() int64 {
 }
 
 type LikeEvent struct {
+	MessageID   int64
+	Timestamp   int64
 	Likes       int
 	TotalLikes  int
 	User        *User
 	DisplayType string
 	Label       string
-	Timestamp   int64
+}
+
+func (l LikeEvent) TimeComparableID() int64 {
+	return l.MessageID
 }
 
 func (l LikeEvent) CreatedTimestamp() int64 {
@@ -84,9 +115,14 @@ func (l LikeEvent) CreatedTimestamp() int64 {
 }
 
 type QuestionEvent struct {
+	MessageID int64
+	Timestamp int64
 	Quesion   string
 	User      *User
-	Timestamp int64
+}
+
+func (q QuestionEvent) TimeComparableID() int64 {
+	return q.MessageID
 }
 
 func (q QuestionEvent) CreatedTimestamp() int64 {
@@ -94,9 +130,14 @@ func (q QuestionEvent) CreatedTimestamp() int64 {
 }
 
 type ControlEvent struct {
+	MessageID   int64
+	Timestamp   int64
 	Action      int
 	Description string
-	Timestamp   int64
+}
+
+func (c ControlEvent) TimeComparableID() int64 {
+	return c.MessageID
 }
 
 func (c ControlEvent) CreatedTimestamp() int64 {
@@ -104,8 +145,13 @@ func (c ControlEvent) CreatedTimestamp() int64 {
 }
 
 type MicBattleEvent struct {
-	Users     []*User
+	MessageID int64
 	Timestamp int64
+	Users     []*User
+}
+
+func (m MicBattleEvent) TimeComparableID() int64 {
+	return m.MessageID
 }
 
 func (m MicBattleEvent) CreatedTimestamp() int64 {
@@ -113,9 +159,14 @@ func (m MicBattleEvent) CreatedTimestamp() int64 {
 }
 
 type BattlesEvent struct {
+	MessageID int64
+	Timestamp int64
 	Status    int
 	Battles   []*Battle
-	Timestamp int64
+}
+
+func (b BattlesEvent) TimeComparableID() int64 {
+	return b.MessageID
 }
 
 func (b BattlesEvent) CreatedTimestamp() int64 {
@@ -123,8 +174,13 @@ func (b BattlesEvent) CreatedTimestamp() int64 {
 }
 
 type RoomBannerEvent struct {
-	Data      interface{}
+	MessageID int64
 	Timestamp int64
+	Data      interface{}
+}
+
+func (r RoomBannerEvent) TimeComparableID() int64 {
+	return r.MessageID
 }
 
 func (r RoomBannerEvent) CreatedTimestamp() int64 {
@@ -132,10 +188,15 @@ func (r RoomBannerEvent) CreatedTimestamp() int64 {
 }
 
 type IntroEvent struct {
+	MessageID int64
+	Timestamp int64
 	ID        int
 	Title     string
 	User      *User
-	Timestamp int64
+}
+
+func (i IntroEvent) TimeComparableID() int64 {
+	return i.MessageID
 }
 
 func (i IntroEvent) CreatedTimestamp() int64 {
@@ -991,6 +1052,11 @@ type SignedURL struct {
 // should always be emitted.
 type DisconnectEvent struct {
 	created time.Time
+}
+
+func (d DisconnectEvent) TimeComparableID() int64 {
+	// TODO implement me
+	panic("implement me")
 }
 
 func (d DisconnectEvent) CreatedTimestamp() int64 {

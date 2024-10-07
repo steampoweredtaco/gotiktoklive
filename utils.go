@@ -39,6 +39,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 	switch pt := m.(type) {
 	case *pb.RoomMessage:
 		return RoomEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Type:      pt.Common.Method,
 			Message:   pt.Content,
@@ -50,6 +51,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 				base := base64.RawStdEncoding.EncodeToString(msg.Payload)
 				debugHandler("cannot find proto type for pin message %s:\n%s ", msg.Method, base)
 				return RoomEvent{
+					MessageID: msg.MsgId,
 					Timestamp: pt.Common.CreateTime,
 					Type:      pt.OriginalMsgType,
 					Message:   "<unknown>",
@@ -62,6 +64,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 				debugHandler(err)
 				warnHandler(fmt.Errorf("failed to unmarshal proto %T: %w", m, err))
 				return RoomEvent{
+					MessageID: msg.MsgId,
 					Timestamp: pt.Common.CreateTime,
 					Type:      pt.OriginalMsgType,
 					Message:   "<unknown>",
@@ -74,6 +77,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			// Todo make a pin return type
 			case *pb.WebcastChatMessage:
 				return ChatEvent{
+					MessageID: pt.Common.MsgId,
 					Timestamp: pt.Common.CreateTime,
 					Comment:   "<pinned>: " + pt2.Content,
 					User:      toUser(pt2.User),
@@ -86,6 +90,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 
 			}
 			return RoomEvent{
+				MessageID: pt.Common.MsgId,
 				Timestamp: pt.Common.CreateTime,
 				Type:      typeStr,
 				Message:   msg,
@@ -93,24 +98,28 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 	case *pb.WebcastChatMessage:
 		return ChatEvent{
+			MessageID: pt.Common.MsgId,
 			Comment:   pt.Content,
 			User:      toUser(pt.User),
 			Timestamp: pt.Common.CreateTime,
 		}, nil
 	case *pb.WebcastMemberMessage:
 		return UserEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Event:     toUserType(pt.Action.String()),
 			User:      toUser(pt.User),
 		}, nil
 	case *pb.WebcastLiveGameIntroMessage:
 		return RoomEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Type:      pt.Common.Method,
 			Message:   pt.GameText.DefaultPattern,
 		}, nil
 	case *pb.WebcastRoomMessage:
 		return RoomEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Type:      pt.Common.Method,
 			// TODO: Make this actually use pieces list and fill out the format text correctly.
@@ -118,11 +127,13 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}, nil
 	case *pb.WebcastRoomUserSeqMessage:
 		return ViewersEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Viewers:   int(pt.Total),
 		}, nil
 	case *pb.WebcastSocialMessage:
 		return UserEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Event:     toUserType(pt.Common.DisplayText.Key),
 			User:      toUser(pt.User),
@@ -133,6 +144,8 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 
 		return GiftEvent{
+			MessageID:   pt.Common.MsgId,
+			Timestamp:   int64(pt.Common.CreateTime),
 			ID:          int64(pt.GiftId),
 			Name:        pt.Gift.Name,
 			Describe:    pt.Gift.Describe,
@@ -141,11 +154,11 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			RepeatEnd:   pt.RepeatEnd == 1,
 			Type:        int(pt.Gift.Type),
 			ToUserID:    int64(pt.UserGiftReciever.UserId),
-			Timestamp:   int64(pt.Common.CreateTime),
 			User:        toUser(pt.User),
 		}, nil
 	case *pb.WebcastLikeMessage:
 		return LikeEvent{
+			MessageID:   pt.Common.MsgId,
 			Timestamp:   pt.Common.CreateTime,
 			Likes:       int(pt.Count),
 			TotalLikes:  int(pt.Total),
@@ -156,6 +169,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 
 	case *pb.WebcastQuestionNewMessage:
 		return QuestionEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Quesion:   pt.Details.Text,
 			User:      toUser(pt.Details.User),
@@ -163,6 +177,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 
 	case *pb.WebcastControlMessage:
 		return ControlEvent{
+			MessageID:   pt.Common.MsgId,
 			Timestamp:   pt.Common.CreateTime,
 			Action:      int(pt.Action),
 			Description: pt.Action.String(),
@@ -192,6 +207,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			}
 		}
 		return MicBattleEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Users:     users,
 		}, nil
@@ -216,14 +232,16 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			battles = append(battles, battle)
 		}
 		return BattlesEvent{
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Status:    int(pt.BattleStatus),
 			Battles:   battles,
 		}, nil
 	case *pb.WebcastLiveIntroMessage:
 		return IntroEvent{
-			ID:        int(pt.RoomId),
+			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
+			ID:        int(pt.RoomId),
 			Title:     pt.Content,
 			User:      toUser(pt.Host),
 		}, nil
@@ -237,6 +255,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 
 		return RoomBannerEvent{
+			MessageID: pt.Header.MsgId,
 			Timestamp: pt.Header.CreateTime,
 			Data:      data,
 		}, nil
