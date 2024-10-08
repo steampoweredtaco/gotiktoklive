@@ -4,12 +4,20 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log/slog"
+	"math/rand"
+	"regexp"
+
 	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
-	"log/slog"
-	"math/rand"
+)
+
+var (
+	shrinkRegex = regexp.MustCompile(`shrink`)
+	jpegRegex   = regexp.MustCompile(`jpe?g`)
+	webpRegex   = regexp.MustCompile(`webp`)
 )
 
 func getRandomDeviceID() string {
@@ -291,10 +299,21 @@ func toUser(u *pb.User) *User {
 		Nickname: u.Nickname,
 	}
 
-	if u.AvatarLarge != nil && u.AvatarJpg.UrlList != nil {
-		user.ProfilePicture = &ProfilePicture{
-			Urls: u.AvatarJpg.UrlList,
-		}
+	var firstBestImage *pb.Image
+
+	if checkPbImage(u.AvatarLarge) {
+		firstBestImage = u.AvatarLarge
+	} else if checkPbImage(u.AvatarJpg) {
+		firstBestImage = u.AvatarJpg
+	} else if checkPbImage(u.AvatarThumb) {
+		firstBestImage = u.AvatarThumb
+	} else if checkPbImage(u.AvatarMedium) {
+		firstBestImage = u.AvatarMedium
+	}
+
+	if firstBestImage != nil {
+		var profilePic ProfilePicture = categorizePictureUrls(firstBestImage.UrlList)
+		user.ProfilePicture = &profilePic
 	}
 
 	user.ExtraAttributes = &ExtraAttributes{
@@ -314,6 +333,28 @@ func toUser(u *pb.User) *User {
 		}
 	}
 	return &user
+}
+
+func checkPbImage(pic *pb.Image) bool {
+	return pic != nil && pic.UrlList != nil
+}
+
+func categorizePictureUrls(urlList []string) ProfilePicture {
+	var thumb ProfilePicture
+	thumb.Urls = urlList
+
+	for _, url := range urlList {
+		switch {
+		case shrinkRegex.MatchString(url):
+			thumb.Shrinked = url
+		case jpegRegex.MatchString(url):
+			thumb.DefaultJpeg = url
+		case webpRegex.MatchString(url) && thumb.DefaultCount < 2:
+			thumb.Default[thumb.DefaultCount] = url
+			thumb.DefaultCount++
+		}
+	}
+	return thumb
 }
 
 func copyMap(m map[string]string) map[string]string {

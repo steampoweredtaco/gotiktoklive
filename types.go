@@ -223,7 +223,15 @@ type User struct {
 }
 
 type ProfilePicture struct {
-	Urls []string
+	Urls         []string
+	Shrinked     string
+	Default      [2]string
+	DefaultJpeg  string
+	DefaultCount int
+}
+
+func (pp ProfilePicture) GetBestQualityProfilePicture() string {
+	return pp.DefaultJpeg
 }
 
 type ExtraAttributes struct {
