@@ -299,8 +299,20 @@ func toUser(u *pb.User) *User {
 		Nickname: u.Nickname,
 	}
 
-	if u.AvatarThumb != nil && u.AvatarThumb.UrlList != nil {
-		var profilePic ProfilePicture = categorizePictureUrls(u.AvatarThumb.UrlList)
+	var firstBestImage *pb.Image
+
+	if checkPbImage(u.AvatarLarge) {
+		firstBestImage = u.AvatarLarge
+	} else if checkPbImage(u.AvatarJpg) {
+		firstBestImage = u.AvatarJpg
+	} else if checkPbImage(u.AvatarThumb) {
+		firstBestImage = u.AvatarThumb
+	} else if checkPbImage(u.AvatarMedium) {
+		firstBestImage = u.AvatarMedium
+	}
+
+	if firstBestImage != nil {
+		var profilePic ProfilePicture = categorizePictureUrls(firstBestImage.UrlList)
 		user.ProfilePicture = &profilePic
 	}
 
@@ -321,6 +333,10 @@ func toUser(u *pb.User) *User {
 		}
 	}
 	return &user
+}
+
+func checkPbImage(pic *pb.Image) bool {
+	return pic != nil && pic.UrlList != nil
 }
 
 func categorizePictureUrls(urlList []string) ProfilePicture {
