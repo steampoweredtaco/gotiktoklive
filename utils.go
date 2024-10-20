@@ -320,6 +320,9 @@ func toUser(u *pb.User) *User {
 }
 
 func toUserIdentity(uid *pb.UserIdentity) *UserIdentity {
+	if uid == nil {
+		return nil
+	}
 	return &UserIdentity{
 		IsGiftGiver:       uid.IsGiftGiverOfAnchor,
 		IsSubscriber:      uid.IsSubscriberOfAnchor,
