@@ -56,7 +56,7 @@ func TestLiveDownload(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	live, err := tiktok.TrackUser(test_types.APIKEY)
+	live, err := tiktok.TrackUser(test_types.USERNAME)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -79,7 +79,7 @@ func TestLiveDownload(t *testing.T) {
 	}
 	live.Close()
 
-	live, err = tiktok.TrackUser(test_types.APIKEY)
+	live, err = tiktok.TrackUser(test_types.USERNAME)
 	if err != nil {
 		t.Fatal(err)
 	}
