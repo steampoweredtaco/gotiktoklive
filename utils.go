@@ -4,12 +4,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log/slog"
+	"math/rand"
+
 	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
-	"log/slog"
-	"math/rand"
 )
 
 func getRandomDeviceID() string {
@@ -98,10 +99,11 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 	case *pb.WebcastChatMessage:
 		return ChatEvent{
-			MessageID: pt.Common.MsgId,
-			Comment:   pt.Content,
-			User:      toUser(pt.User),
-			Timestamp: pt.Common.CreateTime,
+			MessageID:    pt.Common.MsgId,
+			Comment:      pt.Content,
+			User:         toUser(pt.User),
+			UserIdentity: toUserIdentity(pt.UserIdentity),
+			Timestamp:    pt.Common.CreateTime,
 		}, nil
 	case *pb.WebcastMemberMessage:
 		return UserEvent{
@@ -144,17 +146,18 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 
 		return GiftEvent{
-			MessageID:   pt.Common.MsgId,
-			Timestamp:   int64(pt.Common.CreateTime),
-			ID:          int64(pt.GiftId),
-			Name:        pt.Gift.Name,
-			Describe:    pt.Gift.Describe,
-			Diamonds:    int(pt.Gift.DiamondCount),
-			RepeatCount: int(pt.RepeatCount),
-			RepeatEnd:   pt.RepeatEnd == 1,
-			Type:        int(pt.Gift.Type),
-			ToUserID:    int64(pt.UserGiftReciever.UserId),
-			User:        toUser(pt.User),
+			MessageID:    pt.Common.MsgId,
+			Timestamp:    int64(pt.Common.CreateTime),
+			ID:           int64(pt.GiftId),
+			Name:         pt.Gift.Name,
+			Describe:     pt.Gift.Describe,
+			Diamonds:     int(pt.Gift.DiamondCount),
+			RepeatCount:  int(pt.RepeatCount),
+			RepeatEnd:    pt.RepeatEnd == 1,
+			Type:         int(pt.Gift.Type),
+			ToUserID:     int64(pt.UserGiftReciever.UserId),
+			User:         toUser(pt.User),
+			UserIdentity: toUserIdentity(pt.UserIdentity),
 		}, nil
 	case *pb.WebcastLikeMessage:
 		return LikeEvent{
@@ -314,6 +317,20 @@ func toUser(u *pb.User) *User {
 		}
 	}
 	return &user
+}
+
+func toUserIdentity(uid *pb.UserIdentity) *UserIdentity {
+	if uid == nil {
+		return nil
+	}
+	return &UserIdentity{
+		IsGiftGiver:       uid.IsGiftGiverOfAnchor,
+		IsSubscriber:      uid.IsSubscriberOfAnchor,
+		IsMutualFollowing: uid.IsMutualFollowingWithAnchor,
+		IsFollower:        uid.IsFollowerOfAnchor,
+		IsModerator:       uid.IsModeratorOfAnchor,
+		IsAnchor:          uid.IsAnchor,
+	}
 }
 
 func copyMap(m map[string]string) map[string]string {

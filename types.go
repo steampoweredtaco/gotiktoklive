@@ -23,10 +23,11 @@ func (r RoomEvent) CreatedTimestamp() int64 {
 }
 
 type ChatEvent struct {
-	MessageID int64
-	Timestamp int64
-	Comment   string
-	User      *User
+	MessageID    int64
+	Timestamp    int64
+	Comment      string
+	User         *User
+	UserIdentity *UserIdentity
 }
 
 func (c ChatEvent) TimeComparableID() int64 {
@@ -75,17 +76,18 @@ func (v ViewersEvent) CreatedTimestamp() int64 {
 }
 
 type GiftEvent struct {
-	MessageID   int64
-	Timestamp   int64
-	ID          int64
-	Name        string
-	Describe    string
-	Diamonds    int
-	RepeatCount int
-	RepeatEnd   bool
-	Type        int
-	ToUserID    int64
-	User        *User
+	MessageID    int64
+	Timestamp    int64
+	ID           int64
+	Name         string
+	Describe     string
+	Diamonds     int
+	RepeatCount  int
+	RepeatEnd    bool
+	Type         int
+	ToUserID     int64
+	User         *User
+	UserIdentity *UserIdentity
 }
 
 func (g GiftEvent) TimeComparableID() int64 {
@@ -220,6 +222,15 @@ type User struct {
 	ProfilePicture  *ProfilePicture
 	ExtraAttributes *ExtraAttributes
 	Badge           *BadgeAttributes
+}
+
+type UserIdentity struct {
+	IsGiftGiver       bool
+	IsSubscriber      bool
+	IsMutualFollowing bool
+	IsFollower        bool
+	IsModerator       bool
+	IsAnchor          bool
 }
 
 type ProfilePicture struct {
