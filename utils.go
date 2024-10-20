@@ -190,21 +190,13 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			groups := u.HostGroup
 			for _, group := range groups {
 				for _, user := range group.Host {
-					urls := make([]string, 5)
-					for _, img := range user.Images {
-						urls = append(urls, img.UrlList...)
-					}
+					//TODO change to host type
 					users = append(users, &User{
 						ID:       int64(user.Id),
 						Username: user.ProfileId,
 						Nickname: user.Name,
-						// ProfilePicture: &ProfilePicture{
-						// 	Urls: urls,
-						// },
 					})
-
 				}
-
 			}
 		}
 		return MicBattleEvent{
