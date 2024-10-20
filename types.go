@@ -30,8 +30,8 @@ type ChatEvent struct {
 	UserIdentity *UserIdentity
 }
 
-func (r ChatEvent) TimeComparableID() int64 {
-	return r.MessageID
+func (c ChatEvent) TimeComparableID() int64 {
+	return c.MessageID
 }
 
 func (c ChatEvent) CreatedTimestamp() int64 {
