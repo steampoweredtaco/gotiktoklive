@@ -99,6 +99,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 	case *pb.WebcastChatMessage:
 		return ChatEvent{
+			MessageID:    pt.Common.MsgId,
 			Comment:      pt.Content,
 			User:         toUser(pt.User),
 			UserIdentity: toUserIdentity(pt.UserIdentity),
@@ -145,6 +146,8 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		}
 
 		return GiftEvent{
+			MessageID:    pt.Common.MsgId,
+			Timestamp:    int64(pt.Common.CreateTime),
 			ID:           int64(pt.GiftId),
 			Name:         pt.Gift.Name,
 			Describe:     pt.Gift.Describe,
@@ -153,7 +156,6 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			RepeatEnd:    pt.RepeatEnd == 1,
 			Type:         int(pt.Gift.Type),
 			ToUserID:     int64(pt.UserGiftReciever.UserId),
-			Timestamp:    int64(pt.Common.CreateTime),
 			User:         toUser(pt.User),
 			UserIdentity: toUserIdentity(pt.UserIdentity),
 		}, nil
