@@ -4,12 +4,13 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log/slog"
+	"math/rand"
+
 	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
-	"log/slog"
-	"math/rand"
 )
 
 func getRandomDeviceID() string {
@@ -197,9 +198,9 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 						ID:       int64(user.Id),
 						Username: user.ProfileId,
 						Nickname: user.Name,
-						ProfilePicture: &ProfilePicture{
-							Urls: urls,
-						},
+						// ProfilePicture: &ProfilePicture{
+						// 	Urls: urls,
+						// },
 					})
 
 				}
@@ -286,15 +287,13 @@ func toUser(u *pb.User) *User {
 		username = u.Nickname
 	}
 	user := User{
-		ID:       int64(u.Id),
-		Username: username,
-		Nickname: u.Nickname,
-	}
-
-	if u.AvatarLarge != nil && u.AvatarJpg.UrlList != nil {
-		user.ProfilePicture = &ProfilePicture{
-			Urls: u.AvatarJpg.UrlList,
-		}
+		ID:           int64(u.Id),
+		Username:     username,
+		Nickname:     u.Nickname,
+		AvatarLarge:  toProfilePicture(u.AvatarLarge),
+		AvatarMedium: toProfilePicture(u.AvatarMedium),
+		AvatarThumb:  toProfilePicture(u.AvatarThumb),
+		AvatarJpg:    toProfilePicture(u.AvatarJpg),
 	}
 
 	user.ExtraAttributes = &ExtraAttributes{
@@ -314,6 +313,13 @@ func toUser(u *pb.User) *User {
 		}
 	}
 	return &user
+}
+
+func toProfilePicture(pic *pb.Image) *ProfilePicture {
+	if pic != nil && pic.UrlList != nil {
+		return &ProfilePicture{}
+	}
+	return nil
 }
 
 func copyMap(m map[string]string) map[string]string {

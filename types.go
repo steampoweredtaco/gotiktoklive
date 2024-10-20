@@ -217,7 +217,10 @@ type User struct {
 	ID              int64
 	Username        string
 	Nickname        string
-	ProfilePicture  *ProfilePicture
+	AvatarLarge     *ProfilePicture
+	AvatarMedium    *ProfilePicture
+	AvatarThumb     *ProfilePicture
+	AvatarJpg       *ProfilePicture
 	ExtraAttributes *ExtraAttributes
 	Badge           *BadgeAttributes
 }
