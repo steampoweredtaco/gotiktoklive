@@ -226,7 +226,8 @@ type User struct {
 }
 
 type ProfilePicture struct {
-	Urls []string
+	Urls       []string
+	IsAnimated bool
 }
 
 type ExtraAttributes struct {

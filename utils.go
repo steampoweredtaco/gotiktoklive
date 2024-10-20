@@ -317,7 +317,10 @@ func toUser(u *pb.User) *User {
 
 func toProfilePicture(pic *pb.Image) *ProfilePicture {
 	if pic != nil && pic.UrlList != nil {
-		return &ProfilePicture{}
+		return &ProfilePicture{
+			Urls:       pic.UrlList,
+			IsAnimated: pic.IsAnimated,
+		}
 	}
 	return nil
 }
