@@ -176,7 +176,7 @@ func (t *TikTok) sendRequest(o *reqOptions, customValidate func(response *http.R
 	ttCookie := resp.Header.Get("X-Set-TT-Cookie")
 
 	// Log complete response body
-	if t.LogRequests {
+	if t.logRequests {
 		r := map[string]interface{}{
 			"status":     resp.StatusCode,
 			"endpoint":   o.Endpoint,

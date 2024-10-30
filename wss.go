@@ -203,7 +203,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		}
 		l.cursor = response.Cursor
 
-		if l.t.Debug {
+		if l.t.debug {
 			l.t.debugHandler(fmt.Sprintf("Got %d messages, %s", len(response.Messages), response.Cursor))
 		}
 
@@ -231,7 +231,7 @@ func (l *Live) parseWssMsg(wssMsg []byte) error {
 		}
 		return nil
 	}
-	if l.t.Debug {
+	if l.t.debug {
 		l.t.debugHandler(fmt.Sprintf("Message type unknown, %s : '%s\n%s", rsp.PayloadType, string(rsp.Payload), hex.EncodeToString(wssMsg)))
 	}
 	return nil
@@ -298,7 +298,7 @@ func (l *Live) tryConnectionUpgrade() error {
 		close(l.Events)
 		return fmt.Errorf("Connection upgrade failed: %w", err)
 	}
-	if l.t.Debug {
+	if l.t.debug {
 		l.t.debugHandler("Connected to websocket")
 	}
 

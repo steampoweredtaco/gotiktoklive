@@ -37,10 +37,10 @@ type TikTok struct {
 	mu      *sync.Mutex
 
 	// Pass extra debug messages to debugHandler
-	Debug bool
+	debug bool
 
 	// LogRequests when set to true will log all made requests in JSON to debugHandler
-	LogRequests bool
+	logRequests bool
 
 	infoHandler  func(...interface{})
 	warnHandler  func(...interface{})

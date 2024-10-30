@@ -17,7 +17,7 @@ func TestWebsocket(t *testing.T) {
 	if !assert.NoError(t, err) {
 		return
 	}
-	tiktok.Debug = true
+	tiktok.debug = true
 	tiktok.debugHandler = func(i ...interface{}) {
 		t.Log(i...)
 	}

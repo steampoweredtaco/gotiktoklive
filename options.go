@@ -37,6 +37,7 @@ func EnableExperimentalEvents(t *TikTok) error {
 // EnableExtraWebCastDebug an unreasonable amount of debug for library development and troubleshooting. This option
 // makes no guarantee of ever having the same output and is only for development and triage purposes.
 func EnableExtraWebCastDebug(t *TikTok) error {
+	t.debug = true
 	t.enableExtraDebug = true
 	return nil
 }
@@ -64,4 +65,17 @@ func Proxy(url string, insecure bool) TikTokLiveOption {
 	return func(t *TikTok) error {
 		return t.setProxy(url, insecure)
 	}
+}
+
+// EnableExtraDebug enables some extra debug per tiktok message, see EnableExtraWebCastDebug for even more debug.
+func EnableExtraDebug(t *TikTok) error {
+	t.debug = true
+	return nil
+}
+
+// EnableRequestJsonDebug enables printing of json requests to tiktok to debug logs, this can be large.
+func EnableRequestJsonDebug(t *TikTok) error {
+	t.debug = true
+	t.logRequests = true
+	return nil
 }
