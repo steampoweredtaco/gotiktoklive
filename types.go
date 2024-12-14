@@ -1097,13 +1097,19 @@ func (d DisconnectEvent) CreatedTimestamp() int64 {
 	return d.created.Unix()
 }
 
+type LimitInfo struct {
+	Max       int       `json:"max"`
+	Remaining int       `json:"remaining"`
+	ResetAt   time.Time `json:"reset_at"`
+}
+
 // SigningLimits are the rates and result from the configured signer.
 type SigningLimits struct {
 	Code    int
 	Message string
-	Day     int
-	Hour    int
-	Minute  int
+	Day     LimitInfo
+	Hour    LimitInfo
+	Minute  LimitInfo
 }
 
 type liveRoomContainer struct {
