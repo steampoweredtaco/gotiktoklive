@@ -8,6 +8,11 @@ require (
 	go.uber.org/ratelimit v0.3.1
 )
 
+retract (
+	v1.0.8 // retration only update.
+	v1.0.7 // Published accidently.
+)
+
 require (
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
