@@ -277,6 +277,11 @@ func (l *Live) getRoomData() error {
 		if err != nil {
 			return err
 		}
+		if parsed == nil {
+			// This might happen due to some ignorable messages
+			// but can cause problems if we send the events upstream
+			continue
+		}
 		l.Events <- parsed
 	}
 

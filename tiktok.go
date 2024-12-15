@@ -119,7 +119,7 @@ func NewTikTokWithApiKey(clientName, apiKey string, options ...TikTokLiveOption)
 			return nil, fmt.Errorf("cannot get signing limits: %w", err)
 		}
 		slog.Debug("limits found, using per minute limit", "day", limits.Day, "hour", limits.Hour, "minute", limits.Minute)
-		limiter := ratelimit.New(limits.Minute, ratelimit.Per(1*time.Minute), ratelimit.WithoutSlack)
+		limiter := ratelimit.New(limits.Minute.Max, ratelimit.Per(1*time.Minute), ratelimit.WithoutSlack)
 		tiktok.limiter = limiter
 	} else {
 		slog.Debug("Request limits set to sane default of 10 per minute, for more enable GetLimits option to use signer specified limits")

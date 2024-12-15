@@ -4,7 +4,7 @@ import "time"
 
 type Event interface {
 	CreatedTimestamp() int64
-	TimeComparableID() int64
+	IsHistory() bool
 }
 
 type RoomEvent struct {
@@ -12,14 +12,15 @@ type RoomEvent struct {
 	MessageID int64
 	Type      string
 	Message   string
-}
-
-func (r RoomEvent) TimeComparableID() int64 {
-	return r.MessageID
+	isHistory bool
 }
 
 func (r RoomEvent) CreatedTimestamp() int64 {
 	return r.Timestamp
+}
+
+func (r RoomEvent) IsHistory() bool {
+	return r.isHistory
 }
 
 type ChatEvent struct {
@@ -28,10 +29,11 @@ type ChatEvent struct {
 	Comment      string
 	User         *User
 	UserIdentity *UserIdentity
+	isHistory    bool
 }
 
-func (c ChatEvent) TimeComparableID() int64 {
-	return c.MessageID
+func (c ChatEvent) IsHistory() bool {
+	return c.isHistory
 }
 
 func (c ChatEvent) CreatedTimestamp() int64 {
@@ -51,24 +53,30 @@ type UserEvent struct {
 	MessageID int64
 	Event     userEventType
 	User      *User
-}
-
-func (u UserEvent) TimeComparableID() int64 {
-	return u.MessageID
+	isHistory bool
 }
 
 func (u UserEvent) CreatedTimestamp() int64 {
 	return u.Timestamp
 }
 
+func (u UserEvent) IsHistory() bool {
+	return u.isHistory
+}
+
 type ViewersEvent struct {
 	Timestamp int64
 	MessageID int64
 	Viewers   int
+	isHistory bool
 }
 
 func (v ViewersEvent) TimeComparableID() int64 {
 	return v.MessageID
+}
+
+func (v ViewersEvent) IsHistory() bool {
+	return v.isHistory
 }
 
 func (v ViewersEvent) CreatedTimestamp() int64 {
@@ -88,14 +96,15 @@ type GiftEvent struct {
 	ToUserID     int64
 	User         *User
 	UserIdentity *UserIdentity
-}
-
-func (g GiftEvent) TimeComparableID() int64 {
-	return g.MessageID
+	isHistory    bool
 }
 
 func (g GiftEvent) CreatedTimestamp() int64 {
 	return g.Timestamp
+}
+
+func (g GiftEvent) IsHistory() bool {
+	return g.isHistory
 }
 
 type LikeEvent struct {
@@ -106,10 +115,11 @@ type LikeEvent struct {
 	User        *User
 	DisplayType string
 	Label       string
+	isHistory   bool
 }
 
-func (l LikeEvent) TimeComparableID() int64 {
-	return l.MessageID
+func (l LikeEvent) IsHistory() bool {
+	return l.isHistory
 }
 
 func (l LikeEvent) CreatedTimestamp() int64 {
@@ -121,14 +131,15 @@ type QuestionEvent struct {
 	Timestamp int64
 	Quesion   string
 	User      *User
-}
-
-func (q QuestionEvent) TimeComparableID() int64 {
-	return q.MessageID
+	isHistory bool
 }
 
 func (q QuestionEvent) CreatedTimestamp() int64 {
 	return q.Timestamp
+}
+
+func (q QuestionEvent) IsHistory() bool {
+	return q.isHistory
 }
 
 type ControlEvent struct {
@@ -136,6 +147,11 @@ type ControlEvent struct {
 	Timestamp   int64
 	Action      int
 	Description string
+	isHistory   bool
+}
+
+func (c ControlEvent) IsHistory() bool {
+	return c.isHistory
 }
 
 func (c ControlEvent) TimeComparableID() int64 {
@@ -150,10 +166,11 @@ type MicBattleEvent struct {
 	MessageID int64
 	Timestamp int64
 	Users     []*User
+	isHistory bool
 }
 
-func (m MicBattleEvent) TimeComparableID() int64 {
-	return m.MessageID
+func (m MicBattleEvent) IsHistory() bool {
+	return m.isHistory
 }
 
 func (m MicBattleEvent) CreatedTimestamp() int64 {
@@ -165,10 +182,11 @@ type BattlesEvent struct {
 	Timestamp int64
 	Status    int
 	Battles   []*Battle
+	isHistory bool
 }
 
-func (b BattlesEvent) TimeComparableID() int64 {
-	return b.MessageID
+func (b BattlesEvent) IsHistory() bool {
+	return b.isHistory
 }
 
 func (b BattlesEvent) CreatedTimestamp() int64 {
@@ -179,10 +197,11 @@ type RoomBannerEvent struct {
 	MessageID int64
 	Timestamp int64
 	Data      interface{}
+	isHistory bool
 }
 
-func (r RoomBannerEvent) TimeComparableID() int64 {
-	return r.MessageID
+func (r RoomBannerEvent) IsHistory() bool {
+	return r.isHistory
 }
 
 func (r RoomBannerEvent) CreatedTimestamp() int64 {
@@ -195,6 +214,11 @@ type IntroEvent struct {
 	ID        int
 	Title     string
 	User      *User
+	isHistory bool
+}
+
+func (i IntroEvent) IsHistory() bool {
+	return i.isHistory
 }
 
 func (i IntroEvent) TimeComparableID() int64 {
@@ -1069,22 +1093,27 @@ type DisconnectEvent struct {
 	created time.Time
 }
 
-func (d DisconnectEvent) TimeComparableID() int64 {
-	// TODO implement me
-	panic("implement me")
+func (d DisconnectEvent) IsHistory() bool {
+	return false
 }
 
 func (d DisconnectEvent) CreatedTimestamp() int64 {
 	return d.created.Unix()
 }
 
+type LimitInfo struct {
+	Max       int       `json:"max"`
+	Remaining int       `json:"remaining"`
+	ResetAt   time.Time `json:"reset_at"`
+}
+
 // SigningLimits are the rates and result from the configured signer.
 type SigningLimits struct {
 	Code    int
 	Message string
-	Day     int
-	Hour    int
-	Minute  int
+	Day     LimitInfo
+	Hour    LimitInfo
+	Minute  LimitInfo
 }
 
 type liveRoomContainer struct {
