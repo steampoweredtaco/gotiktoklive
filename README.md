@@ -2,6 +2,12 @@
 
 # WARNING this fork of [Davincible's GotTikTokLive](https://github.com/Davincible/gotiktoklive) is in an alpha state at the moment
 
+# To add to project
+`go get github.com/steampoweredtaco/gotiktoklive`
+
+# Do not use any v1.0.7-8 tags
+These tags are bogus and have been retracted and should not be grabbed via `go get` any longer. As of now v0 tags are the only valid tags.
+
 ## Current Known working state of implementation
 - [x] Using the new signing server and endpoints and can provide API key and secret
 - [x] working live user and room id tracking
