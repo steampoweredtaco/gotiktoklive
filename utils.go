@@ -158,8 +158,9 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 
 		return GiftEvent{
 			MessageID:    pt.Common.MsgId,
-			Timestamp:    int64(pt.Common.CreateTime),
-			ID:           int64(pt.GiftId),
+			Timestamp:    pt.Common.CreateTime,
+			ID:           pt.GiftId,
+			GroupID:      pt.GroupId,
 			Name:         pt.Gift.Name,
 			Describe:     pt.Gift.Describe,
 			Diamonds:     int(pt.Gift.DiamondCount),
@@ -170,6 +171,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			User:         toUser(pt.User),
 			UserIdentity: toUserIdentity(pt.UserIdentity),
 			isHistory:    msg.IsHistory,
+			IsComboGift:  pt.GroupId != 0,
 		}, nil
 	case *pb.WebcastLikeMessage:
 		return LikeEvent{
