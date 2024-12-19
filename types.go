@@ -97,6 +97,8 @@ type GiftEvent struct {
 	User         *User
 	UserIdentity *UserIdentity
 	isHistory    bool
+	GroupID      int64
+	IsComboGift  bool
 }
 
 func (g GiftEvent) CreatedTimestamp() int64 {
