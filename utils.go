@@ -6,11 +6,21 @@ import (
 	"fmt"
 	"log/slog"
 	"math/rand"
+	"time"
 
+	"github.com/erni27/imcache"
 	pb "github.com/steampoweredtaco/gotiktoklive/proto"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
+)
+
+const (
+	messageHistoryTimeout = 15 * time.Minute
+)
+
+var (
+	msgIDCache imcache.Cache[int64, struct{}]
 )
 
 func getRandomDeviceID() string {
@@ -44,7 +54,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp: pt.Common.CreateTime,
 			Type:      pt.Common.Method,
 			Message:   pt.Content,
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastRoomPinMessage:
 		{
@@ -57,7 +67,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 					Timestamp: pt.Common.CreateTime,
 					Type:      pt.OriginalMsgType,
 					Message:   "<unknown>",
-					isHistory: msg.IsHistory,
+					isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 				}, nil
 			}
 			m := tReflect.New().Interface()
@@ -71,7 +81,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 					Timestamp: pt.Common.CreateTime,
 					Type:      pt.OriginalMsgType,
 					Message:   "<unknown>",
-					isHistory: msg.IsHistory,
+					isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 				}, nil
 			}
 
@@ -85,7 +95,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 					Timestamp: pt.Common.CreateTime,
 					Comment:   "<pinned>: " + pt2.Content,
 					User:      toUser(pt2.User),
-					isHistory: msg.IsHistory,
+					isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 				}, nil
 			default:
 				base := base64.RawStdEncoding.EncodeToString(pt.PinnedMessage)
@@ -99,7 +109,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 				Timestamp: pt.Common.CreateTime,
 				Type:      typeStr,
 				Message:   msgPinned,
-				isHistory: msg.IsHistory,
+				isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 			}, nil
 		}
 	case *pb.WebcastChatMessage:
@@ -109,7 +119,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			User:         toUser(pt.User),
 			UserIdentity: toUserIdentity(pt.UserIdentity),
 			Timestamp:    pt.Common.CreateTime,
-			isHistory:    msg.IsHistory,
+			isHistory:    msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastMemberMessage:
 		return UserEvent{
@@ -117,7 +127,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp: pt.Common.CreateTime,
 			Event:     toUserType(pt.Action.String()),
 			User:      toUser(pt.User),
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastLiveGameIntroMessage:
 		return RoomEvent{
@@ -125,7 +135,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp: pt.Common.CreateTime,
 			Type:      pt.Common.Method,
 			Message:   pt.GameText.DefaultPattern,
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastRoomMessage:
 		return RoomEvent{
@@ -134,14 +144,14 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Type:      pt.Common.Method,
 			// TODO: Make this actually use pieces list and fill out the format text correctly.
 			Message:   pt.Common.DisplayText.DefaultPattern,
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastRoomUserSeqMessage:
 		return ViewersEvent{
 			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Viewers:   int(pt.Total),
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastSocialMessage:
 		return UserEvent{
@@ -149,7 +159,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp: pt.Common.CreateTime,
 			Event:     toUserType(pt.Common.DisplayText.Key),
 			User:      toUser(pt.User),
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastGiftMessage:
 		if pt.GiftId == 0 && pt.User == nil {
@@ -170,7 +180,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			ToUserID:     int64(pt.UserGiftReciever.UserId),
 			User:         toUser(pt.User),
 			UserIdentity: toUserIdentity(pt.UserIdentity),
-			isHistory:    msg.IsHistory,
+			isHistory:    msg.IsHistory || cachedHistory(pt.Common.MsgId),
 			IsComboGift:  pt.GroupId != 0,
 		}, nil
 	case *pb.WebcastLikeMessage:
@@ -182,7 +192,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			User:        toUser(pt.User),
 			DisplayType: pt.Common.Method,
 			Label:       pt.Common.DisplayText.String(),
-			isHistory:   msg.IsHistory,
+			isHistory:   msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 
 	case *pb.WebcastQuestionNewMessage:
@@ -191,7 +201,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp: pt.Common.CreateTime,
 			Quesion:   pt.Details.Text,
 			User:      toUser(pt.Details.User),
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 
 	case *pb.WebcastControlMessage:
@@ -200,7 +210,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp:   pt.Common.CreateTime,
 			Action:      int(pt.Action),
 			Description: pt.Action.String(),
-			isHistory:   msg.IsHistory,
+			isHistory:   msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 
 	case *pb.WebcastLinkMicBattle:
@@ -230,7 +240,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Users:     users,
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 
 	case *pb.WebcastLinkMicArmies:
@@ -257,7 +267,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			Timestamp: pt.Common.CreateTime,
 			Status:    int(pt.BattleStatus),
 			Battles:   battles,
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastLiveIntroMessage:
 		return IntroEvent{
@@ -266,7 +276,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			ID:        int(pt.RoomId),
 			Title:     pt.Content,
 			User:      toUser(pt.Host),
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 
 	case *pb.WebcastInRoomBannerMessage:
@@ -281,7 +291,7 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			MessageID: pt.Header.MsgId,
 			Timestamp: pt.Header.CreateTime,
 			Data:      data,
-			isHistory: msg.IsHistory,
+			isHistory: msg.IsHistory || cachedHistory(pt.Header.MsgId),
 		}, nil
 
 	default:
@@ -291,6 +301,11 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 		warnHandler(fmt.Sprintf("unimplemented type %T", m))
 		return nil, nil
 	}
+}
+
+func cachedHistory(id int64) bool {
+	_, present := msgIDCache.GetOrSet(id, struct{}{}, imcache.WithExpiration(messageHistoryTimeout))
+	return present
 }
 
 func defaultLogHandler(i ...interface{}) {
