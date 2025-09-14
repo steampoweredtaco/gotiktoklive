@@ -47,6 +47,9 @@ func (l *Live) connect(addr string, params map[string]string) error {
 	for key, value := range params {
 		vs.Add(key, value)
 	}
+	for key, value := range wsOverrideHeaders {
+		vs.Set(key, value)
+	}
 	vs.Add("room_id", l.ID)
 
 	wsURL := fmt.Sprintf("%s?%s", addr, vs.Encode())
@@ -93,7 +96,7 @@ func (l *Live) connect(addr string, params map[string]string) error {
 	}
 	conn, _, _, err := dialer.Dial(context.Background(), wsURL)
 	if err != nil {
-		return fmt.Errorf("Failed to connect: %w", err)
+		return fmt.Errorf("Failed to connect to %s: %w", wsURL, err)
 	}
 	l.wss = conn
 	return nil

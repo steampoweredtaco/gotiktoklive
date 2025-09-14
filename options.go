@@ -1,5 +1,7 @@
 package gotiktoklive
 
+import "net/http"
+
 type TikTokLiveOption func(t *TikTok) error
 
 // SigningApiKey sets the singer API key.
@@ -38,6 +40,7 @@ func EnableExperimentalEvents(t *TikTok) error {
 // makes no guarantee of ever having the same output and is only for development and triage purposes.
 func EnableExtraWebCastDebug(t *TikTok) error {
 	t.enableExtraDebug = true
+	t.c.Transport = &loggingTransport{Transport: http.DefaultTransport}
 	return nil
 }
 

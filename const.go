@@ -26,8 +26,10 @@ const (
 	urlCheckLive      = "room/check_alive/"
 	clientNameDefault = "gotiktok_live"
 	apiKeyDefault     = ""
-	userAgent         = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
-	referer           = "https://www.tiktok.com/"
+	// For some reason the user info needs user agent this way but wsUserAgent doesn't want it
+	userAgent   = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+	wsUserAgent = "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+	referer     = "https://www.tiktok.com/"
 	// webcast backend will fail if origin is an ending /
 	origin = "https://www.tiktok.com"
 )
@@ -72,7 +74,7 @@ var (
 		"webcast_sdk_version": "1.3.0",
 		"update_version_code": "1.3.0",
 	}
-	defaultRequestHeeaders = map[string]string{
+	defaultRequestHeaders = map[string]string{
 		"Connection":    "keep-alive",
 		"Cache-control": "max-age=0",
 		"User-Agent":    userAgent,
@@ -82,6 +84,9 @@ var (
 		// clientId:  = "ttlive-golang"
 		"Accept-Language": "en-US,en;q=0.9",
 		"Accept-Encoding": "gzip, deflate",
+	}
+	wsOverrideHeaders = map[string]string{
+		"User-Agent": wsUserAgent,
 	}
 	reJsonData = []*regexp.Regexp{
 		regexp.MustCompile(`<script id="SIGI_STATE"[^>]+>(.*?)</script>`),

@@ -3,6 +3,7 @@ module github.com/steampoweredtaco/gotiktoklive
 go 1.23.0
 
 require (
+	github.com/erni27/imcache v1.2.1
 	github.com/gobwas/ws v1.1.0
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/ratelimit v0.3.1

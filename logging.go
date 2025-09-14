@@ -9,13 +9,13 @@ import (
 )
 
 type loggingTransport struct {
-	transport http.RoundTripper
+	Transport http.RoundTripper
 }
 
 func (s *loggingTransport) RoundTrip(r *http.Request) (*http.Response, error) {
 	bytes, _ := httputil.DumpRequestOut(r, true)
 
-	resp, err := s.transport.RoundTrip(r)
+	resp, err := s.Transport.RoundTrip(r)
 	// err is returned after dumping the response
 	if err != nil && strings.Contains(err.Error(), "malformed HTTP response") {
 		httputil.DumpResponse(resp, false)

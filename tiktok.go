@@ -185,7 +185,7 @@ func (t *TikTok) GetLiveRoomUserInfo(user string) (LiveRoomUserInfo, error) {
 	user = cleanupUser(user)
 	body, _, err := t.sendRequest(&reqOptions{
 		Endpoint: fmt.Sprintf(urlUser+urlLive, user),
-		Query:    defaultRequestHeeaders,
+		Query:    defaultRequestHeaders,
 		OmitAPI:  true,
 	}, func(response *http.Response) error {
 		if response.StatusCode != 200 {
@@ -299,7 +299,7 @@ func (t *TikTok) setProxy(url string, insecure bool) error {
 	}
 	tr.Proxy = http.ProxyURL(uri)
 	if originalClient, ok := t.c.Transport.(*loggingTransport); ok {
-		originalClient.transport = tr
+		originalClient.Transport = tr
 	} else {
 		t.c.Transport = tr
 	}
