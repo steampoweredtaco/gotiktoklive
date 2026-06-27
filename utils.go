@@ -33,6 +33,15 @@ func getRandomDeviceID() string {
 }
 
 func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}), debugHandler func(...interface{}), enableExperimentalEvents bool) (out Event, err error) {
+	// Recover from panics while parsing a single message (for example, unexpected
+	// nil fields in a server payload). Without this, a single malformed message
+	// crashes the readSocket goroutine and brings down the whole process.
+	defer func() {
+		if r := recover(); r != nil {
+			out = nil
+			err = fmt.Errorf("recovered from panic while parsing message %q: %v", msg.Method, r)
+		}
+	}()
 	tReflect, err := protoregistry.GlobalTypes.FindMessageByName(protoreflect.FullName(msg.Method))
 	if err != nil {
 		base := base64.RawStdEncoding.EncodeToString(msg.Payload)
@@ -138,12 +147,18 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastRoomMessage:
+		// DisplayText can be nil in some server payloads (notably around
+		// reconnects); guard against a nil pointer dereference.
+		var roomMessage string
+		if pt.Common.DisplayText != nil {
+			// TODO: Make this actually use pieces list and fill out the format text correctly.
+			roomMessage = pt.Common.DisplayText.DefaultPattern
+		}
 		return RoomEvent{
 			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
 			Type:      pt.Common.Method,
-			// TODO: Make this actually use pieces list and fill out the format text correctly.
-			Message:   pt.Common.DisplayText.DefaultPattern,
+			Message:   roomMessage,
 			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastRoomUserSeqMessage:
@@ -154,10 +169,15 @@ func parseMsg(msg *pb.WebcastResponse_Message, warnHandler func(...interface{}),
 			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
 	case *pb.WebcastSocialMessage:
+		// DisplayText can be nil in some server payloads; avoid a nil deref.
+		var socialKey string
+		if pt.Common.DisplayText != nil {
+			socialKey = pt.Common.DisplayText.Key
+		}
 		return UserEvent{
 			MessageID: pt.Common.MsgId,
 			Timestamp: pt.Common.CreateTime,
-			Event:     toUserType(pt.Common.DisplayText.Key),
+			Event:     toUserType(socialKey),
 			User:      toUser(pt.User),
 			isHistory: msg.IsHistory || cachedHistory(pt.Common.MsgId),
 		}, nil
